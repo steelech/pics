@@ -1,10 +1,12 @@
-document.addEventListener('DOMContentLoaded', function() {
+"use strict";
+
+document.addEventListener('DOMContentLoaded', function () {
 	console.log("url: ", window.location.pathname);
 	Router(window.location.pathname);
 });
 
 function removeTrailingBackslash(url) {
-	if(url.endsWith("/")) {
+	if (url.endsWith("/")) {
 		url = url.substring(0, url.length - 1);
 	}
 	return url;
@@ -12,9 +14,9 @@ function removeTrailingBackslash(url) {
 
 function Router(url) {
 	url = removeTrailingBackslash(url);
-	if(url == "/login") {
-		renderLoginPage(); 
-	} else if(url == "") {
+	if (url == "/login") {
+		renderLoginPage();
+	} else if (url == "") {
 		renderHomePage();
 	} else {
 		render404();
@@ -23,7 +25,7 @@ function Router(url) {
 
 function render404() {
 	var header = document.createElement("h1");
-	var headerText = document.createTextNode("404: Not Found")
+	var headerText = document.createTextNode("404: Not Found");
 	header.appendChild(headerText);
 
 	document.getElementsByTagName('body')[0].appendChild(header);
