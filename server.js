@@ -8,7 +8,7 @@ var clientRouter = express.Router();
 var apiRouter = express.Router();
 
 // static files
-app.use("/static", express.static("client"));
+app.use("/static", express.static("build"));
 
 
 

@@ -4,6 +4,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function removeTrailingBackslash(url) {
+	let cameron = "charlie";
 	if(url.endsWith("/")) {
 		url = url.substring(0, url.length - 1);
 	}
