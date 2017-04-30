@@ -1,3 +1,7 @@
+import loginController from '../../src/controller/loginController';
+
+var controller = new loginController;
+
 var loginView = {
 	renderLoginView: function() {
 		this.drawLoginContainer();
@@ -11,15 +15,19 @@ var loginView = {
 
 		var username = document.createElement("input");
 		username.id = "login-username-input";
+		username.placeholder = "Username";
 		username.type = "text";
 
 		var password = document.createElement("input");
 		password.id =  "login-password-input";
+		password.placeholder = "Password";
 		password.type = "password";
 
 		var submitButton = document.createElement("button");
 		submitButton.id = "login-submit-button";
 		submitButton.innerHTML = "Submit";
+		submitButton.addEventListener('click', controller.handleSubmit);
+
 
 		formContainer.appendChild(username);
 		formContainer.appendChild(password);
