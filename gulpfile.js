@@ -113,11 +113,13 @@ gulp.task('backend-dev', function() {
 gulp.task('frontend-dev', ['css', 'es6'], function() {
 	nodemon({
 		script: "client/server.js",
+		watch: ["client/build/*.css", "client/build/*.js"],
 	})
 
 });
 
 // watches for changes in client dir
-gulp.task('watch', ['es6', 'css'], function() {
-	gulp.watch(['client/**/*.js', 'client/**/*.css'], ['es6', 'css']);
+gulp.task('watch', function() {
+	gulp.watch(['client/**/*.js'], ['es6']);
+	gulp.watch(['client/**/*.css'], ['css']);
 });
