@@ -82,7 +82,7 @@ gulp.task('css', () => {
 });
 
 // converts js files from es6 to es5, then 'watches' all src files in the client dir
-gulp.task('default', ['frontend-dev', 'watch']);
+gulp.task('default', ['develop', 'watch']);
 
 // converts js files from es6 to es5
 gulp.task('es6', function() {
@@ -98,17 +98,7 @@ gulp.task('es6', function() {
 	.pipe(gulp.dest('client/build'));
 });
 
-gulp.task('backend-dev', function() {
-	nodemon({
-		script: "api/server.js",
-		watch: ["api/server.js"],
-		ext: "js",
-	}).on("restart", function() {
-		console.log("restarting backend server");
-	});
-});
-
-gulp.task('frontend-dev', ['css', 'es6'], function() {
+gulp.task('develop', ['css', 'es6'], function() {
 	nodemon({
 		script: "client/server.js",
 		watch: ["client/server.js"]
