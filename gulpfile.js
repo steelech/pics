@@ -101,5 +101,5 @@ gulp.task('es6', function() {
 
 // watches for changes in client dir
 gulp.task('watch', function() {
-	gulp.watch('client/**/*.js', ['default']);
+	gulp.watch(['client/**/*.js', 'client/**/*.css'], ['default']);
 });
