@@ -113,7 +113,7 @@ gulp.task('backend-dev', function() {
 gulp.task('frontend-dev', ['css', 'es6'], function() {
 	nodemon({
 		script: "client/server.js",
-		watch: ["client/build/*.css", "client/build/*.js"],
+		watch: ["client/server.js"]
 	})
 
 });
