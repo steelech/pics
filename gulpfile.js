@@ -37,7 +37,7 @@ function getKey(filename) {
 
 // uploads a file to s3
 function uploadFileToS3(filename) {
-	var fullPath = 'build/' + filename;
+	var fullPath = 'client/build/' + filename;
 	fs.readFile(fullPath, function(err, data) {
 		if(err) {
 			throw err;
@@ -60,7 +60,7 @@ function uploadFileToS3(filename) {
 
 // converts es6 to es5, uploads files to s3
 gulp.task('deploy', ['es6', 'index', 'css'], () => {
-	var path = 'build/';
+	var path = 'client/build/';
 	AWS.config.loadFromPath('./aws.json');
 	fs.readdir(path, function(err, files) {
 		files.forEach(function(file) {
@@ -73,12 +73,12 @@ gulp.task('deploy', ['es6', 'index', 'css'], () => {
 // copies client/index.html to build/index.html
 gulp.task('index', () => {
 	gulp.src('client/index.html')
-	.pipe(gulp.dest('build'));
+	.pipe(gulp.dest('client/build'));
 });
 
 gulp.task('css', () => {
 	gulp.src('client/css/styles.css')
-	.pipe(gulp.dest('build'));
+	.pipe(gulp.dest('client/build'));
 });
 
 // converts js files from es6 to es5, then 'watches' all src files in the client dir
@@ -95,7 +95,7 @@ gulp.task('es6', function() {
 	.bundle()
 	.on('error', gutil.log)
 	.pipe(source('build.js'))
-	.pipe(gulp.dest('build'));
+	.pipe(gulp.dest('client/build'));
 });
 
 gulp.task('backend-dev', function() {
