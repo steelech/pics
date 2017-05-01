@@ -53,15 +53,13 @@ function uploadFileToS3(filename) {
 		s3.putObject(params, function(perr, pres) {
 			if(perr) {
 				console.log("error: ", perr);
-			} else {
-				console.log("success!");
 			}
-		})
+		});
 	});
 }
 
 // converts es6 to es5, uploads files to s3
-gulp.task('deploy', ['es6', 'index'], () => {
+gulp.task('deploy', ['es6', 'index', 'css'], () => {
 	var path = 'build/';
 	AWS.config.loadFromPath('./aws.json');
 	fs.readdir(path, function(err, files) {
