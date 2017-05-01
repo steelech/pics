@@ -7,7 +7,7 @@ var path = require("path");
 var clientRouter = express.Router();
 
 // static files
-app.use("/static", express.static("build"));
+app.use("/static", express.static("client/build"));
 
 //index.html
 clientRouter.get("/*", function(req, res) {

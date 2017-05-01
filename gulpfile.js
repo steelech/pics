@@ -98,7 +98,7 @@ gulp.task('es6', function() {
 	.pipe(gulp.dest('client/build'));
 });
 
-gulp.task('develop', ['css', 'es6'], function() {
+gulp.task('develop', ['css', 'es6', 'index'], function() {
 	nodemon({
 		script: "client/server.js",
 		watch: ["client/server.js"]
