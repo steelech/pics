@@ -7,6 +7,7 @@ var browserify = require('browserify');
 var babelify = require('babelify');
 var gutil = require('gulp-util');
 var source = require('vinyl-source-stream');
+var nodemon = require('nodemon');
 
 // returns the correct contentType for a given filename
 function getContentType(filename) {
@@ -97,6 +98,26 @@ gulp.task('es6', function() {
 	.on('error', gutil.log)
 	.pipe(source('build.js'))
 	.pipe(gulp.dest('build'));
+});
+
+gulp.task('backend-dev', function() {
+	nodemon({
+		script: "api/server.js",
+		watch: ["api/server.js"],
+		ext: "js",
+	}).on("restart", function() {
+		console.log("restarting backend server");
+	});
+});
+
+gulp.task('frontend-dev', ['css', 'es6', 'watch'], function() {
+	nodemon({
+		script: "client/server.js",
+		watch: ["build/build.js", "build/styles.css"],
+		ext: "js",
+	}).on("restart", function() {
+		console.log("restarting frontend server");
+	});
 });
 
 // watches for changes in client dir
