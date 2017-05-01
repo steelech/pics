@@ -8,32 +8,76 @@ var babelify = require('babelify');
 var gutil = require('gulp-util');
 var source = require('vinyl-source-stream');
 
- 
-gulp.task('deploy', () => {
-	AWS.config.loadFromPath('./aws.json');
-	fs.readFile('hello.html', function(err, data) {
-		if(err) { throw err; }
+// returns the correct contentType for a given filename
+function getContentType(filename) {
+	if(filename.indexOf(".html") != -1) {
+		return "text/html";
+	}
+	if(filename.indexOf(".js") != -1) {
+		return "text/javascript";
+	}
+}
+
+// returns the key for a given filename (kinda hacky tbh)
+function getKey(filename) {
+	if(filename == "build.js") {
+		return "static/build.js";
+	}
+	if(filename == "index.html") {
+		return "index.html";
+	}
+}
+
+// uploads a file to s3
+function uploadFileToS3(filename) {
+	var fullPath = 'build/' + filename;
+	fs.readFile(fullPath, function(err, data) {
+		if(err) {
+			throw err;
+		}
 		var s3 = new AWS.S3();
-	        s3.putObject({
-		        Bucket: 'pics-website',
-		        Key: 'hello.html',
-		        Body: data,
+		var params = {
+			Bucket: 'pics-website',
+			Key: getKey(filename),
+			Body: data,
 			ACL: 'public-read',
-			ContentType: 'text/html',
-	        }, function(perr, pres) {
+			ContentType: getContentType(filename) 
+		};
+		s3.putObject(params, function(perr, pres) {
 			if(perr) {
 				console.log("error: ", perr);
 			} else {
 				console.log("success!");
 			}
-		});	
+		})
+	});
+}
+
+// converts es6 to es5, uploads files to s3
+gulp.task('deploy', ['es6', 'index'], () => {
+	var path = 'build/';
+	AWS.config.loadFromPath('./aws.json');
+	fs.readdir(path, function(err, files) {
+		files.forEach(function(file) {
+			console.log(file);
+			uploadFileToS3(file);
+		});
 	});
 });
 
+// copies client/index.html to build/index.html
+gulp.task('index', () => {
+	gulp.src('client/index.html')
+	.pipe(gulp.dest('build'));
+
+});
+
+// converts js files from es6 to es5, then 'watches' all src files in the client dir
 gulp.task('default', ['watch', 'es6']);
 
+// converts js files from es6 to es5
 gulp.task('es6', function() {
-	browserify({
+	return browserify({
 		entries: 'client/index.js',
 		debug: true
 	})
@@ -46,6 +90,7 @@ gulp.task('es6', function() {
 
 });
 
+// watches for changes in client dir
 gulp.task('watch', function() {
 	gulp.watch('client/**/*.js', ['default']);
 });
