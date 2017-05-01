@@ -10,6 +10,7 @@ var router = {
 			loginView.renderLoginView(); 
 		} else if(url == "") {
 			homeView.renderHomeView();
+
 		} else {
 			View404.render404View();
 		}

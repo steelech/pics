@@ -69,11 +69,15 @@ gulp.task('deploy', ['es6', 'index'], () => {
 gulp.task('index', () => {
 	gulp.src('client/index.html')
 	.pipe(gulp.dest('build'));
+});
 
+gulp.task('css', () => {
+	gulp.src('client/css/styles.css')
+	.pipe(gulp.dest('build'));
 });
 
 // converts js files from es6 to es5, then 'watches' all src files in the client dir
-gulp.task('default', ['watch', 'es6']);
+gulp.task('default', ['watch', 'es6', 'css']);
 
 // converts js files from es6 to es5
 gulp.task('es6', function() {
@@ -87,7 +91,6 @@ gulp.task('es6', function() {
 	.on('error', gutil.log)
 	.pipe(source('build.js'))
 	.pipe(gulp.dest('build'));
-
 });
 
 // watches for changes in client dir
