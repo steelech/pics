@@ -16,6 +16,9 @@ function getContentType(filename) {
 	if(filename.indexOf(".js") != -1) {
 		return "text/javascript";
 	}
+	if(filename.indexOf(".css") != -1) {
+		return "text/css";
+	}
 }
 
 // returns the key for a given filename (kinda hacky tbh)
@@ -25,6 +28,9 @@ function getKey(filename) {
 	}
 	if(filename == "index.html") {
 		return "index.html";
+	}
+	if(filename == "styles.css") {
+		return "static/styles.css"
 	}
 }
 
