@@ -7,7 +7,7 @@ var browserify = require('browserify');
 var babelify = require('babelify');
 var gutil = require('gulp-util');
 var source = require('vinyl-source-stream');
-var nodemon = require('nodemon');
+var nodemon = require('gulp-nodemon');
 
 // returns the correct contentType for a given filename
 function getContentType(filename) {
@@ -84,7 +84,7 @@ gulp.task('css', () => {
 });
 
 // converts js files from es6 to es5, then 'watches' all src files in the client dir
-gulp.task('default', ['watch', 'es6', 'css']);
+gulp.task('default', ['frontend-dev', 'watch']);
 
 // converts js files from es6 to es5
 gulp.task('es6', function() {
@@ -110,17 +110,14 @@ gulp.task('backend-dev', function() {
 	});
 });
 
-gulp.task('frontend-dev', ['css', 'es6', 'watch'], function() {
+gulp.task('frontend-dev', ['css', 'es6'], function() {
 	nodemon({
 		script: "client/server.js",
-		watch: ["build/build.js", "build/styles.css"],
-		ext: "js",
-	}).on("restart", function() {
-		console.log("restarting frontend server");
-	});
+	})
+
 });
 
 // watches for changes in client dir
-gulp.task('watch', function() {
-	gulp.watch(['client/**/*.js', 'client/**/*.css'], ['default']);
+gulp.task('watch', ['es6', 'css'], function() {
+	gulp.watch(['client/**/*.js', 'client/**/*.css'], ['es6', 'css']);
 });
