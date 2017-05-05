@@ -44,7 +44,7 @@ function uploadFileToS3(filename) {
 		}
 		var s3 = new AWS.S3();
 		var params = {
-			Bucket: 'pics-website',
+			Bucket: 'erica-charlie-pics.com',
 			Key: getKey(filename),
 			Body: data,
 			ACL: 'public-read',
@@ -59,7 +59,7 @@ function uploadFileToS3(filename) {
 }
 
 // converts es6 to es5, uploads files to s3
-gulp.task('deploy', ['es6', 'index', 'css'], () => {
+gulp.task('deploy', ['es6', 'index', 'css', 'assets'], () => {
 	var path = 'client/build/';
 	AWS.config.loadFromPath('./aws.json');
 	fs.readdir(path, function(err, files) {
@@ -68,6 +68,12 @@ gulp.task('deploy', ['es6', 'index', 'css'], () => {
 			uploadFileToS3(file);
 		});
 	});
+});
+
+gulp.task('assets', () => {
+	gulp.src('client/assets/*')
+	.pipe(gulp.dest('client/build'));
+
 });
 
 // copies client/index.html to build/index.html
@@ -98,7 +104,7 @@ gulp.task('es6', function() {
 	.pipe(gulp.dest('client/build'));
 });
 
-gulp.task('develop', ['css', 'es6', 'index'], function() {
+gulp.task('develop', ['css', 'es6', 'index', 'assets'], function() {
 	nodemon({
 		script: "client/server.js",
 		watch: ["client/server.js"]
