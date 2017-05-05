@@ -1,10 +1,8 @@
 var homeView = {
 	renderHomeView: function() {
-		var header = document.createElement("h1");
-		var headerText = document.createTextNode("Home");
-		header.appendChild(headerText);
-
-		document.getElementsByTagName('body')[0].appendChild(header);
+		var bars = document.createElement("i");
+		bars.className += " fa fa-bars home-bars";
+		document.getElementsByTagName('body')[0].appendChild(bars);
 	}
 }
 

@@ -116,4 +116,6 @@ gulp.task('develop', ['css', 'es6', 'index', 'assets'], function() {
 gulp.task('watch', function() {
 	gulp.watch(['client/**/*.js'], ['es6']);
 	gulp.watch(['client/**/*.css'], ['css']);
+	gulp.watch(['client/index.html'], ['index']);
+	
 });
