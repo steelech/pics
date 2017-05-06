@@ -9,13 +9,14 @@ var router = {
 	// we can do some kind of nested routing
 	// also, check if the user is logged in before routing them
 	route: function(url) {
+		console.log("routing!!");
 		url = urlParse.removeTrailingBackslash(url);
 		url = urlParse.breakUpPath(url);
 		if(url["first"] == "login") {
 			if(url["rest"] != "") {
 				View404.render404View();
 			} else {
-				homeView.renderHomeView();
+				//homeView.renderHomeView();
 				loginView.renderLoginView();
 			}
 		} else if(url["first"] == "pics") {

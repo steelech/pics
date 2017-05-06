@@ -1,6 +1,5 @@
-function loginController() {
+var loginController  = {
 
 }
-
 
 export default loginController;

@@ -1,11 +1,10 @@
 import loginController from '../../src/controller/loginController';
 
-var controller = new loginController;
-
 var loginView = {
 	// login form in middle of screen
 	renderLoginView: function() {
 		this._drawLoginBox();
+		this._setupEventListeners();
 		//var container = document.createElement("div");
 		//var header = document.createElement("h1");
 		//header.appendChild(document.createTextNode("Login"));
@@ -80,8 +79,19 @@ var loginView = {
 		loginFormSubmit.appendChild(loginButton);
 	},
 	_setupEventListeners: function() {
-	},
+		console.log("adding event listeners");
+		document.body.addEventListener('clickHomeBars', function() {
+			console.log("clicked bars lol");
+		});
 
+		document.body.addEventListener('clickLoginBars', function() {
+			console.log("clicked bars lol");
+		});
+	},
+	_tearDownLoginForm: function() {
+		var tearDown = document.getElementsByClassName[0];
+		tearDown.outerHtml = "";
+	}
 }
 
 export default loginView;

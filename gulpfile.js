@@ -16,6 +16,7 @@ function getContentType(filename) {
 	switch(extension) {
 		case 'html':
 			console.log("html file");
+			return "text/html";
 			break;
 		
 		case 'js':
