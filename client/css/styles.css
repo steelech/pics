@@ -78,5 +78,12 @@
 }
 
 .login-button {
+	padding: 5px;
+	border: black;
+	border-radius: 4px;
+	opacity: 1.0;
+	background-color: black;
+	color: white;
+
 
 }

@@ -49,6 +49,7 @@ var loginView = {
 		var loginUsernameInput = document.createElement("input");
 		loginUsernameInput.className = "login-username-input";
 		loginUsernameInput.placeholder = "Username";
+		loginUsernameInput.autofocus = true;
 		loginFormUsername.appendChild(loginUsernameInput);
 	},
 	_drawPasswordInput: function() {
