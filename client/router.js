@@ -16,7 +16,7 @@ var router = {
 			if(url["rest"] != "") {
 				View404.render404View();
 			} else {
-				//homeView.renderHomeView();
+				homeView.renderHomeView();
 				loginView.renderLoginView();
 			}
 		} else if(url["first"] == "pics") {
