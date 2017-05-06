@@ -47,6 +47,8 @@ var loginView = {
 
 		// draw input
 		var loginUsernameInput = document.createElement("input");
+		loginUsernameInput.className = "login-username-input";
+		loginUsernameInput.placeholder = "Username";
 		loginFormUsername.appendChild(loginUsernameInput);
 	},
 	_drawPasswordInput: function() {
@@ -57,6 +59,10 @@ var loginView = {
 
 		// draw input
 		var loginPasswordInput = document.createElement("input");
+		
+		loginPasswordInput.placeholder = "Password";
+		loginPasswordInput.className = "login-password-input";
+		loginPasswordInput.type = "password";
 		loginFormPassword.appendChild(loginPasswordInput);
 	},
 	_drawSubmitButtom: function() {
@@ -68,6 +74,7 @@ var loginView = {
 		// draw button
 		var loginButton = document.createElement("div");
 		var buttonText = document.createTextNode("Submit");
+		loginButton.className = "login-button";
 		loginButton.appendChild(buttonText);
 		loginFormSubmit.appendChild(loginButton);
 	},
