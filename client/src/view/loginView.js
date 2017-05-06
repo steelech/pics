@@ -1,16 +1,8 @@
-import loginController from '../../src/controller/loginController';
-
 var loginView = {
 	// login form in middle of screen
 	renderLoginView: function() {
 		this._drawLoginBox();
-		this._setupEventListeners();
-		//var container = document.createElement("div");
-		//var header = document.createElement("h1");
-		//header.appendChild(document.createTextNode("Login"));
-		//container.className = "login-container";
-		//container.appendChild(header);
-		//document.body.appendChild(container);
+		history.pushState(null, null, 'login');
 	}, 
 	_drawLoginBox: function() {
 		this._drawLoginContainer();
@@ -79,19 +71,23 @@ var loginView = {
 		loginFormSubmit.appendChild(loginButton);
 	},
 	_setupEventListeners: function() {
-		console.log("adding event listeners");
-		document.body.addEventListener('clickHomeBars', function() {
-			console.log("clicked bars lol");
+		var self = this;
+		document.addEventListener('clickHomeBars', function() {
+			self._tearDownLoginForm();
+		}); 
+		document.addEventListener('clickLoginBars', function() {
+			self.renderLoginView();
 		});
-
-		document.body.addEventListener('clickLoginBars', function() {
-			console.log("clicked bars lol");
-		});
+		
 	},
 	_tearDownLoginForm: function() {
-		var tearDown = document.getElementsByClassName[0];
-		tearDown.outerHtml = "";
+		var tearDown = document.getElementsByClassName("login-container")[0];
+		document.body.removeChild(tearDown);
+		history.pushState(null, null, "/");
 	}
 }
+
+
+loginView._setupEventListeners();
 
 export default loginView;

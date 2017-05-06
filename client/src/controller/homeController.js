@@ -6,11 +6,12 @@ var homeController = {
 		if(window.location.pathname.includes("login")) {
 			// tear down login form
 			var clickHome = new CustomEvent("clickHomeBars");
-			document.body.dispatchEvent(clickHome);
+			document.dispatchEvent(clickHome);
+			
 		} else {
 			// render login form
 			var clickLogin = new CustomEvent("clickLoginBars");
-			document.body.dispatchEvent(clickLogin);
+			document.dispatchEvent(clickLogin);
 		}
 	}
 }

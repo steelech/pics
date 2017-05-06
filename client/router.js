@@ -9,7 +9,6 @@ var router = {
 	// we can do some kind of nested routing
 	// also, check if the user is logged in before routing them
 	route: function(url) {
-		console.log("routing!!");
 		url = urlParse.removeTrailingBackslash(url);
 		url = urlParse.breakUpPath(url);
 		if(url["first"] == "login") {
