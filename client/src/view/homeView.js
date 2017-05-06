@@ -10,6 +10,7 @@ var homeView = {
 		bars.className += " fa fa-bars home-bars";
 		bars.id = "home-bars"
 		document.getElementsByTagName('body')[0].appendChild(bars);
+		document.body.className = "home-login-background";
 	},
 	setupEventListeners: function() {
 		document.getElementById("home-bars").addEventListener("click", this.handleBarsClick); 

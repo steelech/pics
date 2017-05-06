@@ -1,14 +1,59 @@
-#login-container  {
+.login-container  {
+	position: absolute;
+	text-align: center;
+	width: 30%;
+	margin-left: 35%;
+	margin-right: 35%;
+	margin-top: 10%;
+	background: whitesmoke;
+	opacity: 0.8;
+	border-radius: 5px;
+	font-family: "Lucida Grande";
 }
 
 .home-bars {
-	padding: 5%;
-	font-size: 25px;
 	float: right;
+	top: 0px;
+	right: 0px;
+	padding: 5%;
+	position: absolute;
+	font-size: 25px;
 }
 
 .fa-bars::before {
 	cursor: pointer;
 }
 
+.home-login-background {
+	background-image: url("/static/arb-pic.jpg");
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;	    
+}
 
+.pics-background {
+	background: pink;
+}
+
+.login-form-container {
+	width: 50%;
+	padding-left: 25%;
+	padding-right: 25%;
+
+}
+
+.login-form-username {
+	margin-top: 20px;
+	margin-bottom: 25px;
+}
+
+.login-form-password {
+	margin-bottom: 25px;
+
+}
+
+.login-form-submit {
+	margin-bottom: 25px;
+
+}

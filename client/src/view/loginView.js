@@ -3,49 +3,77 @@ import loginController from '../../src/controller/loginController';
 var controller = new loginController;
 
 var loginView = {
+	// login form in middle of screen
 	renderLoginView: function() {
-		this.drawLoginContainer();
-		this.drawLoginHeader();
-		this.drawLoginForm();
-
+		this._drawLoginBox();
+		//var container = document.createElement("div");
+		//var header = document.createElement("h1");
+		//header.appendChild(document.createTextNode("Login"));
+		//container.className = "login-container";
+		//container.appendChild(header);
+		//document.body.appendChild(container);
 	}, 
-	drawLoginForm: function() {
-		var formContainer = document.createElement("div");
-		formContainer.id = "login-form-container";
-
-		var username = document.createElement("input");
-		username.id = "login-username-input";
-		username.placeholder = "Username";
-		username.type = "text";
-
-		var password = document.createElement("input");
-		password.id =  "login-password-input";
-		password.placeholder = "Password";
-		password.type = "password";
-
-		var submitButton = document.createElement("button");
-		submitButton.id = "login-submit-button";
-		submitButton.innerHTML = "Submit";
-		submitButton.addEventListener('click', controller.handleSubmit);
-
-
-		formContainer.appendChild(username);
-		formContainer.appendChild(password);
-		formContainer.appendChild(submitButton);
-		document.getElementById("login-container").appendChild(formContainer);
-
+	_drawLoginBox: function() {
+		this._drawLoginContainer();
+		this._drawLoginHeader();	
+		this._drawLoginForm();
 	},
-	drawLoginContainer: function() {
-		var loginContainer = document.createElement("div");
-		loginContainer.id="login-container";
-		document.getElementsByTagName('body')[0].appendChild(loginContainer);
+	_drawLoginContainer: function() {
+		this.container = document.createElement("div");
+		this.container.className = "login-container";
+		document.body.appendChild(this.container);
 	},
-	drawLoginHeader: function() {
+	_drawLoginHeader: function() {
 		var header = document.createElement("h1");
-		var headerText = document.createTextNode("Login");
-		header.appendChild(headerText);
-		document.getElementById("login-container").appendChild(header);
-	}
+		header.appendChild(document.createTextNode("Login"));
+		this.container.appendChild(header);
+	},
+	_drawLoginForm: function() {
+		this._drawLoginFormContainer();
+		this._drawUsernameInput();
+		this._drawPasswordInput();
+		this._drawSubmitButtom();
+	},
+	_drawLoginFormContainer: function() {
+		this.loginForm = document.createElement("div");
+		this.loginForm.className = "login-form-container";
+		this.container.appendChild(this.loginForm);
+	},
+	_drawUsernameInput: function() {
+		// wrap input in div
+		var loginFormUsername = document.createElement("div");
+		loginFormUsername.className = "login-form-username";
+		this.loginForm.appendChild(loginFormUsername);
+
+		// draw input
+		var loginUsernameInput = document.createElement("input");
+		loginFormUsername.appendChild(loginUsernameInput);
+	},
+	_drawPasswordInput: function() {
+		// wrap input in div
+		var loginFormPassword = document.createElement("div");
+		loginFormPassword.className = "login-form-password";
+		this.loginForm.appendChild(loginFormPassword);
+
+		// draw input
+		var loginPasswordInput = document.createElement("input");
+		loginFormPassword.appendChild(loginPasswordInput);
+	},
+	_drawSubmitButtom: function() {
+		// wrap button in div
+		var loginFormSubmit = document.createElement("div");
+		loginFormSubmit.className = "login-form-submit";
+		this.loginForm.appendChild(loginFormSubmit);
+
+		// draw button
+		var loginButton = document.createElement("div");
+		var buttonText = document.createTextNode("Submit");
+		loginButton.appendChild(buttonText);
+		loginFormSubmit.appendChild(loginButton);
+	},
+	_setupEventListeners: function() {
+	},
+
 }
 
 export default loginView;
