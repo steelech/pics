@@ -11,14 +11,37 @@ var nodemon = require('gulp-nodemon');
 
 // returns the correct contentType for a given filename
 function getContentType(filename) {
-	if(filename.indexOf(".html") != -1) {
-		return "text/html";
-	}
-	if(filename.indexOf(".js") != -1) {
-		return "text/javascript";
-	}
-	if(filename.indexOf(".css") != -1) {
-		return "text/css";
+	var extension = filename.split('.').pop();
+
+	switch(extension) {
+		case 'html':
+			console.log("html file");
+			break;
+		
+		case 'js':
+			console.log("javascript file");
+			return "text/javascript";
+			break;
+
+		case 'css':
+			console.log("css file");
+			return "text/css";
+			break;
+
+		case 'jpg':
+			console.log('jpg file');
+			return "image/jpg";
+			break;
+
+		case 'png':
+			console.log('png file');
+			return "image/png";
+			break;
+
+		default:
+			console.log("bad filename");
+			return "none";
+			break;	
 	}
 }
 
@@ -33,6 +56,8 @@ function getKey(filename) {
 	if(filename == "styles.css") {
 		return "static/styles.css"
 	}
+
+	return "static/" + filename;
 }
 
 // uploads a file to s3
