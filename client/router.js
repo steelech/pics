@@ -1,6 +1,7 @@
 import loginView from './src/view/loginView';
 import homeView from './src/view/homeView';
 import View404 from './src/view/404View';
+import picsView from './src/view/picsView';
 import urlParse from './src/utils/urlParse';
 
 var router = {
@@ -16,9 +17,11 @@ var router = {
 			} else {
 				loginView.renderLoginView();
 			}
+		} else if(url["first"] == "pics") {
+			picsView.renderPicsView();
 		} else if(!url["first"]) {
 			homeView.renderHomeView();
-
+		
 		} else {
 			View404.render404View();
 		}

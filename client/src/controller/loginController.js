@@ -1,5 +1,4 @@
 function loginController() {
-	console.log("creating new loginController");
 
 }
 

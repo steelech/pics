@@ -1,7 +1,9 @@
+import homeController from '../../src/controller/homeController';
 var homeView = {
 	renderHomeView: function() {
 		this.drawView();
 		this.setupEventListeners();
+		homeController.setupListeners();
 	},
 	drawView: function() {
 		var bars = document.createElement("i");
@@ -13,7 +15,11 @@ var homeView = {
 		document.getElementById("home-bars").addEventListener("click", this.handleBarsClick); 
 	},
 	handleBarsClick: function(e) {
-		console.log(e);
+		// fire off a clickHomeBars event, to be caught and handled by the controller.
+		var clickBars = new CustomEvent("clickHomeBars", {
+			detail: e 
+		});
+		document.body.dispatchEvent(clickBars);
 	}
 }
 
