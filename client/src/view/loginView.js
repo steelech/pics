@@ -1,9 +1,35 @@
+import loginController from '../../src/controller/loginController';
 var loginView = {
 	// login form in middle of screen
 	renderLoginView: function() {
 		this._drawLoginBox();
 		history.pushState(null, null, 'login');
+		this._setupFormListener();
+		loginController.setupEventListeners();
 	}, 
+	_setupFormListener: function() {
+		var self = this;
+		document.getElementById("login-button").addEventListener('click', this._handleSubmit.bind(self));
+
+		
+	},
+	_handleSubmit: function(e) {
+		// tell controller about form submission
+		var loginSubmit = new CustomEvent("loginSubmit", {
+			detail: this._collectFormData()
+		});
+		document.body.dispatchEvent(loginSubmit);
+
+	},
+	_collectFormData: function() {
+		var username = document.getElementById("login-username-input").value;
+		var password = document.getElementById("login-password-input").value;
+		return {
+			username: username,
+			password: password
+		};
+	},
+
 	_drawLoginBox: function() {
 		this._drawLoginContainer();
 		this._drawLoginHeader();	
@@ -39,6 +65,7 @@ var loginView = {
 		// draw input
 		var loginUsernameInput = document.createElement("input");
 		loginUsernameInput.className = "login-username-input";
+		loginUsernameInput.id = "login-username-input";
 		loginUsernameInput.placeholder = "Username";
 		loginFormUsername.appendChild(loginUsernameInput);
 		loginUsernameInput.focus();
@@ -47,6 +74,7 @@ var loginView = {
 		// wrap input in div
 		var loginFormPassword = document.createElement("div");
 		loginFormPassword.className = "login-form-password";
+		loginFormPassword.id = "login-form-password";
 		this.loginForm.appendChild(loginFormPassword);
 
 		// draw input
@@ -54,6 +82,7 @@ var loginView = {
 		
 		loginPasswordInput.placeholder = "Password";
 		loginPasswordInput.className = "login-password-input";
+		loginPasswordInput.id = "login-password-input";
 		loginPasswordInput.type = "password";
 		loginFormPassword.appendChild(loginPasswordInput);
 	},
@@ -67,6 +96,7 @@ var loginView = {
 		var loginButton = document.createElement("div");
 		var buttonText = document.createTextNode("Submit");
 		loginButton.className = "login-button";
+		loginButton.id = "login-button";
 		loginButton.appendChild(buttonText);
 		loginFormSubmit.appendChild(loginButton);
 	},
@@ -78,7 +108,6 @@ var loginView = {
 		document.addEventListener('clickLoginBars', function() {
 			self.renderLoginView();
 		});
-		
 	},
 	_tearDownLoginForm: function() {
 		var tearDown = document.getElementsByClassName("login-container")[0];
