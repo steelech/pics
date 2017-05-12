@@ -21,7 +21,16 @@ var loginController  = {
 		// client side validations
 		// if valid form data, send to backend
 		if(this._validateFormData(username, password).valid) {
-			Session.login(username, password);
+			Session.login(username, password)
+			.then((response) => {
+				if(response.responseStatus == 200) {
+					// render home page
+					console.log("successful login");
+				} else {
+					// tell login view to display error
+					console.log("unsuccessful login");
+				}
+			})
 		} else {
 			// todo: fire off an event to tell view invalid form data
 			console.log("invalid form data")
