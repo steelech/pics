@@ -1,7 +1,7 @@
-import loginView from 'view/loginView';
-import homeView from 'view/homeView';
-import View404 from 'view/404View';
-import picsView from 'view/picsView';
+import loginView from 'components/loginView';
+import homeView from 'components/homeView';
+import View404 from 'components/404View';
+import picsView from 'components/picsView';
 import urlParse from 'utils/urlParse';
 
 var router = {
