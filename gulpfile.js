@@ -136,7 +136,7 @@ gulp.task('es6', function() {
 gulp.task('develop', ['css', 'es6', 'index', 'assets'], function() {
 	nodemon({
 		script: "server.js",
-		watch: ["server.js"]
+		//watch: ["server.js"]
 	})
 
 });

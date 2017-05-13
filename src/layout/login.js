@@ -1,25 +1,38 @@
-import loginController from 'controller/loginController';
+import Session from 'model/session';
+import Router from 'router';
 var loginView = {
 	// login form in middle of screen
 	renderLoginView: function() {
 		this._drawLoginBox();
 		history.pushState(null, null, 'login');
 		this._setupFormListener();
-		loginController.setupEventListeners();
 	}, 
 	_setupFormListener: function() {
 		var self = this;
-		document.getElementById("login-button").addEventListener('click', this._handleSubmit.bind(self));
-
-		
+		document.getElementById("login-button").addEventListener('click', this.handleLogin.bind(self));
 	},
-	_handleSubmit: function(e) {
+	handleLogin: function(e) {
 		// tell controller about form submission
-		var loginSubmit = new CustomEvent("loginSubmit", {
-			detail: this._collectFormData()
-		});
-		document.body.dispatchEvent(loginSubmit);
-
+		let formData = this._collectFormData()
+		if(this._validateFormData(formData.username, formData.password).valid) {
+			Session.login(formData.username, formData.password)
+			.then((response) => {
+				if(response.responseStatus == 200) {
+					// render home page
+					console.log("successful login");
+					Router.route("/pics", false);
+				} else {
+					// tell login view to display error
+					console.log("unsuccessful login");
+				}
+			})
+			.catch((err) => {
+				console.log("error: ", err);
+			});
+		} else {
+			// todo: fire off an event to tell view invalid form data
+			console.log("invalid form data")
+		}
 	},
 	_collectFormData: function() {
 		var username = document.getElementById("login-username-input").value;
@@ -113,6 +126,39 @@ var loginView = {
 		var tearDown = document.getElementsByClassName("login-container")[0];
 		document.body.removeChild(tearDown);
 		history.pushState(null, null, "/");
+	},
+	_validateFormData: function(username, password) {
+		var response = {
+			valid: true,
+			error: null
+		};
+		if(username == "") {
+			response.valid = false;
+			response.message = "Username can't be left blank";	
+		} else if(password == "") {
+			response.valid = false;
+			response.message = "Password can't be left blank";
+		} 
+		return response;
+	},
+	_handleLoginSubmit({ username, password }) {
+		// client side validations
+		// if valid form data, send to backend
+		if(this._validateFormData(username, password).valid) {
+			Session.login(username, password)
+			.then((response) => {
+				if(response.responseStatus == 200) {
+					// render home page
+					console.log("successful login");
+				} else {
+					// tell login view to display error
+					console.log("unsuccessful login");
+				}
+			})
+		} else {
+			// todo: fire off an event to tell view invalid form data
+			console.log("invalid form data")
+		}
 	}
 }
 
