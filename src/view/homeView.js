@@ -1,4 +1,4 @@
-import homeController from '../../src/controller/homeController';
+import homeController from 'controller/homeController';
 var homeView = {
 	renderHomeView: function() {
 		this.drawView();

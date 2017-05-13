@@ -1,4 +1,4 @@
-import loginController from '../../src/controller/loginController';
+import loginController from 'controller/loginController';
 var loginView = {
 	// login form in middle of screen
 	renderLoginView: function() {

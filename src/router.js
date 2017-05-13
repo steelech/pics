@@ -1,8 +1,8 @@
-import loginView from './src/view/loginView';
-import homeView from './src/view/homeView';
-import View404 from './src/view/404View';
-import picsView from './src/view/picsView';
-import urlParse from './src/utils/urlParse';
+import loginView from 'view/loginView';
+import homeView from 'view/homeView';
+import View404 from 'view/404View';
+import picsView from 'view/picsView';
+import urlParse from 'utils/urlParse';
 
 var router = {
 	// need to fix this, pull out the first part of the path and pass the rest on to the view

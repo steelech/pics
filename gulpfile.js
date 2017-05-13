@@ -63,7 +63,7 @@ function getKey(filename) {
 
 // uploads a file to s3
 function uploadFileToS3(filename) {
-	var fullPath = 'client/build/' + filename;
+	var fullPath = 'build/' + filename;
 	fs.readFile(fullPath, function(err, data) {
 		if(err) {
 			throw err;
@@ -86,7 +86,7 @@ function uploadFileToS3(filename) {
 
 // converts es6 to es5, uploads files to s3
 gulp.task('deploy', ['es6', 'index', 'css', 'assets'], () => {
-	var path = 'client/build/';
+	var path = 'build/';
 	AWS.config.loadFromPath('./aws.json');
 	fs.readdir(path, function(err, files) {
 		files.forEach(function(file) {
@@ -97,20 +97,20 @@ gulp.task('deploy', ['es6', 'index', 'css', 'assets'], () => {
 });
 
 gulp.task('assets', () => {
-	gulp.src('client/assets/*')
-	.pipe(gulp.dest('client/build'));
+	gulp.src('assets/*')
+	.pipe(gulp.dest('build'));
 
 });
 
 // copies client/index.html to build/index.html
 gulp.task('index', () => {
-	gulp.src('client/index.html')
-	.pipe(gulp.dest('client/build'));
+	gulp.src('src/index.html')
+	.pipe(gulp.dest('build'));
 });
 
 gulp.task('css', () => {
-	gulp.src('client/css/styles.css')
-	.pipe(gulp.dest('client/build'));
+	gulp.src('styles/app.css')
+	.pipe(gulp.dest('build'));
 });
 
 // converts js files from es6 to es5, then 'watches' all src files in the client dir
@@ -119,29 +119,32 @@ gulp.task('default', ['develop', 'watch']);
 // converts js files from es6 to es5
 gulp.task('es6', function() {
 	return browserify({
-		entries: 'client/index.js',
-		debug: true
+		entries: 'src/index.js',
+		debug: true,
+		paths: [
+			'src'
+		]
 	})
 	.transform(babelify)
 	.on('error', gutil.log)
 	.bundle()
 	.on('error', gutil.log)
 	.pipe(source('build.js'))
-	.pipe(gulp.dest('client/build'));
+	.pipe(gulp.dest('build'));
 });
 
 gulp.task('develop', ['css', 'es6', 'index', 'assets'], function() {
 	nodemon({
-		script: "client/server.js",
-		watch: ["client/server.js"]
+		script: "server.js",
+		watch: ["server.js"]
 	})
 
 });
 
 // watches for changes in client dir
 gulp.task('watch', function() {
-	gulp.watch(['client/**/*.js'], ['es6']);
-	gulp.watch(['client/**/*.css'], ['css']);
-	gulp.watch(['client/index.html'], ['index']);
+	gulp.watch(['src/*.js'], ['es6']);
+	gulp.watch(['styles/*.css'], ['css']);
+	gulp.watch(['src/index.html'], ['index']);
 	
 });

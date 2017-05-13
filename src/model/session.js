@@ -1,4 +1,4 @@
-import Api from '../../src/utils/api';
+import Api from 'utils/api';
 var Session = {
 	login: function(username, password) {
 		return new Promise((resolve, reject) => {

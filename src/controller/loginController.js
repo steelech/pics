@@ -1,4 +1,4 @@
-import Session from '../../src/model/session';
+import Session from 'model/session';
 var loginController  = {
 	setupEventListeners: function() {
 		document.body.addEventListener('loginSubmit',this._handleLoginSubmit.bind(this)); 
