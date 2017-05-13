@@ -1,6 +1,6 @@
-import loginView from 'components/loginView';
+import loginView from 'layout/loginView';
+import View404 from 'layout/404View';
 import homeView from 'components/homeView';
-import View404 from 'components/404View';
 import picsView from 'components/picsView';
 import urlParse from 'utils/urlParse';
 
@@ -11,21 +11,23 @@ var router = {
 	route: function(url) {
 		url = urlParse.removeTrailingBackslash(url);
 		url = urlParse.breakUpPath(url);
-		if(url["first"] == "login") {
-			if(url["rest"] != "") {
-				View404.render404View();
-			} else {
+		document.addEventListener('DOMContentLoaded', function() {
+			if(url["first"] == "login") {
+				if(url["rest"] != "") {
+					View404.render404View();
+				} else {
+					homeView.renderHomeView();
+					loginView.renderLoginView();
+				}
+			} else if(url["first"] == "pics") {
+				picsView.renderPicsView();
+			} else if(!url["first"]) {
 				homeView.renderHomeView();
-				loginView.renderLoginView();
+			
+			} else {
+				View404.render404View();
 			}
-		} else if(url["first"] == "pics") {
-			picsView.renderPicsView();
-		} else if(!url["first"]) {
-			homeView.renderHomeView();
-		
-		} else {
-			View404.render404View();
-		}
+		});
 	}
 }
 
