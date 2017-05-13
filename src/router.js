@@ -11,21 +11,27 @@ const tearDownView = () => {
 
 }
 const render = (url) => {
-	if(url["first"] == "login") {
-		if(url["rest"] != "") {
-			View404.render404View();
-		} else {
-			console.log("hello, world");
+	switch (url["first"]) {
+		case "login":
+			if(url["rest"] != "") {
+				View404.render404View();
+			} else {
+				homeView.renderHomeView();
+				loginView.renderLoginView();
+			}
+			break;
+
+		case "pics":
+			picsView.renderPicsView();
+			break;
+
+		case undefined:
 			homeView.renderHomeView();
-			loginView.renderLoginView();
-		}
-	} else if(url["first"] == "pics") {
-		picsView.renderPicsView();
-	} else if(!url["first"]) {
-		homeView.renderHomeView();
-	
-	} else {
-		View404.render404View();
+			break;
+
+		default: 
+			View404.render404View();
+			break;
 	}
 }
 
