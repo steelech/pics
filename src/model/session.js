@@ -7,7 +7,7 @@ var Session = {
 					username: username,
 					password: password
 				}, 
-				"/login", "POST"
+				"login", "POST"
 			)
 			.then(function(data) {
 				console.log("data: ", data);
@@ -16,21 +16,19 @@ var Session = {
 		});
 	},
 	validate: () => {
-		console.log("validating session");
 		return new Promise((resolve, reject) => {
 			var creds = JSON.parse(localStorage.getItem("credentials"));
-
 			if(creds) {
 				Api.sendRequestToBackend(
 					{
 						username: creds.username,
 						password: creds.password
 					}, 
-					"/session", "GET"
+					"session/validate", "POST"
 				)
-				.then(function(data) {
-					console.log("data: ", data);
+				.then((data) => {
 					if(data.responseStatus == 200) {
+						console.log("resolved")
 						resolve();
 					} else {
 						reject();

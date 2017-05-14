@@ -1,7 +1,8 @@
+
 var Api = {
 	sendRequestToBackend: (data, endpoint, method) => {
 		return new Promise((resolve, reject) => {
-			let fullPath = "http://localhost:8888" + endpoint;
+			let fullPath = `http://localhost:8888/${endpoint}`;
 			var request = new XMLHttpRequest();
 			request.open(method, fullPath, true);
 			request.setRequestHeader("Content-Type", "application/json");
@@ -20,7 +21,6 @@ var Api = {
 			request.addEventListener("error", function(e) {
 				console.log("error!", e);
 			})
-
 		});
 	}
 };
