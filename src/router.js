@@ -23,54 +23,102 @@ const routeRegex = (url) => {
 		'\^/songs/([1-9])([0-9]+)?$': songDetails,
 		'\^/pics/albums/([1-9])([0-9]+)?$': albumDetails,
 	}
+	let match = false;
 	for (var key in routes) {
 	  if (routes.hasOwnProperty(key)) {
 	    if(url.match(key)) {
 	    	console.log("match!");
+	    	match = true;
 	    	routes[key].call();
+	    	break;
 	    }
 	  }
+	}
+	if(!match) {
+		console.log("no match!");
 	}
 }
 
 var base = () => {
 	console.log("routing to base");
-
+	homeView.renderHomeView();
 }
 
 var login = () => {
 	console.log("routing to login");
-
+	loginView.renderLoginView();
 }
 
 var picsIndex = () => {
 	console.log("routing to picsIndex");
-
+	Session.validate()
+	.then(() => {
+		picsView.renderPicsView();
+	})
+	.catch(() => {
+		homeView.renderHomeView();
+		loginView.render();
+	});
 }
 
 var songsIndex = () => {
 	console.log("routing to songsIndex");
-
+	Session.validate()
+	.then(() => {
+		picsView.renderPicsView();
+	})
+	.catch(() => {
+		homeView.renderHomeView();
+		loginView.render();
+	});
 }
 
 var albumsIndex = () => {
 	console.log("routing to albumsIndex");
-
+	Session.validate()
+	.then(() => {
+		picsView.renderPicsView();
+	})
+	.catch(() => {
+		homeView.renderHomeView();
+		loginView.render();
+	});
 }
 
 var picDetails = () => {
 	console.log("routing to picDetails");
-
+	Session.validate()
+	.then(() => {
+		picsView.renderPicsView();
+	})
+	.catch(() => {
+		homeView.renderHomeView();
+		loginView.render();
+	});
 }
 
 var songDetails = () => {
 	console.log("routing to songDetails");
-
+	Session.validate()
+	.then(() => {
+		picsView.renderPicsView();
+	})
+	.catch(() => {
+		homeView.renderHomeView();
+		loginView.render();
+	});
 }
 
 var albumDetails = () => {
 	console.log("routing to albumDetails");
-
+	Session.validate()
+	.then(() => {
+		picsView.renderPicsView();
+	})
+	.catch(() => {
+		homeView.renderHomeView();
+		loginView.render();
+	});
 }
 
 const render = (url) => {
@@ -79,8 +127,7 @@ const render = (url) => {
 			if(url["rest"] != "") {
 				View404.render404View();
 			} else {
-				homeView.renderHomeView();
-				loginView.renderLoginView();
+				loginView.render();
 			}
 			break;
 
@@ -90,8 +137,7 @@ const render = (url) => {
 				picsView.renderPicsView();
 			})
 			.catch(() => {
-				homeView.renderHomeView();
-				loginView.renderLoginView();
+				loginView.render();
 			});
 			break;
 
@@ -105,10 +151,21 @@ const render = (url) => {
 	}
 }
 
+var renderProtectedView = (view) => {
+	Session.validate()
+	.then(() => {
+		view();
+	})
+	.catch(() => {
+		homeView.renderHomeView();
+		loginView.render();
+	});
+}
+
 var router = {
 	route: (url, load) => {
 		url = urlParse.removeTrailingBackslash(url);
-		routeRegex(url);
+		// routeRegex(url);
 		url = urlParse.breakUpPath(url);
 		if(load) {
 			document.addEventListener('DOMContentLoaded', () => {
