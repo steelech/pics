@@ -143,7 +143,7 @@ gulp.task('develop', ['css', 'es6', 'index', 'assets'], function() {
 
 // watches for changes in client dir
 gulp.task('watch', function() {
-	gulp.watch(['src/*.js'], ['es6']);
+	gulp.watch(['src/**/*.js'], ['es6']);
 	gulp.watch(['styles/*.css'], ['css']);
 	gulp.watch(['src/index.html'], ['index']);
 	
