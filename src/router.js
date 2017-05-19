@@ -1,6 +1,6 @@
 import loginView from 'layout/login';
 import View404 from 'layout/404';
-import homeView from 'components/homeView';
+import home from 'components/home';
 import picsView from 'components/picsView';
 import urlParse from 'utils/urlParse';
 import Session from 'model/session';
