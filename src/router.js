@@ -1,7 +1,6 @@
 import login from 'layout/login';
 import View404 from 'layout/404';
-import home from 'components/home';
-import pics from 'components/pics';
+import base from 'layout/base';
 import urlParse from 'utils/urlParse';
 import Session from 'model/session';
 
@@ -12,6 +11,29 @@ const tearDownView = () => {
 	}
 }
 
+
+const picsRouteObject = (pathArray) => {
+	var picsObject = {};
+	picsObject.pics = true;
+	if(pathArray[1]) {
+		if(pathArray[1] == "albums") {
+			picsObject.albums = true;
+			if(pathArray[2]) {
+				picsObject.albumid = pathArray[2];
+			}
+		} else {
+			picsObject.picid = pathArray[1];
+		}
+	}
+	return picsObject;
+}
+
+const songsRouteObject = (pathArray) => {
+	var songsObject = {};
+	songsObject.songs = true;
+}
+
+// clean this fucker up ASAP, this is ridiculous
 const pathObject = (path) => {
 	var pathArray = path.split("/").filter((val) => {
 		return val != "";
@@ -25,19 +47,9 @@ const pathObject = (path) => {
 		pathParams.login = true;
 	} else {
 		if(pathArray[0] == "pics") {
-			pathParams.pics = true;
-			if(pathArray[1]) {
-				if(pathArray[1] == "albums") {
-					pathParams.albums = true;
-					if(pathArray[2]) {
-						pathParams.albumid = pathArray[2];
-					}
-				} else {
-					pathParams.picid = pathArray[1];
-				}
-			}
+			pathParams = picsRouteObject(pathArray);
 		} else if(pathArray[0] == "songs") {
-			pathParams.songs = true;
+			pathParams = songsRouteObject(pathArray);
 		}
 	}
 	return pathParams;
@@ -72,7 +84,7 @@ const routeRegex = (url) => {
 			// base view
 			Session.validate()
 			.then(() => {
-				home.render(pathParams);
+				base.render(pathParams);
 			})
 			.catch(() => {
 				login.render();
