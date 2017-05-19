@@ -12,116 +12,73 @@ const tearDownView = () => {
 	}
 }
 
-const routeRegex = (url) => {
-	const routes = {
-		'\^$': base, 
-		'\^/login$': loginRoute, // only unprotected view
-		'\^/pics$': picsIndex,
-		'\^/songs$': songsIndex,
-		'\^/pics/albums$': albumsIndex,
-		'\^/pics/([1-9])([0-9]+)?$': picDetails,
-		'\^/songs/([1-9])([0-9]+)?$': songDetails,
-		'\^/pics/albums/([1-9])([0-9]+)?$': albumDetails,
+const pathObject = (path) => {
+	var pathArray = path.split("/").filter((val) => {
+		return val != "";
+	});
+
+	if(pathArray.length == 0) {
+		return {};
+	} 
+	var pathParams = {};
+	if(pathArray[0] == "login") {
+		pathParams.login = true;
+	} else {
+		if(pathArray[0] == "pics") {
+			pathParams.pics = true;
+			if(pathArray[1]) {
+				if(pathArray[1] == "albums") {
+					pathParams.albums = true;
+					if(pathArray[2]) {
+						pathParams.albumid = pathArray[2];
+					}
+				} else {
+					pathParams.picid = pathArray[1];
+				}
+			}
+		} else if(pathArray[0] == "songs") {
+			pathParams.songs = true;
+		}
 	}
+	return pathParams;
+}
+
+const routeRegex = (url) => {
+	var pathParams = pathObject(url);
+	const routes = [
+		'\^$', 
+		'\^/login$', // only unprotected view
+		'\^/pics$',
+		'\^/songs$',
+		'\^/pics/albums$',
+		'\^/pics/([1-9])([0-9]+)?$',
+		'\^/songs/([1-9])([0-9]+)?$',
+		'\^/pics/albums/([1-9])([0-9]+)?$',
+	]
 	let match = false;
 	for (var key in routes) {
-	  if (routes.hasOwnProperty(key)) {
-	    if(url.match(key)) {
-	    	console.log("match!");
+	    if(url.match(routes[key])) {
 	    	match = true;
-	    	routes[key].call();
 	    	break;
 	    }
-	  }
 	}
 	if(!match) {
 		View404.render();
+	} else {
+		if(pathParams.login) {
+			// login view
+			login.render();
+		} else {
+			// base view
+			Session.validate()
+			.then(() => {
+				home.render(pathParams);
+			})
+			.catch(() => {
+				login.render();
+			});
+		}
 	}
-}
-
-var base = () => {
-	console.log("routing to base");
-	Session.validate()
-	.then(() => {
-		home.render();
-	})
-	.catch(() => {
-		login.render();
-	});
-}
-
-var loginRoute = () => {
-	login.render();
-}
-
-var picsIndex = () => {
-	Session.validate()
-	.then(() => {
-		pics.render();
-	})
-	.catch(() => {
-		login.render();
-	});
-}
-
-var songsIndex = () => {
-	Session.validate()
-	.then(() => {
-		pics.render();
-	})
-	.catch(() => {
-		login.render();
-	});
-}
-
-var albumsIndex = () => {
-	Session.validate()
-	.then(() => {
-		pics.render();
-	})
-	.catch(() => {
-		login.render();
-	});
-}
-
-var picDetails = () => {
-	Session.validate()
-	.then(() => {
-		pics.render();
-	})
-	.catch(() => {
-		login.render();
-	});
-}
-
-var songDetails = () => {
-	Session.validate()
-	.then(() => {
-		pics.render();
-	})
-	.catch(() => {
-		login.render();
-	});
-}
-
-var albumDetails = () => {
-	Session.validate()
-	.then(() => {
-		pics.render();
-	})
-	.catch(() => {
-		login.render();
-	});
-}
-
-var renderProtectedView = (view) => {
-	Session.validate()
-	.then(() => {
-		view();
-	})
-	.catch(() => {
-		login.render();
-	});
 }
 
 var router = {
