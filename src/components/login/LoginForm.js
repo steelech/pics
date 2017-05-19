@@ -24,6 +24,7 @@ var LoginForm = {
 	_drawLoginFormContainer: function() {
 		this.loginForm = document.createElement("div");
 		this.loginForm.className = "login-form-container";
+		this.loginForm.id = "login-form-container";
 		this.container.appendChild(this.loginForm);
 	},
 	_drawUsernameInput: function() {

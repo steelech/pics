@@ -1,6 +1,7 @@
 import Session from 'model/session';
 import Router from 'router';
 import LoginForm from 'components/login/LoginForm';
+
 const _collectFormData = function() {
 	var username = document.getElementById("login-username-input").value;
 	var password = document.getElementById("login-password-input").value;
@@ -8,6 +9,10 @@ const _collectFormData = function() {
 		username: username,
 		password: password
 	};
+}
+const _tearDownLoginForm = function() {
+	var tearDown = document.getElementsByClassName("login-container")[0];
+	document.body.removeChild(tearDown);
 }
 const _validateFormData = function(username, password) {
 	var response = {
@@ -26,12 +31,18 @@ const _validateFormData = function(username, password) {
 var loginView = {
 	// login form in middle of screen
 	render: function() {
-		// setup background, bars (event listeners as well)
 		this._drawLayout(this);
 		LoginForm.render({onClick: this.handleLogin});
 	}, 
-	_handleBarsClick: () => {
+	_handleBarsClick: function() {
 		console.log("bars clicked");
+		if(document.getElementById("login-form-container")) {
+			_tearDownLoginForm();
+		} else {
+			LoginForm.render({onClick: this.handleLogin});
+		}
+		// if form is there, tear it down
+		// else, render LoginForm
 	},
 	_drawLayout: (self) => {
 		var bars = document.createElement("i");
@@ -66,22 +77,7 @@ var loginView = {
 			console.log("invalid form data")
 		}
 	},
-	_setupEventListeners: function() {
-		var self = this;
-		document.addEventListener('clickHomeBars', function() {
-			self._tearDownLoginForm();
-		}); 
-		document.addEventListener('clickLoginBars', function() {
-			self.renderLoginView();
-		});
-	},
-	_tearDownLoginForm: function() {
-		var tearDown = document.getElementsByClassName("login-container")[0];
-		document.body.removeChild(tearDown);
-	},
 }
 
-
-loginView._setupEventListeners();
 
 export default loginView;
