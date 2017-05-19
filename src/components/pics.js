@@ -1,5 +1,5 @@
 var picsView = {
-	renderPicsView() {
+	render() {
 		var header = document.createElement("h1");
 	       	var headerText = document.createTextNode("Pics");
 		header.appendChild(headerText);

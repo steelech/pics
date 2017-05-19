@@ -1,5 +1,7 @@
 var homeView = {
-	renderHomeView: function() {
+	render: function() {
+		document.body.style="background: red";
+		
 	}
 }
 

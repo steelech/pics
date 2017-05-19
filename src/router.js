@@ -1,7 +1,7 @@
-import loginView from 'layout/login';
+import login from 'layout/login';
 import View404 from 'layout/404';
 import home from 'components/home';
-import picsView from 'components/picsView';
+import pics from 'components/pics';
 import urlParse from 'utils/urlParse';
 import Session from 'model/session';
 
@@ -14,8 +14,8 @@ const tearDownView = () => {
 
 const routeRegex = (url) => {
 	const routes = {
-		'\^$': base,
-		'\^/login$': login,
+		'\^$': base, 
+		'\^/login$': loginRoute, // only unprotected view
 		'\^/pics$': picsIndex,
 		'\^/songs$': songsIndex,
 		'\^/pics/albums$': albumsIndex,
@@ -35,120 +35,83 @@ const routeRegex = (url) => {
 	  }
 	}
 	if(!match) {
-		console.log("no match!");
+		View404.render();
 	}
 }
 
 var base = () => {
 	console.log("routing to base");
-	homeView.renderHomeView();
+	Session.validate()
+	.then(() => {
+		home.render();
+	})
+	.catch(() => {
+		login.render();
+	});
 }
 
-var login = () => {
-	console.log("routing to login");
-	loginView.renderLoginView();
+var loginRoute = () => {
+	login.render();
 }
 
 var picsIndex = () => {
-	console.log("routing to picsIndex");
 	Session.validate()
 	.then(() => {
-		picsView.renderPicsView();
+		pics.render();
 	})
 	.catch(() => {
-		homeView.renderHomeView();
-		loginView.render();
+		login.render();
 	});
 }
 
 var songsIndex = () => {
-	console.log("routing to songsIndex");
 	Session.validate()
 	.then(() => {
-		picsView.renderPicsView();
+		pics.render();
 	})
 	.catch(() => {
-		homeView.renderHomeView();
-		loginView.render();
+		login.render();
 	});
 }
 
 var albumsIndex = () => {
-	console.log("routing to albumsIndex");
 	Session.validate()
 	.then(() => {
-		picsView.renderPicsView();
+		pics.render();
 	})
 	.catch(() => {
-		homeView.renderHomeView();
-		loginView.render();
+		login.render();
 	});
 }
 
 var picDetails = () => {
-	console.log("routing to picDetails");
 	Session.validate()
 	.then(() => {
-		picsView.renderPicsView();
+		pics.render();
 	})
 	.catch(() => {
-		homeView.renderHomeView();
-		loginView.render();
+		login.render();
 	});
 }
 
 var songDetails = () => {
-	console.log("routing to songDetails");
 	Session.validate()
 	.then(() => {
-		picsView.renderPicsView();
+		pics.render();
 	})
 	.catch(() => {
-		homeView.renderHomeView();
-		loginView.render();
+		login.render();
 	});
 }
 
 var albumDetails = () => {
-	console.log("routing to albumDetails");
 	Session.validate()
 	.then(() => {
-		picsView.renderPicsView();
+		pics.render();
 	})
 	.catch(() => {
-		homeView.renderHomeView();
-		loginView.render();
+		login.render();
 	});
-}
-
-const render = (url) => {
-	switch (url["first"]) {
-		case "login":
-			if(url["rest"] != "") {
-				View404.render404View();
-			} else {
-				loginView.render();
-			}
-			break;
-
-		case "pics":
-			Session.validate()
-			.then(() => {
-				picsView.renderPicsView();
-			})
-			.catch(() => {
-				loginView.render();
-			});
-			break;
-
-		case undefined:
-			homeView.renderHomeView();
-			break;
-
-		default: 
-			View404.render404View();
-			break;
-	}
 }
 
 var renderProtectedView = (view) => {
@@ -157,23 +120,19 @@ var renderProtectedView = (view) => {
 		view();
 	})
 	.catch(() => {
-		homeView.renderHomeView();
-		loginView.render();
+		login.render();
 	});
 }
 
 var router = {
 	route: (url, load) => {
 		url = urlParse.removeTrailingBackslash(url);
-		// routeRegex(url);
-		url = urlParse.breakUpPath(url);
 		if(load) {
 			document.addEventListener('DOMContentLoaded', () => {
-				render(url);
+				routeRegex(url);
 			});
 		} else {
-			tearDownView();
-			render(url);
+			routeRegex(url);
 		}
 	},
 }

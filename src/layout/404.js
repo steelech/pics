@@ -1,5 +1,5 @@
 var View404 = {
-	render404View() {
+	render() {
 		var header = document.createElement("h1");
 		var headerText = document.createTextNode("404: Not Found")
 		header.appendChild(headerText);
