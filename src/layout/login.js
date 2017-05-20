@@ -11,13 +11,14 @@ const _collectFormData = function() {
 	};
 }
 const _tearDownLoginView = function() {
+	document.body.classList.remove('home-login-background')
 	while(document.body.firstChild) {
 		document.body.removeChild(document.body.firstChild);
 	}
 }
 
 const _tearDownLoginForm = () => {
-	// document.getElementById('login-container')
+	// document.getElementById('login-container') 
 	document.body.removeChild(document.getElementById('login-container'));
 }
 

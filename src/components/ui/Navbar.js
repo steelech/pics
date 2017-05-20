@@ -4,6 +4,9 @@ var Navbar = {
 		var navbarContainer = document.createElement("div");
 		navbarContainer.className += "navbar-container ";
 		navbarContainer.id += "navbar-container";
+		var navbarText = document.createTextNode("navbar");
+		navbarContainer.appendChild(navbarText);
+
 		document.getElementById("base-container").appendChild(navbarContainer);
 		
 	}

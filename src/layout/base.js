@@ -5,7 +5,7 @@ var baseView = {
 		// the params are used to tell us which components to render, as well
 		// as what we should pass to those components
 		console.log("path params: ", params);
-		document.body.style = "background: white";
+		document.body.style = "margin: 0";
 		var baseContainer = document.createElement("div");
 		baseContainer.className += "base-container";
 		baseContainer.id = "base-container";

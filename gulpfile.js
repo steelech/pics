@@ -9,6 +9,7 @@ var gutil = require('gulp-util');
 var source = require('vinyl-source-stream');
 var nodemon = require('gulp-nodemon');
 var sass = require('gulp-sass');
+var concat = require('gulp-concat');
 
 // returns the correct contentType for a given filename
 function getContentType(filename) {
@@ -112,6 +113,7 @@ gulp.task('index', () => {
 gulp.task('sass', () => {
 	return gulp.src('styles/**/*.scss')
 	    .pipe(sass().on('error', sass.logError))
+	    .pipe(concat('app.css'))
 	    .pipe(gulp.dest('build'));
 });
 
