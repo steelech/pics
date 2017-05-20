@@ -10,10 +10,14 @@ const _collectFormData = function() {
 		password: password
 	};
 }
-const _tearDownLoginForm = function() {
-	var tearDown = document.getElementsByClassName("login-container")[0];
-	document.body.removeChild(tearDown);
+const _tearDownLoginView = function() {
+	while(document.body.firstChild) {
+		document.body.removeChild(document.body.firstChild);
+	}
+	// var tearDown = document.getElementsByClassName("login-container")[0];
+	// document.body.removeChild(tearDown);
 }
+
 const _validateFormData = function(username, password) {
 	var response = {
 		valid: true,
@@ -62,8 +66,9 @@ var loginView = {
 				if(response.responseStatus == 200) {
 					// render home page
 					localStorage.setItem("credentials", JSON.stringify(formData));
-					history.pushState(null, null, "/pics");
-					Router.route("/pics", false);
+					history.replaceState(null, null, "/");
+					Router.route("", false);
+					_tearDownLoginView();
 				} else {
 					// tell login view to display error
 					console.log("unsuccessful login");

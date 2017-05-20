@@ -56,7 +56,6 @@ const pathObject = (path) => {
 }
 
 const routeRegex = (url) => {
-	var pathParams = pathObject(url);
 	const routes = [
 		'\^$', 
 		'\^/login$', // only unprotected view
@@ -74,22 +73,22 @@ const routeRegex = (url) => {
 	    	break;
 	    }
 	}
+	var pathParams = pathObject(url);
+	console.log(pathParams);
 	if(!match) {
 		View404.render();
 	} else {
-		if(pathParams.login) {
-			// login view
+		Session.validate()
+		.then(() => {
+			if(pathParams.login) {
+				console.log("here");
+				history.replaceState(null, null, "/");
+			}
+			base.render();
+		})
+		.catch(() => {
 			login.render();
-		} else {
-			// base view
-			Session.validate()
-			.then(() => {
-				base.render(pathParams);
-			})
-			.catch(() => {
-				login.render();
-			});
-		}
+		});
 	}
 }
 

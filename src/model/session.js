@@ -28,7 +28,6 @@ var Session = {
 				)
 				.then((data) => {
 					if(data.responseStatus == 200) {
-						console.log("resolved")
 						resolve();
 					} else {
 						reject();
