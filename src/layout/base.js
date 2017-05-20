@@ -11,6 +11,11 @@ var baseView = {
 		baseContainer.id = "base-container";
 		document.body.appendChild(baseContainer);
 		Navbar.render();
+		var contentContainer = document.createElement("div");
+		contentContainer.className = "content-container";
+		contentContainer.id = "content-container";
+		contentContainer.appendChild(document.createTextNode("main content"));
+		baseContainer.appendChild(contentContainer)
 
 
 		// document.body.style="background: #3F51B5";	
