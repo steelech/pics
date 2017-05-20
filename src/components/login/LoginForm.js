@@ -8,6 +8,7 @@ var LoginForm = {
 	_drawLoginContainer: function() {
 		this.container = document.createElement("div");
 		this.container.className = "login-container";
+		this.container.id = "login-container";
 		document.body.appendChild(this.container);
 	},
 	_drawLoginHeader: function() {

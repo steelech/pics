@@ -14,8 +14,11 @@ const _tearDownLoginView = function() {
 	while(document.body.firstChild) {
 		document.body.removeChild(document.body.firstChild);
 	}
-	// var tearDown = document.getElementsByClassName("login-container")[0];
-	// document.body.removeChild(tearDown);
+}
+
+const _tearDownLoginForm = () => {
+	// document.getElementById('login-container')
+	document.body.removeChild(document.getElementById('login-container'));
 }
 
 const _validateFormData = function(username, password) {

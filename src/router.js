@@ -87,6 +87,9 @@ const routeRegex = (url) => {
 			base.render();
 		})
 		.catch(() => {
+			if(!pathParams.login) {
+				history.replaceState(null, null, "/login");
+			}
 			login.render();
 		});
 	}

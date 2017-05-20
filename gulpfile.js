@@ -8,6 +8,7 @@ var babelify = require('babelify');
 var gutil = require('gulp-util');
 var source = require('vinyl-source-stream');
 var nodemon = require('gulp-nodemon');
+var sass = require('gulp-sass');
 
 // returns the correct contentType for a given filename
 function getContentType(filename) {
@@ -54,8 +55,8 @@ function getKey(filename) {
 	if(filename == "index.html") {
 		return "index.html";
 	}
-	if(filename == "styles.css") {
-		return "static/styles.css"
+	if(filename == "app.css") {
+		return "static/app.css"
 	}
 
 	return "static/" + filename;
@@ -85,7 +86,7 @@ function uploadFileToS3(filename) {
 }
 
 // converts es6 to es5, uploads files to s3
-gulp.task('deploy', ['es6', 'index', 'css', 'assets'], () => {
+gulp.task('deploy', ['es6', 'index', 'sass', 'assets'], () => {
 	var path = 'build/';
 	AWS.config.loadFromPath('./aws.json');
 	fs.readdir(path, function(err, files) {
@@ -108,10 +109,12 @@ gulp.task('index', () => {
 	.pipe(gulp.dest('build'));
 });
 
-gulp.task('css', () => {
-	gulp.src('styles/app.css')
-	.pipe(gulp.dest('build'));
+gulp.task('sass', () => {
+	return gulp.src('styles/**/*.scss')
+	    .pipe(sass().on('error', sass.logError))
+	    .pipe(gulp.dest('build'));
 });
+
 
 // converts js files from es6 to es5, then 'watches' all src files in the client dir
 gulp.task('default', ['develop', 'watch']);
@@ -133,7 +136,7 @@ gulp.task('es6', function() {
 	.pipe(gulp.dest('build'));
 });
 
-gulp.task('develop', ['css', 'es6', 'index', 'assets'], function() {
+gulp.task('develop', ['sass', 'es6', 'index', 'assets'], function() {
 	nodemon({
 		script: "server.js",
 		//watch: ["server.js"]
@@ -144,7 +147,7 @@ gulp.task('develop', ['css', 'es6', 'index', 'assets'], function() {
 // watches for changes in client dir
 gulp.task('watch', function() {
 	gulp.watch(['src/**/*.js'], ['es6']);
-	gulp.watch(['styles/*.css'], ['css']);
+	gulp.watch(['styles/**/*.sass'], ['sass']);
 	gulp.watch(['src/index.html'], ['index']);
 	
 });
