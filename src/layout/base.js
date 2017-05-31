@@ -1,24 +1,29 @@
 import Navbar from "components/ui/Navbar";
+import MusicPlayer from "components/ui/MusicPlayer";
 
 var baseView = {
+	_handleMusicClick() {
+		if(this.musicPlayerOpen) {
+			MusicPlayer.tearDown();
+			this.musicPlayerOpen = false;
+		} else {
+			MusicPlayer.render();
+			this.musicPlayerOpen = true;
+		}
+	},
 	render: function(params) {
-		// the params are used to tell us which components to render, as well
-		// as what we should pass to those components
-		console.log("path params: ", params);
 		document.body.style = "margin: 0";
 		var baseContainer = document.createElement("div");
 		baseContainer.className += "base-container";
 		baseContainer.id = "base-container";
 		document.body.appendChild(baseContainer);
-		Navbar.render();
+		// this.musicPlayerOpen = false;
+		Navbar.render({ onClick: this._handleMusicClick });
 		var contentContainer = document.createElement("div");
 		contentContainer.className = "content-container";
 		contentContainer.id = "content-container";
 		contentContainer.appendChild(document.createTextNode("main content"));
 		baseContainer.appendChild(contentContainer)
-
-
-		// document.body.style="background: #3F51B5";	
 	}
 }
 

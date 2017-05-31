@@ -3,7 +3,7 @@
 	position: fixed;
 	width: 100%;
 	display: inline-flex;
-	box-shadow: 0px 1px 5px #888888;
+	box-shadow: 0px 1px 1px #888888;
 }
 
 .left-navbar-control {
@@ -18,11 +18,10 @@
 }
 
 .bars-icon {
-	// &:before {
-
-	// }
+	cursor: pointer;
+	color: #191921;
 	&:hover {
-		background: green;
+		color: #323248;
 	}
 	width: 50%;
 	height: 100%;
@@ -34,29 +33,28 @@
 
 .music-icon {
 	height: 100%;
+	color: #191921;
 	&:hover {
-		background: green;
+		color: #323248;
 	}
 	width: 50%;
 	text-align: center;
-	&:before {
-		cursor: pointer;	
-	}
+	cursor: pointer;
 	font-size: 30px;
 	padding-top: 12%;
 	padding-bottom: 12%;
 }
 
+
 .sign-out-icon {
+	color: #191921;
 	&:hover {
-		background: green;
+		color: #323248;
 	}
 	height: 100%;
 	width: 100%;
 	text-align: center;
-	&:before {
-		cursor: pointer;	
-	}
+	cursor: pointer;	
 	font-size: 30px;
 	padding-top: 12%;
 	padding-bottom: 12%;

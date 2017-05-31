@@ -12,7 +12,6 @@ var Navbar = {
 		console.log('displaying the arb view');
 	},
 	_drawBars: function() {
-		console.log("drawing some fucking bars dude");
 		var barsIcon = document.createElement("i");
 		barsIcon.className += " fa fa-bars bars-icon";
 		barsIcon.id = "bars-icon"
@@ -24,12 +23,12 @@ var Navbar = {
 		signOut.id = "sign-out"
 		document.getElementById('right-navbar-control').appendChild(signOut);
 	},
-	_drawMusic: function() {
+	_drawMusic: function(onClick) {
 		var musicIcon = document.createElement("i");
 		musicIcon.className += " fa fa-music music-icon";
 		musicIcon.id = "sign-out"
 		document.getElementById('left-navbar-control').appendChild(musicIcon);
-		musicIcon.addEventListener('click', this._handleMusicClick.bind(this));
+		musicIcon.addEventListener('click', onClick);
 	},
 	_drawContainer: function() {
 		var navbarContainer = document.createElement("div");
@@ -38,14 +37,14 @@ var Navbar = {
 		document.getElementById("base-container").appendChild(navbarContainer);
 	},
 
-	_drawLeftNavigation: function() {
+	_drawLeftNavigation: function(onClick) {
 		var leftNavContainer = document.createElement("div");
 		leftNavContainer.className += "left-navbar-control";
 		leftNavContainer.id = "left-navbar-control";
 		document.getElementById('navbar-container').appendChild(leftNavContainer);
 
 		this._drawBars();
-		this._drawMusic();
+		this._drawMusic(onClick);
 	},
 	_drawRightNavigation: function() {
 		var rightNavContainer = document.createElement("div");
@@ -56,7 +55,7 @@ var Navbar = {
 	},
 	render: function(params) {
 		this._drawContainer();
-		this._drawLeftNavigation();
+		this._drawLeftNavigation(params.onClick);
 		this._drawRightNavigation();
 	}
 }
