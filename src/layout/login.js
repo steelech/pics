@@ -18,7 +18,6 @@ const _tearDownLoginView = function() {
 }
 
 const _tearDownLoginForm = () => {
-	// document.getElementById('login-container') 
 	document.body.removeChild(document.getElementById('login-container'));
 }
 
@@ -39,6 +38,7 @@ const _validateFormData = function(username, password) {
 var loginView = {
 	// login form in middle of screen
 	render: function() {
+		document.body.className = "";
 		this._drawLayout(this);
 		LoginForm.render({onClick: this.handleLogin});
 	}, 
@@ -53,6 +53,7 @@ var loginView = {
 		// else, render LoginForm
 	},
 	_drawLayout: (self) => {
+		document.body.className = "";
 		var bars = document.createElement("i");
 		bars.className += " fa fa-bars home-bars";
 		bars.id = "home-bars"

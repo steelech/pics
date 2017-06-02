@@ -11,17 +11,19 @@ var Navbar = {
 	handleArbView: function() {
 		console.log('displaying the arb view');
 	},
-	_drawBars: function() {
+	_drawBars: function(onClick) {
 		var barsIcon = document.createElement("i");
 		barsIcon.className += " fa fa-bars bars-icon";
 		barsIcon.id = "bars-icon"
 		document.getElementById('left-navbar-control').appendChild(barsIcon);
+		barsIcon.addEventListener('click', onClick);
 	},
-	_drawSignOut: function() {
+	_drawSignOut: function(onClick) {
 		var signOut = document.createElement("i");
 		signOut.className += " fa fa-sign-out sign-out-icon";
 		signOut.id = "sign-out"
 		document.getElementById('right-navbar-control').appendChild(signOut);
+		signOut.addEventListener('click', onClick)
 	},
 	_drawMusic: function(onClick) {
 		var musicIcon = document.createElement("i");
@@ -37,26 +39,26 @@ var Navbar = {
 		document.getElementById("base-container").appendChild(navbarContainer);
 	},
 
-	_drawLeftNavigation: function(onClick) {
+	_drawLeftNavigation: function(clickMusic, clickBars) {
 		var leftNavContainer = document.createElement("div");
 		leftNavContainer.className += "left-navbar-control";
 		leftNavContainer.id = "left-navbar-control";
 		document.getElementById('navbar-container').appendChild(leftNavContainer);
 
-		this._drawBars();
-		this._drawMusic(onClick);
+		this._drawBars(clickBars);
+		this._drawMusic(clickMusic);
 	},
-	_drawRightNavigation: function() {
+	_drawRightNavigation: function(clickLogout) {
 		var rightNavContainer = document.createElement("div");
 		rightNavContainer.className += "right-navbar-control";
 		rightNavContainer.id = "right-navbar-control";
 		document.getElementById('navbar-container').appendChild(rightNavContainer);
-		this._drawSignOut();
+		this._drawSignOut(clickLogout);
 	},
 	render: function(params) {
 		this._drawContainer();
-		this._drawLeftNavigation(params.onClick);
-		this._drawRightNavigation();
+		this._drawLeftNavigation(params.clickMusic, params.clickBars);
+		this._drawRightNavigation(params.clickLogout);
 	}
 }
 

@@ -90,6 +90,7 @@ const routeRegex = (url) => {
 			if(!pathParams.login) {
 				history.replaceState(null, null, "/login");
 			}
+			document.body.className = "";
 			login.render();
 		});
 	}
