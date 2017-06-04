@@ -12,9 +12,26 @@ var baseView = {
 			this.musicPlayerOpen = true;
 		}
 	},
+	_handleArbClose() {
+		document.body.className = "";
+		while(document.body.firstChild) {
+			document.body.removeChild(document.body.firstChild);
+		}
+		this.render();
+	},
 	_handleBarsClick() {
 		console.log('handling bars click');
-		// switch to ArbView (component??)
+		document.body.className = "home-login-background";
+		while(document.body.firstChild) {
+			document.body.removeChild(document.body.firstChild);
+		}
+		// draw new bars/x?
+		console.log('this: ', this);
+		var bars = document.createElement("i");
+		bars.className += " fa fa-times close-arb";
+		bars.id = "close-arb";
+		document.body.appendChild(bars);
+		document.getElementById('close-arb').addEventListener('click', this._handleArbClose.bind(this));
 	},
 	_handleLogoutClick() {	
 		console.log('handling logout click');
@@ -38,7 +55,7 @@ var baseView = {
 		document.body.appendChild(baseContainer);
 		Navbar.render({ 
 			clickMusic: this._handleMusicClick, 
-			clickBars: this._handleBarsClick, 
+			clickBars: this._handleBarsClick.bind(this), 
 			clickLogout: this._handleLogoutClick 
 		});
 

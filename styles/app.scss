@@ -27,3 +27,16 @@
 .pics-background {
 	background: pink;
 }
+
+.fa-times::before {
+	cursor: pointer;
+}
+
+.close-arb {
+	float: left;
+	top: 0px;
+	left: 0px;
+	padding: 1%;
+	position: absolute;
+	font-size: 25px;
+}
