@@ -20,13 +20,11 @@ var baseView = {
 		this.render();
 	},
 	_handleBarsClick() {
-		console.log('handling bars click');
 		document.body.className = "home-login-background";
 		while(document.body.firstChild) {
 			document.body.removeChild(document.body.firstChild);
 		}
-		// draw new bars/x?
-		console.log('this: ', this);
+		this.musicPlayerOpen = false;
 		var bars = document.createElement("i");
 		bars.className += " fa fa-times close-arb";
 		bars.id = "close-arb";
@@ -34,7 +32,6 @@ var baseView = {
 		document.getElementById('close-arb').addEventListener('click', this._handleArbClose.bind(this));
 	},
 	_handleLogoutClick() {	
-		console.log('handling logout click');
 		document.body.className = "";
 		while(document.body.firstChild) {
 			document.body.removeChild(document.body.firstChild);
@@ -42,9 +39,6 @@ var baseView = {
 		localStorage.setItem("credentials", JSON.stringify({}));
 		history.replaceState(null, null, "/login");
 		Router.route("/login", false);
-		console.log('logged out');
-		// _tearDownLoginView();
-		// switch to login view (layout, possibly use router)
 	},
 	render: function(params) {
 		document.body.style = "margin: 0";
@@ -54,9 +48,9 @@ var baseView = {
 
 		document.body.appendChild(baseContainer);
 		Navbar.render({ 
-			clickMusic: this._handleMusicClick, 
+			clickMusic: this._handleMusicClick.bind(this), 
 			clickBars: this._handleBarsClick.bind(this), 
-			clickLogout: this._handleLogoutClick 
+			clickLogout: this._handleLogoutClick.bind(this) 
 		});
 
 		var contentContainer = document.createElement("div");
