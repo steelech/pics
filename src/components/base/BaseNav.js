@@ -7,8 +7,18 @@ var BaseNav = {
 		let leftNav = document.createElement('div');
 		leftNav.className = 'leftnav-container';
 		leftNav.id = 'leftnav-container';
-		leftNav.appendChild(document.createTextNode('Pics'));
-		leftNav.appendChild(document.createTextNode('Songs'));
+		let picsTab = document.createElement('div');
+		picsTab.className = 'pics-tab';
+		picsTab.id = 'pics-tab';
+		picsTab.appendChild(document.createTextNode('Pics'));
+		let songsTab = document.createElement('div');
+		songsTab.className = 'songs-tab';
+		songsTab.id = 'songs-tab';
+		songsTab.appendChild(document.createTextNode('Songs'));
+
+
+		leftNav.appendChild(picsTab);
+		leftNav.appendChild(songsTab);
 		container.appendChild(leftNav);
 		document.getElementById('content-container').appendChild(container);
 

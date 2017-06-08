@@ -1,6 +1,18 @@
 .basenav-container {
 	margin-top: 100px;
-	margin-left: 200px;
-	margin-right: 200px;
+	margin-left: 100px;
+	margin-right: 100px;
 	border-bottom: 1px solid black;
+	padding-bottom: 20px;
+
+	.leftnav-container {
+		display: inline-flex;
+		width: 40%;
+
+		.pics-tab, .songs-tab {
+			width: 50%;
+			text-align: center;
+			font-size: 25px;
+		}
+	}
 }
