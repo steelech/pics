@@ -31,6 +31,7 @@ const picsRouteObject = (pathArray) => {
 const songsRouteObject = (pathArray) => {
 	var songsObject = {};
 	songsObject.songs = true;
+	return songsObject;
 }
 
 // clean this fucker up ASAP, this is ridiculous
@@ -84,7 +85,7 @@ const routeRegex = (url) => {
 				console.log("here");
 				history.replaceState(null, null, "/");
 			}
-			base.render();
+			base.render(pathParams);
 		})
 		.catch(() => {
 			if(!pathParams.login) {

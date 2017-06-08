@@ -1,5 +1,6 @@
 import Navbar from "components/ui/Navbar";
 import MusicPlayer from "components/ui/MusicPlayer";
+import BaseContent from "components/base/BaseContent";
 import Router from 'router';
 
 var baseView = {
@@ -53,11 +54,7 @@ var baseView = {
 			clickLogout: this._handleLogoutClick.bind(this) 
 		});
 
-		var contentContainer = document.createElement("div");
-		contentContainer.className = "content-container";
-		contentContainer.id = "content-container";
-		contentContainer.appendChild(document.createTextNode("main content"));
-		baseContainer.appendChild(contentContainer);
+		BaseContent.render(params);
 	}
 }
 
