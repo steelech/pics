@@ -15,9 +15,8 @@ var BaseContent = {
 		var contentContainer = document.createElement("div");
 		contentContainer.className = "content-container";
 		contentContainer.id = "content-container";
-		contentContainer.appendChild(document.createTextNode("base content"));
 		document.getElementById('base-container').appendChild(contentContainer);
-		// BaseNav.render({ pics: pics, songs: songs });
+		BaseNav.render({ pics: pics, songs: songs });
 	}
 };
 

@@ -15,16 +15,13 @@ var baseView = {
 	},
 	_handleArbClose() {
 		document.body.className = "";
-		while(document.body.firstChild) {
-			document.body.removeChild(document.body.firstChild);
-		}
-		this.render();
+		document.getElementById('base-container').className = 'base-container';
+		document.body.removeChild(document.getElementById('close-arb'));
 	},
 	_handleBarsClick() {
+		console.log('bars clicked');
 		document.body.className = "home-login-background";
-		while(document.body.firstChild) {
-			document.body.removeChild(document.body.firstChild);
-		}
+		document.getElementById('base-container').className += ' hidden';
 		this.musicPlayerOpen = false;
 		var bars = document.createElement("i");
 		bars.className += " fa fa-times close-arb";
