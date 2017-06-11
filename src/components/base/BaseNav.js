@@ -1,13 +1,18 @@
+
+
+
 var BaseNav = {
 	_handlePicsTabClick() {
 		console.log('clicked pics tab');
 		document.getElementById('pics-tab').classList.add('selected');
 		document.getElementById('songs-tab').classList.remove('selected');
+		history.replaceState({}, {}, '/pics');
 	},
 	_handleSongsTabClick() {
 		console.log('clicked songs tab');
 		document.getElementById('songs-tab').classList.add('selected');
 		document.getElementById('pics-tab').classList.remove('selected');
+		history.replaceState({}, {}, '/songs');
 	},
 	render: function(props) {
 		console.log('base nav:',  props);
@@ -28,7 +33,14 @@ var BaseNav = {
 		songsTab.appendChild(document.createTextNode('Songs'));
 		songsTab.addEventListener('click', this._handleSongsTabClick.bind(this));
 
-
+		if(props.songs) {
+			songsTab.classList.add('selected');
+		} else {
+			picsTab.classList.add('selected');
+			if(!props.pics) {
+				history.replaceState({}, {}, '/pics');
+			}
+		}
 
 
 
