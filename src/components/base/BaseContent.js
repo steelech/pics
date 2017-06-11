@@ -1,8 +1,14 @@
 import BaseNav from 'components/base/BaseNav';
 
 var BaseContent = {
-	render: (props) => {
-
+	_clickSongs: () => {
+		console.log('clicked songs');
+	},
+	_clickPics: () => {
+		console.log('clicked pics');	
+	},
+	render: function(props) {
+		console.log('this: ', this);
 		let {
 			pics,
 			songs,
@@ -16,7 +22,12 @@ var BaseContent = {
 		contentContainer.className = "content-container";
 		contentContainer.id = "content-container";
 		document.getElementById('base-container').appendChild(contentContainer);
-		BaseNav.render({ pics: pics, songs: songs });
+		BaseNav.render({ 
+			pics: pics, 
+			songs: songs, 
+			clickPics: this._clickPics, 
+			clickSongs: this._clickSongs
+		});
 	}
 };
 

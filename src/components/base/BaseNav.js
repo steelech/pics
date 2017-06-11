@@ -3,19 +3,23 @@
 
 var BaseNav = {
 	_handlePicsTabClick() {
-		console.log('clicked pics tab');
 		document.getElementById('pics-tab').classList.add('selected');
 		document.getElementById('songs-tab').classList.remove('selected');
 		history.replaceState({}, {}, '/pics');
+		this.props.clickPics();
 	},
 	_handleSongsTabClick() {
-		console.log('clicked songs tab');
 		document.getElementById('songs-tab').classList.add('selected');
 		document.getElementById('pics-tab').classList.remove('selected');
 		history.replaceState({}, {}, '/songs');
+		this.props.clickSongs();
 	},
+
+	// terrible, refactor asap
 	render: function(props) {
 		console.log('base nav:',  props);
+		this.props = props;
+		console.log('this.props: ', props);
 		let container = document.createElement('div');
 		container.className = 'basenav-container';
 		container.id = 'basenav-container';

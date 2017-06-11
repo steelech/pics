@@ -87,7 +87,8 @@ const routeRegex = (url) => {
 			}
 			base.render(pathParams);
 		})
-		.catch(() => {
+		.catch((error) => {
+			console.log('error: ', error);
 			if(!pathParams.login) {
 				history.replaceState(null, null, "/login");
 			}
