@@ -1,18 +1,35 @@
 .basenav-container {
+	color: grey;
 	margin-top: 100px;
 	margin-left: 100px;
 	margin-right: 100px;
-	border-bottom: 1px solid black;
-	padding-bottom: 20px;
+	border-bottom: 1px solid lightgrey;
+	padding-left: 100px;
+	padding-right: 100px;
 
 	.leftnav-container {
 		display: inline-flex;
 		width: 40%;
+		height: 40px;
 
 		.pics-tab, .songs-tab {
 			width: 50%;
 			text-align: center;
 			font-size: 25px;
+			&:hover {
+				border-radius: 5px;
+				background: lightgrey;
+			}
+			cursor: pointer;
 		}
+
+		.pics-tab {
+	
+		}
+
+		.songs-tab {
+	
+		}
+
 	}
 }
