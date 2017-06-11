@@ -6,77 +6,49 @@
 	border-bottom: 1px solid lightgrey;
 	padding-left: 100px;
 	padding-right: 100px;
+	background: lightgrey;
+	border-radius: 3px;
 
 	.leftnav-container {
 		display: inline-flex;
 		width: 400px;
-		height: 40px;
+		height: 60px;
 
 		.pics-tab, .songs-tab {
+			position: relative;
 			width: 50%;
+			padding-top: 10px;
 			text-align: center;
 			font-size: 25px;
 			&:hover {
 				border-radius: 5px;
-				background: lightgrey;
+				background: #9494a2;
 			}
 			cursor: pointer;
-		}
+			&.selected {
+				color: #3F51B5;
+				&:before, &:after {
+					content: '';
+					display: block;
+					position: absolute;
+					bottom: -2%;
+					width: 0;
+					height: 0;
+					border-style: solid;
+				}
 
-		.pics-tab {
-			position: relative;
-			text-align: center;
+				&:after {
+					left: 45%;
+					border-color: transparent transparent white transparent;
+					border-width: 10px;
+				}
 
-			&:before, &:after {
-				content: '';
-				display: block;
-				position: absolute;
-				bottom: -2%;
-				width: 0;
-				height: 0;
-				border-style: solid;
-			}
-
-			&:after {
-				left: 45%;
-				border-color: transparent transparent white transparent;
-				border-width: 10px;
-			}
-
-			&:before {
-				left: 44%;
-				border-color: transparent transparent lightgrey transparent;
-				border-width: 12px;
+				&:before {
+					left: 44%;
+					border-color: transparent transparent lightgrey transparent;
+					border-width: 12px;
+				}
 			}
 		}
-
-		.songs-tab {
-			position: relative;
-			text-align: center;
-
-			&:before, &:after {
-				content: '';
-				display: block;
-				position: absolute;
-				bottom: -2%;
-				width: 0;
-				height: 0;
-				border-style: solid;
-			}
-
-			&:after {
-				left: 45%;
-				border-color: transparent transparent white transparent;
-				border-width: 10px;
-			}
-
-			&:before {
-				left: 44%;
-				border-color: transparent transparent lightgrey transparent;
-				border-width: 12px;
-			}
-		}
-
-
 	}
 }

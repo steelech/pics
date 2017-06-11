@@ -1,9 +1,13 @@
 var BaseNav = {
 	_handlePicsTabClick() {
 		console.log('clicked pics tab');
+		document.getElementById('pics-tab').classList.add('selected');
+		document.getElementById('songs-tab').classList.remove('selected');
 	},
 	_handleSongsTabClick() {
 		console.log('clicked songs tab');
+		document.getElementById('songs-tab').classList.add('selected');
+		document.getElementById('pics-tab').classList.remove('selected');
 	},
 	render: function(props) {
 		console.log('base nav:',  props);
@@ -23,7 +27,6 @@ var BaseNav = {
 		songsTab.id = 'songs-tab';
 		songsTab.appendChild(document.createTextNode('Songs'));
 		songsTab.addEventListener('click', this._handleSongsTabClick.bind(this));
-		// event listeners for each tab
 
 
 
