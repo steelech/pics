@@ -9,7 +9,7 @@
 
 	.leftnav-container {
 		display: inline-flex;
-		width: 40%;
+		width: 400px;
 		height: 40px;
 
 		.pics-tab, .songs-tab {
@@ -19,17 +19,67 @@
 			&:hover {
 				border-radius: 5px;
 				background: lightgrey;
+				&:after {
+					border-color: lightgrey transparent transparent transparent;
+				}
 			}
 			cursor: pointer;
 		}
 
 		.pics-tab {
-	
+			position: relative;
+			text-align: center;
+
+			&:before, &:after {
+				content: '';
+				display: block;
+				position: absolute;
+				top: 100%;
+				width: 0;
+				height: 0;
+				border-style: solid;
+			}
+
+			&:after {
+				left: 42%;
+				border-color: white transparent transparent transparent;
+				border-width: 10px;
+			}
+
+			&:before {
+				left: 41%;
+				border-color: lightgrey transparent transparent transparent;
+				border-width: 12px;
+			}
 		}
 
 		.songs-tab {
-	
+			position: relative;
+			text-align: center;
+
+			&:before, &:after {
+				content: '';
+				display: block;
+				position: absolute;
+				top: 100%;
+				width: 0;
+				height: 0;
+				border-style: solid;
+			}
+
+			&:after {
+				left: 42%;
+				border-color: white transparent transparent transparent;
+				border-width: 10px;
+			}
+
+			&:before {
+				left: 41%;
+				border-color: lightgrey transparent transparent transparent;
+				border-width: 12px;
+			}
 		}
+
 
 	}
 }
