@@ -19,9 +19,6 @@
 			&:hover {
 				border-radius: 5px;
 				background: lightgrey;
-				&:after {
-					border-color: lightgrey transparent transparent transparent;
-				}
 			}
 			cursor: pointer;
 		}
@@ -34,21 +31,21 @@
 				content: '';
 				display: block;
 				position: absolute;
-				top: 100%;
+				bottom: -2%;
 				width: 0;
 				height: 0;
 				border-style: solid;
 			}
 
 			&:after {
-				left: 42%;
-				border-color: white transparent transparent transparent;
+				left: 45%;
+				border-color: transparent transparent white transparent;
 				border-width: 10px;
 			}
 
 			&:before {
-				left: 41%;
-				border-color: lightgrey transparent transparent transparent;
+				left: 44%;
+				border-color: transparent transparent lightgrey transparent;
 				border-width: 12px;
 			}
 		}
@@ -61,21 +58,21 @@
 				content: '';
 				display: block;
 				position: absolute;
-				top: 100%;
+				bottom: -2%;
 				width: 0;
 				height: 0;
 				border-style: solid;
 			}
 
 			&:after {
-				left: 42%;
-				border-color: white transparent transparent transparent;
+				left: 45%;
+				border-color: transparent transparent white transparent;
 				border-width: 10px;
 			}
 
 			&:before {
-				left: 41%;
-				border-color: lightgrey transparent transparent transparent;
+				left: 44%;
+				border-color: transparent transparent lightgrey transparent;
 				border-width: 12px;
 			}
 		}
