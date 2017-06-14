@@ -1,0 +1,19 @@
+.pics-container {
+	padding-top: 50px;
+	font-size: 35px;
+	text-align: center;
+
+	.file-upload-button {
+		width: 10%;
+		margin-left: 45%;
+		margin-right: 45%;
+		font-size: 20px;
+		border: 1px solid black;
+		border-radius: 3px; 
+		
+		&:hover {
+			background: lightgrey;
+			cursor: pointer;
+		}
+	}
+}

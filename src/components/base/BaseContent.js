@@ -21,7 +21,6 @@ var BaseContent = {
 			albumid		
 		} = props;
 
-		console.log('props: ', props);
 		var contentContainer = document.createElement("div");
 		contentContainer.className = "content-container";
 		contentContainer.id = "content-container";
