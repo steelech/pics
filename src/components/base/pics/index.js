@@ -1,9 +1,8 @@
-import Modal from "components/ui/Modal";
-
+import PicsModal from "components/base/pics/PicsModal";
 
 var picsIndex = {
 	_handleUploadButtonClick: function() {
-		Modal.render();
+		PicsModal.render();
 	},
 
 
