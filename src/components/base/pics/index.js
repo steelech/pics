@@ -1,11 +1,9 @@
+import Modal from "components/ui/Modal";
+
+
 var picsIndex = {
 	_handleUploadButtonClick: function() {
-		console.log('clicked upload button, this: ', this);
-		var modal = document.createElement('div');
-		modal.classList.add('modal');
-		modal.id = 'modal';
-		modal.appendChild(document.createTextNode('modal'));
-		document.body.appendChild(modal);
+		Modal.render();
 	},
 
 
