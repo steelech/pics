@@ -8,7 +8,11 @@ var PicsModal = {
 		var picsModalHeader = document.createElement('div');
 		picsModalHeader.classList.add('pics-modal-header');
 		picsModalHeader.id = 'pics-modal-header';
-		picsModalHeader.appendChild(document.createTextNode("picsModalHeader"));
+		var headerText = document.createElement('h1');
+		headerText.classList.add('header-text');
+		headerText.id = 'pics-modal-header-text';
+		headerText.appendChild(document.createTextNode('Add Pics'));
+		picsModalHeader.appendChild(headerText);
 
 		var picsModalContent = document.createElement('div');
 		picsModalContent.classList.add('pics-modal-content');
@@ -18,14 +22,24 @@ var PicsModal = {
 		fileUploadButton.type = 'file';
 		fileUploadButton.classList.add('upload-file');
 		fileUploadButton.id = 'upload-file';
+		fileUploadButton.multiple = "multiple";
+		fileUploadButton.onchange = function(event) {
+			console.log('event: ', event);
+		} 
 		picsModalContent.appendChild(fileUploadButton);
 
 		var fileUploadButtonLabel = document.createElement('label');
 		fileUploadButtonLabel.classList.add('file-upload-button-label');
 		fileUploadButtonLabel.id = 'file-upload-button-label';
 		fileUploadButtonLabel.htmlFor = 'upload-file';
-		fileUploadButtonLabel.appendChild(document.createTextNode('Upload File'));
+		fileUploadButtonLabel.appendChild(document.createTextNode('Browse Files'));
 		picsModalContent.appendChild(fileUploadButtonLabel);
+
+		var dragAndDrop = document.createElement('div');
+		dragAndDrop.classList.add('pics-drag-and-drop');
+		dragAndDrop.id = 'pics-drag-and-drop';
+		dragAndDrop.appendChild(document.createTextNode('or Drag and Drop'));
+		picsModalContent.appendChild(dragAndDrop);
 
 
 

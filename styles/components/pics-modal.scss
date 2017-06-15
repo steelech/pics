@@ -1,8 +1,14 @@
 .pics-modal {
 	height: 100%;
-
+	font-family: "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif;
+	.pics-modal-header {
+		border-bottom: 1px solid lightgrey;
+		font-family: "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif;
+		color: #3F51B5;
+	}
 	.pics-modal-content {
 		margin-top: 40px;
+
 		.upload-file {
 			display: none;
 		}
@@ -12,6 +18,15 @@
 			padding: 5px;
 			border: 1px solid lightgrey;
 			border-radius: 3px;
+
+			&:hover {
+				background: lightgrey;
+				cursor: pointer;
+			}
+		}
+
+		.pics-drag-and-drop {
+			margin-top: 20px;
 		}
 	}
 }
