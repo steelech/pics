@@ -1,10 +1,32 @@
 import Modal from "components/ui/Modal";
 var PicsModal = {
+	_handleDrop: function(event) {
+		event.preventDefault();
+		console.log('drop event: ', event);
+		let files = event.dataTransfer.files;
+
+		for(let index = 0;index < files.length; index++) {
+			console.log(files[index]);
+		}
+	},
 	render: function() {
 		console.log('rendering pics modal');
 		var picsModal = document.createElement('div');
 		picsModal.classList.add('pics-modal');
 		picsModal.id = 'pics-modal';
+		picsModal.ondragenter = function(event) {
+			event.preventDefault();
+			console.log('drag enter');
+		}
+		picsModal.ondragleave = function(event) {
+			event.preventDefault();
+			console.log('drag leave');
+		}
+		picsModal.ondrop = this._handleDrop;
+
+		picsModal.ondragover = function(event) {
+			event.preventDefault();
+		}
 		var picsModalHeader = document.createElement('div');
 		picsModalHeader.classList.add('pics-modal-header');
 		picsModalHeader.id = 'pics-modal-header';
