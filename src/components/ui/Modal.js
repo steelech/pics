@@ -4,7 +4,6 @@ var Modal = {
 			console.log('close');
 			document.body.removeChild(document.getElementById('modal'));
 		}
-
 	},
 	render: function(child) {
 		var modal = document.createElement('div');

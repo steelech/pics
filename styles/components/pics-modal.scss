@@ -1,3 +1,17 @@
 .pics-modal {
 	height: 100%;
+
+	.pics-modal-content {
+		margin-top: 40px;
+		.upload-file {
+			display: none;
+		}
+
+		.file-upload-button-label {
+			margin-top: 5px;
+			padding: 5px;
+			border: 1px solid lightgrey;
+			border-radius: 3px;
+		}
+	}
 }

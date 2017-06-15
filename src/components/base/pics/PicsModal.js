@@ -13,13 +13,19 @@ var PicsModal = {
 		var picsModalContent = document.createElement('div');
 		picsModalContent.classList.add('pics-modal-content');
 		picsModalContent.id = 'pics-modal-content';
-		picsModalContent.appendChild(document.createTextNode('picsModalContent'));
 
 		var fileUploadButton = document.createElement('input');
 		fileUploadButton.type = 'file';
 		fileUploadButton.classList.add('upload-file');
 		fileUploadButton.id = 'upload-file';
 		picsModalContent.appendChild(fileUploadButton);
+
+		var fileUploadButtonLabel = document.createElement('label');
+		fileUploadButtonLabel.classList.add('file-upload-button-label');
+		fileUploadButtonLabel.id = 'file-upload-button-label';
+		fileUploadButtonLabel.htmlFor = 'upload-file';
+		fileUploadButtonLabel.appendChild(document.createTextNode('Upload File'));
+		picsModalContent.appendChild(fileUploadButtonLabel);
 
 
 
