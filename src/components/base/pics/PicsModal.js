@@ -1,13 +1,28 @@
 import Modal from "components/ui/Modal";
-var PicsModal = {
-	_handleDrop: function(event) {
-		event.preventDefault();
-		console.log('drop event: ', event);
-		let files = event.dataTransfer.files;
+import { Pic, Pics } from "model/pics";
 
-		for(let index = 0;index < files.length; index++) {
-			console.log(files[index]);
-		}
+FileList.prototype.toArray = function() {
+	let files = [];
+	for(let i = 0;i < this.length;i++) {
+		files.push(this[i]);
+	}
+	return files;
+}
+
+var PicsModal = {
+	fileList: [],
+	_handleFileDrop: function(event) {
+		event.preventDefault();
+		let files = event.dataTransfer.files;
+		this.fileList = this.fileList.concat(files.toArray());
+	},
+	_handleFileUpload: function(event) {
+		var files = document.getElementById('upload-file').files;
+		this.fileList = this.fileList.concat(files.toArray());
+	},
+	_handleSubmit: function(event) {
+		console.log('submitting: ', this.fileList);
+		Pics.send(this.fileList);
 	},
 	render: function() {
 		console.log('rendering pics modal');
@@ -16,13 +31,15 @@ var PicsModal = {
 		picsModal.id = 'pics-modal';
 		picsModal.ondragenter = function(event) {
 			event.preventDefault();
+			event.currentTarget.classList.add('drag-enter');
 			console.log('drag enter');
 		}
 		picsModal.ondragleave = function(event) {
 			event.preventDefault();
+			event.currentTarget.classList.remove('drag-enter');
 			console.log('drag leave');
 		}
-		picsModal.ondrop = this._handleDrop;
+		picsModal.ondrop = this._handleFileDrop.bind(this);
 
 		picsModal.ondragover = function(event) {
 			event.preventDefault();
@@ -45,9 +62,7 @@ var PicsModal = {
 		fileUploadButton.classList.add('upload-file');
 		fileUploadButton.id = 'upload-file';
 		fileUploadButton.multiple = "multiple";
-		fileUploadButton.onchange = function(event) {
-			console.log('event: ', event);
-		} 
+		fileUploadButton.onchange = this._handleFileUpload.bind(this) 
 		picsModalContent.appendChild(fileUploadButton);
 
 		var fileUploadButtonLabel = document.createElement('label');
@@ -62,6 +77,13 @@ var PicsModal = {
 		dragAndDrop.id = 'pics-drag-and-drop';
 		dragAndDrop.appendChild(document.createTextNode('or Drag and Drop'));
 		picsModalContent.appendChild(dragAndDrop);
+
+		var submitButton = document.createElement('div');
+		submitButton.classList.add('pics-modal-submit');
+		submitButton.id = 'pics-modal-submit';
+		submitButton.appendChild(document.createTextNode('Upload'));
+		submitButton.onclick = this._handleSubmit.bind(this);
+		picsModalContent.appendChild(submitButton);
 
 
 
