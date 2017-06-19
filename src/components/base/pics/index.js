@@ -1,30 +1,34 @@
+// header(title) + album/pic create/upload buttons, margin bottom
+
 import PicsModal from "components/base/pics/PicsModal";
+import PicsHeader from "components/base/pics/PicsHeader";
+
 
 var picsIndex = {
+	_handleAlbumCreateClick: function() {
+		let props = {
+
+		}
+
+	},
 	_handleUploadButtonClick: function() {
+		let props = {
+
+		}
 		PicsModal.render();
 	},
 
-
 	render: function(props) {
-
-		var container = document.createElement('div');
-		container.classList.add('pics-container');
-		container.id = 'pics-container';
-		container.appendChild(document.createTextNode('picss index'));
 		while(document.getElementById('main-content').firstChild) {
 			document.getElementById('main-content').removeChild(document.getElementById('main-content').firstChild);
 		}
+		var container = document.createElement('div');
+		this.container = container;
+		this.container.classList.add('pics-container');
+		this.container.id = 'pics-container';
+		PicsHeader.render.call(this);
 
-
-		var fileUploadButton = document.createElement('div');
-		fileUploadButton.classList.add('file-upload-button');
-		fileUploadButton.id = 'file-upload-button';
-		fileUploadButton.appendChild(document.createTextNode('myButton'));
-		fileUploadButton.addEventListener('click', this._handleUploadButtonClick.bind(this));
-		container.appendChild(fileUploadButton);
-
-		document.getElementById('main-content').appendChild(container);
+		document.getElementById('main-content').appendChild(this.container);
 
 	}
 }
