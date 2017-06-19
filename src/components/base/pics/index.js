@@ -5,6 +5,9 @@ import PicsHeader from "components/base/pics/PicsHeader";
 
 
 var picsIndex = {
+	_handlePicsUpload: function() {
+		console.log('pics uploaded');
+	},
 	_handleAlbumCreateClick: function() {
 		let props = {
 
@@ -15,10 +18,11 @@ var picsIndex = {
 		let props = {
 
 		}
-		PicsModal.render();
+		PicsModal.render({ onSubmit: this._handlePicsUpload.bind(this)});
 	},
 
 	render: function(props) {
+		this.props = props;
 		while(document.getElementById('main-content').firstChild) {
 			document.getElementById('main-content').removeChild(document.getElementById('main-content').firstChild);
 		}

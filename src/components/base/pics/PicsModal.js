@@ -22,10 +22,14 @@ var PicsModal = {
 	},
 	_handleSubmit: function(event) {
 		console.log('submitting: ', this.fileList);
-		Pics.send(this.fileList);
+		Pics.send(this.fileList)
+			.then((message) => {
+				this.onSubmit();
+			});
 	},
-	render: function() {
+	render: function(params) {
 		console.log('rendering pics modal');
+		this.onSubmit = params.onSubmit;
 		var picsModal = document.createElement('div');
 		picsModal.classList.add('pics-modal');
 		picsModal.id = 'pics-modal';
