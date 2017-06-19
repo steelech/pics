@@ -1,32 +1,39 @@
 .pics-container {
-	padding-top: 50px;
+	padding-top: 30px;
 	font-size: 35px;
 	text-align: center;
+	font-family: "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif;
 
-	.file-upload-button {
-		width: 10%;
-		margin-left: 45%;
-		margin-right: 45%;
-		font-size: 20px;
-		border: 1px solid black;
-		border-radius: 3px; 
-		
-		&:hover {
-			background: lightgrey;
-			cursor: pointer;
+	.buttons-container {
+		display: inline-flex;
+		width: 20%;
+		float: right;
+
+		.file-upload-button {
+			width: 50%;
+			font-size: 20px;
+			border: 1px solid black;
+			border-radius: 3px; 
+			
+			&:hover {
+				background: lightgrey;
+				cursor: pointer;
+			}
+		}
+		.add-album-button {
+			width: 50%;
+			font-size: 20px;
+			border: 1px solid black;
+			border-radius: 3px; 
+			
+			&:hover {
+				background: lightgrey;
+				cursor: pointer;
+			}
 		}
 	}
-	.add-album-button {
-		width: 10%;
-		margin-left: 45%;
-		margin-right: 45%;
-		font-size: 20px;
-		border: 1px solid black;
-		border-radius: 3px; 
-		
-		&:hover {
-			background: lightgrey;
-			cursor: pointer;
-		}
+
+	.pics-header-text {
+		margin-top: 40px;
 	}
 }
