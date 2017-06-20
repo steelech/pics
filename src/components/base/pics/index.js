@@ -2,6 +2,7 @@
 
 import PicsModal from "components/base/pics/PicsModal";
 import PicsHeader from "components/base/pics/PicsHeader";
+import PicsNav from "components/base/pics/PicsNav";
 
 
 var picsIndex = {
@@ -31,6 +32,7 @@ var picsIndex = {
 		this.container.classList.add('pics-container');
 		this.container.id = 'pics-container';
 		PicsHeader.render.call(this);
+		PicsNav.render.call(this);
 
 		document.getElementById('main-content').appendChild(this.container);
 

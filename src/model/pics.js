@@ -20,7 +20,6 @@ export var Pics = {
 			var numChunks = Math.round(files.length / 30) + 1;
 			var fileList = splitUpFiles(files, numChunks);
 
-
 			var count = 0;
 			var sendPics = (index) => {
 				if(index < numChunks) {
