@@ -59,7 +59,6 @@ function getKey(filename) {
 	if(filename == "app.css") {
 		return "static/app.css"
 	}
-
 	return "static/" + filename;
 }
 
@@ -141,9 +140,7 @@ gulp.task('es6', function() {
 gulp.task('develop', ['sass', 'es6', 'index', 'assets'], function() {
 	nodemon({
 		script: "server.js",
-		//watch: ["server.js"]
-	})
-
+	});
 });
 
 // watches for changes in client dir

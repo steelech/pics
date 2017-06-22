@@ -19,7 +19,7 @@ var picsIndex = {
 		let props = {
 
 		}
-		PicsModal.render({ onSubmit: this._handlePicsUpload.bind(this)});
+		PicsModal.render({ onSubmit: picsIndex._handlePicsUpload});
 	},
 
 	render: function(props) {
@@ -31,8 +31,18 @@ var picsIndex = {
 		this.container = container;
 		this.container.classList.add('pics-container');
 		this.container.id = 'pics-container';
-		PicsHeader.render.call(this);
-		PicsNav.render.call(this);
+
+		let headerProps = {
+			handleUploadButtonClick: this._handleUploadButtonClick,
+			container: this.container
+		}
+		PicsHeader.render(headerProps);
+
+		let navProps = {
+			container: this.container,
+		}
+
+		PicsNav.render(navProps);
 
 		document.getElementById('main-content').appendChild(this.container);
 
