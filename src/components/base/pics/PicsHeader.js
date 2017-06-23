@@ -7,7 +7,6 @@ var PicsHeader = {
 	},
 	render(props) {
 		this.container = props.container;
-		console.log('rendering PicsHeader');
 
 		var picsHeader = document.createElement('div');
 		picsHeader.classList.add('pics-header');

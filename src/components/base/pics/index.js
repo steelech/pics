@@ -1,5 +1,3 @@
-// header(title) + album/pic create/upload buttons, margin bottom
-
 import PicsModal from "components/base/pics/PicsModal";
 import PicsHeader from "components/base/pics/PicsHeader";
 import PicsNav from "components/base/pics/PicsNav";
@@ -16,10 +14,9 @@ var picsIndex = {
 
 	},
 	_handleUploadButtonClick: function() {
-		let props = {
-
-		}
-		PicsModal.render({ onSubmit: picsIndex._handlePicsUpload});
+		PicsModal.render({ 
+			onSubmit: picsIndex._handlePicsUpload
+		});
 	},
 
 	render: function(props) {
@@ -38,11 +35,10 @@ var picsIndex = {
 		}
 		PicsHeader.render(headerProps);
 
-		let navProps = {
+		PicsNav.render({
 			container: this.container,
-		}
-
-		PicsNav.render(navProps);
+			tab: this.props.albums ? 'albums' : 'pics',
+		});
 
 		document.getElementById('main-content').appendChild(this.container);
 

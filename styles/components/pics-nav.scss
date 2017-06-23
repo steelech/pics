@@ -1,7 +1,43 @@
 .pics-nav-container {
 	font-size: 25px;
+	margin-bottom: 100px;
 	width: 15%;
 	border-top: 1px solid lightgrey;
 	border-right: 1px solid lightgrey;
 	border-bottom: 1px solid lightgrey;
+	border-radius: 3px;
+
+	.pics-option-container {
+		margin-top: 20px;
+		padding-top: 5px;
+		padding-bottom: 5px;
+
+
+		&.active {
+			color: #3F51B5;
+			border-right: 2px solid #3F51B5;
+		}
+
+
+		&:hover {
+			cursor: pointer;
+			background: lightgrey;
+		}
+	}
+
+	.albums-option-container {
+		margin-bottom: 20px;
+		padding-top: 5px;
+		padding-bottom: 5px;
+
+		&.active {
+			border-right: 2px solid #3F51B5;
+		}
+
+
+		&:hover {
+			cursor: pointer;
+			background: lightgrey;
+		}
+	}
 }
