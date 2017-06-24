@@ -1,43 +1,51 @@
 var PicsNav = {
-	_handlePicsClick: () => {
-		console.log('clicked pics, fuck you dude');
-		debugger
+	_handlePicsClick: function() {
+		if(this.activeTab != this.picsOptionContainer) {
+			this.activeTab.classList.remove('active');
+			this.activeTab = this.picsOptionContainer;
+			this.activeTab.classList.add('active');
+			this.props.handlePicsClick();
+		}
 	},
-	_handleAlbumsClick: () => {
-		console.log('clicked albums, fuck off');
-		debugger
+	_handleAlbumsClick: function() {
+		if(this.activeTab != this.albumsOptionContainer) {
+			this.activeTab.classList.remove('active');
+			this.activeTab = this.albumsOptionContainer;
+			this.activeTab.classList.add('active');
+			this.props.handleAlbumsClick();
+		}	
 	},
 	render(props) {
-		console.log('rendering pics nav');
 		this.container = props.container;
+		this.props = props;
 
-		var navContainer = document.createElement('div');
-		navContainer.classList.add('pics-nav-container');
-		navContainer.id = 'pics-nav-container';
+		this.navContainer = document.createElement('div');
+		this.navContainer.classList.add('pics-nav-container');
+		this.navContainer.id = 'pics-nav-container';
 
-		var picsOptionContainer = document.createElement('div');
-		picsOptionContainer.classList.add('pics-option-container');
-		picsOptionContainer.id = 'pics-option-container';
-		picsOptionContainer.appendChild(document.createTextNode('Pics'));
+		this.picsOptionContainer = document.createElement('div');
+		this.picsOptionContainer.classList.add('pics-option-container');
+		this.picsOptionContainer.id = 'pics-option-container';
+		this.picsOptionContainer.appendChild(document.createTextNode('Pics'));
 
-		var albumsOptionContainer = document.createElement('div');
-		albumsOptionContainer.classList.add('albums-option-container');
-		albumsOptionContainer.id = 'albums-option-container';
-		albumsOptionContainer.appendChild(document.createTextNode('Albums'));	
+		this.albumsOptionContainer = document.createElement('div');
+		this.albumsOptionContainer.classList.add('albums-option-container');
+		this.albumsOptionContainer.id = 'albums-option-container';
+		this.albumsOptionContainer.appendChild(document.createTextNode('Albums'));	
 
-		this.activeTab = (props.tab === 'albums' ? albumsOptionContainer : picsOptionContainer);
+		this.activeTab = (props.tab === 'albums' ? this.albumsOptionContainer : this.picsOptionContainer);
 		this.activeTab.classList.add('active');	
 
 
-		picsOptionContainer.addEventListener('click', this._handlePicsClick);
+		this.picsOptionContainer.addEventListener('click', this._handlePicsClick.bind(this));
 
-		albumsOptionContainer.addEventListener('click', this._handleAlbumsClick);
+		this.albumsOptionContainer.addEventListener('click', this._handleAlbumsClick.bind(this));
 
-		navContainer.appendChild(picsOptionContainer);
-		navContainer.appendChild(albumsOptionContainer);
+		this.navContainer.appendChild(this.picsOptionContainer);
+		this.navContainer.appendChild(this.albumsOptionContainer);
 
 
-		this.container.appendChild(navContainer);
+		this.container.appendChild(this.navContainer);
 
 	}
 }
