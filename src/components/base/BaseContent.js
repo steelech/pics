@@ -5,14 +5,15 @@ import PicsIndex from 'components/base/pics/index';
 var BaseContent = {
 	_clickSongs: () => {
 		console.log('clicked songs');
-		SongsIndex.render();
+		SongsIndex.render(this.props);
 	},
 	_clickPics: () => {
 		console.log('clicked pics');	
-		PicsIndex.render();
+		PicsIndex.render(this.props);
 	},
 	render: function(props) {
 		console.log('this: ', this);
+		this.props = props;
 		let {
 			pics,
 			songs,
@@ -28,8 +29,8 @@ var BaseContent = {
 		BaseNav.render({ 
 			pics: pics, 
 			songs: songs, 
-			clickPics: this._clickPics, 
-			clickSongs: this._clickSongs
+			clickPics: this._clickPics.bind(this), 
+			clickSongs: this._clickSongs.bind(this)
 		});
 		var mainContent = document.createElement("div");
 		mainContent.className = 'main-content';
