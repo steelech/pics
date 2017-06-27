@@ -3,11 +3,11 @@ import SongsIndex from 'components/base/songs/index';
 import PicsIndex from 'components/base/pics/index';
 
 var BaseContent = {
-	_clickSongs: () => {
+	_clickSongs: function() {
 		console.log('clicked songs');
 		SongsIndex.render(this.props);
 	},
-	_clickPics: () => {
+	_clickPics: function() {
 		console.log('clicked pics');	
 		PicsIndex.render(this.props);
 	},
