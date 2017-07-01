@@ -1,9 +1,3 @@
-export var Pic = {
-	yo: function() {
-		console.log('pics yo');
-	}
-};
-
 var splitUpFiles = (files, numChunks) => {
 	var fileList = [];
 	for(var i = 0;i < numChunks;i++) {
@@ -13,6 +7,17 @@ var splitUpFiles = (files, numChunks) => {
 }
 
 export var Pics = {
+	get: function() {
+		console.log('bout to ask the server for some pics');
+		return new Promise((resolve, reject) => {
+			var xhr = new XMLHttpRequest();
+			xhr.open('GET', 'http://localhost:8888/pics', true);
+			xhr.send();
+			xhr.onload = function() {
+				resolve(JSON.parse(this.response));
+			}
+		})
+	},
 	send: function(files) {
 
 		return new Promise((resolve, reject) => {

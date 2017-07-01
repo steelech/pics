@@ -1,7 +1,7 @@
 var picsView = {
 	render() {
 		var header = document.createElement("h1");
-	       	var headerText = document.createTextNode("Pics");
+       	var headerText = document.createTextNode("Pics");
 		header.appendChild(headerText);
 		document.body.appendChild(header);	
 		document.body.className = "pics-background";

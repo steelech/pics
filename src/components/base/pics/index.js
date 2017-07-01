@@ -1,6 +1,7 @@
 import PicsModal from "components/base/pics/PicsModal";
 import PicsHeader from "components/base/pics/PicsHeader";
 import PicsNav from "components/base/pics/PicsNav";
+import { Pics } from "model/pics";
 
 
 var picsIndex = {
@@ -61,6 +62,12 @@ var picsIndex = {
 			handlePicsClick: this._showPics.bind(this),
 			handleAlbumsClick: this._showAlbums.bind(this)
 		});
+
+		Pics.get()
+			.then((data) => {
+				console.log('done', data);
+			});
+
 
 		document.getElementById('main-content').appendChild(this.container);
 
