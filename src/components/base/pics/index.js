@@ -2,6 +2,7 @@ import PicsModal from "components/base/pics/PicsModal";
 import PicsHeader from "components/base/pics/PicsHeader";
 import PicsNav from "components/base/pics/PicsNav";
 import { Pics } from "model/pics";
+import PicsList from "components/base/pics/PicsList";
 
 
 var picsIndex = {
@@ -50,27 +51,30 @@ var picsIndex = {
 		this.container.classList.add('pics-container');
 		this.container.id = 'pics-container';
 
+
+		var picsContent = document.createElement('div');
+		picsContent.classList.add('pics-content');
+		picsContent.id = 'pics-content';
+
+
 		let headerProps = {
 			handleUploadButtonClick: this._handleUploadButtonClick.bind(this),
 			container: this.container
 		}
 		PicsHeader.render(headerProps);
 
+		this.container.appendChild(picsContent)
+
 		PicsNav.render({
-			container: this.container,
+			container: picsContent,
 			tab: this.props.albums ? 'albums' : 'pics',
 			handlePicsClick: this._showPics.bind(this),
 			handleAlbumsClick: this._showAlbums.bind(this)
 		});
 
-		Pics.get()
-			.then((data) => {
-				console.log('done', data);
-			});
-
-
 		document.getElementById('main-content').appendChild(this.container);
-
+		Pics.get()
+			.then(PicsList.render);
 	}
 }
 
