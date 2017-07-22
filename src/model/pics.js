@@ -22,7 +22,7 @@ export var Pics = {
 
 		return new Promise((resolve, reject) => {
 			// need to split up files to avoid browser timeout
-			var numChunks = Math.round(files.length / 30) + 1;
+			var numChunks = Math.ceil(files.length / 30);
 			var fileList = splitUpFiles(files, numChunks);
 
 			var count = 0;
