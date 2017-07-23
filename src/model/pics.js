@@ -4,7 +4,37 @@ var splitUpFiles = (files, numChunks) => {
 		fileList.push(files.slice(i * 30, i * 30 + 30));
 	}
 	return fileList;
+};
+
+var sendPicsChunk = (files) => {
+	return new Promise((resolve, reject) => {
+		var formData = new FormData();
+		console.log('sending: ', files);
+		files.map(file => formData.append(file.name, file));
+
+		var xhr = new XMLHttpRequest();
+		xhr.open('POST', 'http://localhost:8888/pics', true);
+		xhr.send(formData);
+
+		xhr.onload = () => {
+			resolve();
+		}
+	})
 }
+
+const sendAllPics = (fileList) => {
+	return new Promise((resolve, reject) => {
+		var sendPics = (fileList) => {
+			if(fileList.length) {
+				sendPicsChunk(fileList.pop())
+					.then(() => sendPics(fileList))
+			} else {
+				resolve();
+			}
+		}
+		sendPics(fileList);
+	})
+};
 
 export var Pics = {
 	get: function() {
@@ -25,26 +55,8 @@ export var Pics = {
 			var numChunks = Math.ceil(files.length / 30);
 			var fileList = splitUpFiles(files, numChunks);
 
-			var count = 0;
-			var sendPics = (index) => {
-				if(index < numChunks) {
-					console.log('sending: ', fileList[index]);
-					var formData = new FormData();
-					for(let i = 0;i < fileList[index].length;i++) {
-						formData.append(fileList[index][i].name, fileList[index][i])
-					}
-					var xhr = new XMLHttpRequest();
-				  	xhr.open('POST', 'http://localhost:8888/pics', true);
-					xhr.send(formData);
-
-					xhr.onload = () => {
-						sendPics(index + 1);
-					}	
-				} else {
-					resolve({ message: 'yo, we done now' });
-				}
-			}	
-			sendPics(0);
+			sendAllPics(fileList)
+				.then(resolve)
 		})
 	},
 };
