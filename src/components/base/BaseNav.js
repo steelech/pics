@@ -30,12 +30,12 @@ var BaseNav = {
 		picsTab.className = 'pics-tab';
 		picsTab.id = 'pics-tab';
 		picsTab.appendChild(document.createTextNode('Pics'));
-		picsTab.addEventListener('click', this._handlePicsTabClick.bind(this));
+		picsTab.addEventListener('click', () => this._handlePicsTabClick());
 		let songsTab = document.createElement('div');
 		songsTab.className = 'songs-tab';
 		songsTab.id = 'songs-tab';
 		songsTab.appendChild(document.createTextNode('Songs'));
-		songsTab.addEventListener('click', this._handleSongsTabClick.bind(this));
+		songsTab.addEventListener('click', () => this._handleSongsTabClick());
 
 		if(props.songs) {
 			songsTab.classList.add('selected');

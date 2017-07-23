@@ -29,8 +29,8 @@ var BaseContent = {
 		BaseNav.render({ 
 			pics: pics, 
 			songs: songs, 
-			clickPics: this._clickPics.bind(this), 
-			clickSongs: this._clickSongs.bind(this)
+			clickPics: () => this._clickPics(), 
+			clickSongs: () => this._clickSongs()
 		});
 		var mainContent = document.createElement("div");
 		mainContent.className = 'main-content';

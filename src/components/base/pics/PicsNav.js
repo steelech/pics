@@ -37,9 +37,9 @@ var PicsNav = {
 		this.activeTab.classList.add('active');	
 
 
-		this.picsOptionContainer.addEventListener('click', this._handlePicsClick.bind(this));
+		this.picsOptionContainer.addEventListener('click', () => this._handlePicsClick());
 
-		this.albumsOptionContainer.addEventListener('click', this._handleAlbumsClick.bind(this));
+		this.albumsOptionContainer.addEventListener('click', () => this._handleAlbumsClick());
 
 		this.navContainer.appendChild(this.picsOptionContainer);
 		this.navContainer.appendChild(this.albumsOptionContainer);

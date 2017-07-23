@@ -37,7 +37,7 @@ var picsIndex = {
 	},
 	_handleUploadButtonClick: function() {
 		PicsModal.render({ 
-			onSubmit: this._handlePicsUpload
+			onSubmit: () => this._handlePicsUpload()
 		});
 	},
 
@@ -58,7 +58,7 @@ var picsIndex = {
 
 
 		let headerProps = {
-			handleUploadButtonClick: this._handleUploadButtonClick.bind(this),
+			handleUploadButtonClick: () => this._handleUploadButtonClick(),
 			container: this.container
 		}
 		PicsHeader.render(headerProps);
@@ -68,8 +68,8 @@ var picsIndex = {
 		PicsNav.render({
 			container: picsContent,
 			tab: this.props.albums ? 'albums' : 'pics',
-			handlePicsClick: this._showPics.bind(this),
-			handleAlbumsClick: this._showAlbums.bind(this)
+			handlePicsClick: () => this._showPics(),
+			handleAlbumsClick: () => this._showAlbums()
 		});
 
 		document.getElementById('main-content').appendChild(this.container);

@@ -27,7 +27,7 @@ var baseView = {
 		bars.className += " fa fa-times close-arb";
 		bars.id = "close-arb";
 		document.body.appendChild(bars);
-		document.getElementById('close-arb').addEventListener('click', this._handleArbClose.bind(this));
+		document.getElementById('close-arb').addEventListener('click', () => this._handleArbClose());
 	},
 	_handleLogoutClick() {	
 		document.body.className = "";
@@ -46,9 +46,9 @@ var baseView = {
 
 		document.body.appendChild(baseContainer);
 		Navbar.render({ 
-			clickMusic: this._handleMusicClick.bind(this), 
-			clickBars: this._handleBarsClick.bind(this), 
-			clickLogout: this._handleLogoutClick.bind(this) 
+			clickMusic: () => this._handleMusicClick(), 
+			clickBars: () => this._handleBarsClick(), 
+			clickLogout: () => this._handleLogoutClick() 
 		});
 
 		BaseContent.render(params);

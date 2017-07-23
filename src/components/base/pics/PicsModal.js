@@ -43,7 +43,7 @@ var PicsModal = {
 			event.currentTarget.classList.remove('drag-enter');
 			console.log('drag leave');
 		}
-		picsModal.ondrop = this._handleFileDrop.bind(this);
+		picsModal.ondrop = (e) => this._handleFileDrop(e);
 
 		picsModal.ondragover = function(event) {
 			event.preventDefault();
@@ -66,7 +66,7 @@ var PicsModal = {
 		fileUploadButton.classList.add('upload-file');
 		fileUploadButton.id = 'upload-file';
 		fileUploadButton.multiple = "multiple";
-		fileUploadButton.onchange = this._handleFileUpload.bind(this) 
+		fileUploadButton.onchange = () => this._handleFileUpload()
 		picsModalContent.appendChild(fileUploadButton);
 
 		var fileUploadButtonLabel = document.createElement('label');
@@ -86,7 +86,7 @@ var PicsModal = {
 		submitButton.classList.add('pics-modal-submit');
 		submitButton.id = 'pics-modal-submit';
 		submitButton.appendChild(document.createTextNode('Upload'));
-		submitButton.onclick = this._handleSubmit.bind(this);
+		submitButton.onclick = () => this._handleSubmit();
 		picsModalContent.appendChild(submitButton);
 
 

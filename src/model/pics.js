@@ -38,7 +38,6 @@ const sendAllPics = (fileList) => {
 
 export var Pics = {
 	get: function() {
-		console.log('bout to ask the server for some pics');
 		return new Promise((resolve, reject) => {
 			var xhr = new XMLHttpRequest();
 			xhr.open('GET', 'http://localhost:8888/pics', true);
@@ -49,7 +48,7 @@ export var Pics = {
 		})
 	},
 	send: function(files) {
-
+		console.log('all pics: ', files);
 		return new Promise((resolve, reject) => {
 			// need to split up files to avoid browser timeout
 			var numChunks = Math.ceil(files.length / 30);
