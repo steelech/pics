@@ -11,7 +11,7 @@ const tearDownView = () => {
 };
 
 const picsRouteObject = pathArray => {
-  var picsObject = {};
+  const picsObject = {};
   picsObject.pics = true;
   if (pathArray[1]) {
     if (pathArray[1] == 'albums') {
@@ -27,29 +27,25 @@ const picsRouteObject = pathArray => {
 };
 
 const songsRouteObject = pathArray => {
-  var songsObject = {};
+  const songsObject = {};
   songsObject.songs = true;
   return songsObject;
 };
 
 // clean this fucker up ASAP, this is ridiculous
 const pathObject = path => {
-  var pathArray = path.split('/').filter(val => {
-    return val != '';
-  });
+  const pathArray = path.split('/').filter(val => val != '');
 
   if (pathArray.length == 0) {
     return {};
   }
-  var pathParams = {};
+  let pathParams = {};
   if (pathArray[0] == 'login') {
     pathParams.login = true;
-  } else {
-    if (pathArray[0] == 'pics') {
-      pathParams = picsRouteObject(pathArray);
-    } else if (pathArray[0] == 'songs') {
-      pathParams = songsRouteObject(pathArray);
-    }
+  } else if (pathArray[0] == 'pics') {
+    pathParams = picsRouteObject(pathArray);
+  } else if (pathArray[0] == 'songs') {
+    pathParams = songsRouteObject(pathArray);
   }
   return pathParams;
 };
@@ -63,16 +59,16 @@ const routeRegex = url => {
     '^/pics/albums$',
     '^/pics/([1-9])([0-9]+)?$',
     '^/songs/([1-9])([0-9]+)?$',
-    '^/pics/albums/([1-9])([0-9]+)?$'
+    '^/pics/albums/([1-9])([0-9]+)?$',
   ];
   let match = false;
-  for (var key in routes) {
+  for (const key in routes) {
     if (url.match(routes[key])) {
       match = true;
       break;
     }
   }
-  var pathParams = pathObject(url);
+  const pathParams = pathObject(url);
   console.log(pathParams);
   if (!match) {
     View404.render();
@@ -96,7 +92,7 @@ const routeRegex = url => {
   }
 };
 
-var router = {
+const router = {
   route: (url, load) => {
     url = urlParse.removeTrailingBackslash(url);
     if (load) {
@@ -106,7 +102,7 @@ var router = {
     } else {
       routeRegex(url);
     }
-  }
+  },
 };
 
 export default router;

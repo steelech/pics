@@ -1,31 +1,31 @@
 import Api from 'utils/api';
-var Session = {
-  login: (username, password) => {
-    return new Promise((resolve, reject) => {
+
+const Session = {
+  login: (username, password) =>
+    new Promise((resolve, reject) => {
       Api.sendRequestToBackend(
         {
-          username: username,
-          password: password
+          username,
+          password,
         },
         'login',
-        'POST'
-      ).then(function(data) {
+        'POST',
+      ).then(data => {
         console.log('data: ', data);
         resolve(data);
       });
-    });
-  },
-  validate: () => {
-    return new Promise((resolve, reject) => {
-      var creds = JSON.parse(localStorage.getItem('credentials'));
+    }),
+  validate: () =>
+    new Promise((resolve, reject) => {
+      const creds = JSON.parse(localStorage.getItem('credentials'));
       if (creds) {
         Api.sendRequestToBackend(
           {
             username: creds.username,
-            password: creds.password
+            password: creds.password,
           },
           'session/validate',
-          'POST'
+          'POST',
         ).then(data => {
           if (data.responseStatus == 200) {
             resolve();
@@ -36,8 +36,7 @@ var Session = {
       } else {
         reject();
       }
-    });
-  }
+    }),
 };
 
 export default Session;

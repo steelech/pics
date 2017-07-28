@@ -1,4 +1,4 @@
-var urlParse = {
+const urlParse = {
   removeTrailingBackslash(url) {
     if (url.endsWith('/')) {
       url = url.substring(0, url.length - 1);
@@ -9,14 +9,14 @@ var urlParse = {
     // get the first part of the path, return an object
     // w/ the first part and then the second part as separate
     // strings
-    var pathArray = url.split('/');
+    const pathArray = url.split('/');
     pathArray.splice(0, 1);
-    var obj = {
+    const obj = {
       first: pathArray.splice(0, 1)[0],
-      rest: pathArray.join('/')
+      rest: pathArray.join('/'),
     };
     return obj;
-  }
+  },
 };
 
 export default urlParse;

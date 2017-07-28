@@ -1,27 +1,26 @@
-var Api = {
-  sendRequestToBackend: (data, endpoint, method) => {
-    return new Promise((resolve, reject) => {
-      let fullPath = `http://localhost:8888/${endpoint}`;
-      var request = new XMLHttpRequest();
+const Api = {
+  sendRequestToBackend: (data, endpoint, method) =>
+    new Promise((resolve, reject) => {
+      const fullPath = `http://localhost:8888/${endpoint}`;
+      const request = new XMLHttpRequest();
       request.open(method, fullPath, true);
       request.setRequestHeader('Content-Type', 'application/json');
       request.send(JSON.stringify(data));
 
-      request.addEventListener('load', function(e) {
-        var responseStatus = e.target.status;
-        var responseData = JSON.parse(e.target.response);
+      request.addEventListener('load', e => {
+        const responseStatus = e.target.status;
+        const responseData = JSON.parse(e.target.response);
 
-        var response = {
-          responseStatus: responseStatus,
-          responseData: responseData
+        const response = {
+          responseStatus,
+          responseData,
         };
         resolve(response);
       });
-      request.addEventListener('error', function(e) {
+      request.addEventListener('error', e => {
         console.log('error!', e);
       });
-    });
-  }
+    }),
 };
 
 export default Api;
