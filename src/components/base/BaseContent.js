@@ -22,7 +22,6 @@ var BaseContent = {
     console.log('this: ', this);
     this.props = props;
     let { pics, songs, picid, albums, albumid } = props;
-
     var contentContainer = document.createElement('div');
     contentContainer.className = 'content-container';
     contentContainer.id = 'content-container';
