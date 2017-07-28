@@ -1,6 +1,3 @@
-
-
-
 var BaseNav = {
 	_handlePicsTabClick() {
 		document.getElementById('pics-tab').classList.add('selected');
