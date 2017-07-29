@@ -1,15 +1,14 @@
 const splitUpFiles = (files, numChunks) => {
   const fileList = [];
-  for (let i = 0; i < numChunks; i++) {
-    fileList.push(files.slice(i * 30, i * 30 + 30));
+  for (let i = 0; i < numChunks; i += 1) {
+    fileList.push(files.slice(i * 30, (i * 30) + 30));
   }
   return fileList;
 };
 
 const sendPicsChunk = files =>
-  new Promise((resolve, reject) => {
+  new Promise((resolve) => {
     const formData = new FormData();
-    console.log('sending: ', files);
     files.map(file => formData.append(file.name, file));
 
     const xhr = new XMLHttpRequest();
@@ -22,8 +21,8 @@ const sendPicsChunk = files =>
   });
 
 const sendAllPics = fileList =>
-  new Promise((resolve, reject) => {
-    var sendPics = fileList => {
+  new Promise((resolve) => {
+    const sendPics = (fileList) => {
       if (fileList.length) {
         sendPicsChunk(fileList.pop()).then(() => sendPics(fileList));
       } else {
@@ -33,20 +32,19 @@ const sendAllPics = fileList =>
     sendPics(fileList);
   });
 
-export var Pics = {
+const Pics = {
   get() {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       const xhr = new XMLHttpRequest();
       xhr.open('GET', 'http://localhost:8888/pics', true);
       xhr.send();
-      xhr.onload = function() {
+      xhr.onload = () => {
         resolve(JSON.parse(this.response));
       };
     });
   },
   send(files) {
-    console.log('all pics: ', files);
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       // need to split up files to avoid browser timeout
       const numChunks = Math.ceil(files.length / 30);
       const fileList = splitUpFiles(files, numChunks);
@@ -55,3 +53,4 @@ export var Pics = {
     });
   },
 };
+export default Pics;

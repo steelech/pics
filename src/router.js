@@ -4,17 +4,11 @@ import base from 'layout/base';
 import urlParse from 'utils/urlParse';
 import Session from 'model/session';
 
-const tearDownView = () => {
-  while (document.body.firstChild) {
-    document.body.removeChild(document.body.firstChild);
-  }
-};
-
-const picsRouteObject = pathArray => {
+const picsRouteObject = (pathArray) => {
   const picsObject = {};
   picsObject.pics = true;
   if (pathArray[1]) {
-    if (pathArray[1] == 'albums') {
+    if (pathArray[1] === 'albums') {
       picsObject.albums = true;
       if (pathArray[2]) {
         picsObject.albumid = pathArray[2];
@@ -26,31 +20,31 @@ const picsRouteObject = pathArray => {
   return picsObject;
 };
 
-const songsRouteObject = pathArray => {
+const songsRouteObject = (pathArray) => {
   const songsObject = {};
   songsObject.songs = true;
   return songsObject;
 };
 
 // clean this fucker up ASAP, this is ridiculous
-const pathObject = path => {
-  const pathArray = path.split('/').filter(val => val != '');
+const pathObject = (path) => {
+  const pathArray = path.split('/').filter(val => val !== '');
 
-  if (pathArray.length == 0) {
+  if (pathArray.length === 0) {
     return {};
   }
   let pathParams = {};
-  if (pathArray[0] == 'login') {
+  if (pathArray[0] === 'login') {
     pathParams.login = true;
-  } else if (pathArray[0] == 'pics') {
+  } else if (pathArray[0] === 'pics') {
     pathParams = picsRouteObject(pathArray);
-  } else if (pathArray[0] == 'songs') {
+  } else if (pathArray[0] === 'songs') {
     pathParams = songsRouteObject(pathArray);
   }
   return pathParams;
 };
 
-const routeRegex = url => {
+const routeRegex = (url) => {
   const routes = [
     '^$',
     '^/login$', // only unprotected view
@@ -69,20 +63,17 @@ const routeRegex = url => {
     }
   }
   const pathParams = pathObject(url);
-  console.log(pathParams);
   if (!match) {
     View404.render();
   } else {
     Session.validate()
       .then(() => {
         if (pathParams.login) {
-          console.log('here');
           history.replaceState(null, null, '/');
         }
         base.render(pathParams);
       })
-      .catch(error => {
-        console.log('error: ', error);
+      .catch(() => {
         if (!pathParams.login) {
           history.replaceState(null, null, '/login');
         }
@@ -94,13 +85,13 @@ const routeRegex = url => {
 
 const router = {
   route: (url, load) => {
-    url = urlParse.removeTrailingBackslash(url);
+    const parsedUrl = urlParse.removeTrailingBackslash(url);
     if (load) {
       document.addEventListener('DOMContentLoaded', () => {
-        routeRegex(url);
+        routeRegex(parsedUrl);
       });
     } else {
-      routeRegex(url);
+      routeRegex(parsedUrl);
     }
   },
 };
