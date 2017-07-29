@@ -1,5 +1,5 @@
 import Modal from 'components/ui/Modal';
-import { Pic, Pics } from 'model/pics';
+import Pics from 'model/pics';
 
 FileList.prototype.toArray = function() {
   const files = [];
