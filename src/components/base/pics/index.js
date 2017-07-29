@@ -1,7 +1,7 @@
 import PicsModal from 'components/base/pics/PicsModal';
 import PicsHeader from 'components/base/pics/PicsHeader';
 import PicsNav from 'components/base/pics/PicsNav';
-import { Pics } from 'model/pics';
+import Pics from 'model/pics';
 import PicsList from 'components/base/pics/PicsList';
 
 const picsIndex = {
