@@ -38,7 +38,7 @@ const Pics = {
       const xhr = new XMLHttpRequest();
       xhr.open('GET', 'http://localhost:8888/pics', true);
       xhr.send();
-      xhr.onload = () => {
+      xhr.onload = function () {
         resolve(JSON.parse(this.response));
       };
     });
