@@ -38,7 +38,6 @@ const baseView = {
     Router.route('/login', false);
   },
   render(params) {
-    document.body.style = 'margin: 0';
     const baseContainer = document.createElement('div');
     baseContainer.className += 'base-container';
     baseContainer.id = 'base-container';

@@ -1,3 +1,7 @@
+body {
+	margin: 0px;
+}
+
 .content-container {
 	border: 1px solid lightgrey;
 	border-radius: 3px;
@@ -28,7 +32,7 @@
 	-webkit-background-size: cover;
 	-moz-background-size: cover;
 	-o-background-size: cover;
-	background-size: cover;	    
+	background-size: cover;
 }
 
 .pics-background {
