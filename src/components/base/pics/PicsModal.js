@@ -62,6 +62,7 @@ const PicsModal = {
 
     const fileUploadButton = document.createElement('input');
     fileUploadButton.type = 'file';
+    fileUploadButton.accept = '.jpg, .png';
     fileUploadButton.classList.add('upload-file');
     fileUploadButton.id = 'upload-file';
     fileUploadButton.multiple = 'multiple';
