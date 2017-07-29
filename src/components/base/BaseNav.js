@@ -14,9 +14,7 @@ const BaseNav = {
 
   // terrible, refactor asap
   render(props) {
-    console.log('base nav:', props);
     this.props = props;
-    console.log('this.props: ', props);
     const container = document.createElement('div');
     container.className = 'basenav-container';
     container.id = 'basenav-container';

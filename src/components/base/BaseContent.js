@@ -4,11 +4,9 @@ import PicsIndex from 'components/base/pics/index';
 
 const BaseContent = {
   _clickSongs() {
-    console.log('clicked songs');
     this.render({ songs: true });
   },
   _clickPics() {
-    console.log('clicked pics');
     this.render({ pics: true, albums: this.props.albums });
   },
   render(props) {
@@ -17,7 +15,6 @@ const BaseContent = {
         .getElementById('base-container')
         .removeChild(document.getElementById('content-container'));
     }
-    console.log('this: ', this);
     this.props = props;
     const { pics, songs, picid, albums, albumid } = props;
     const contentContainer = document.createElement('div');
