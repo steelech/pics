@@ -2,7 +2,7 @@ import PicsRow from 'components/base/pics/PicsRow';
 const splitUpFiles = (files, numChunks) => {
   const fileList = [];
   for (let i = 0; i < numChunks; i += 1) {
-    fileList.push(files.slice(i * 3, (i * 3) + 3));
+    fileList.push(files.slice(i * 4, (i * 4) + 4));
   }
   return fileList;
 };
@@ -14,7 +14,7 @@ const PicsList = {
     picsListContainer.classList.add('pics-list');
     picsListContainer.id = 'pics-list';
 
-    const numChunks = Math.ceil(pics.length / 3);
+    const numChunks = Math.ceil(pics.length / 4);
     const fileList = splitUpFiles(pics, numChunks);
 
     fileList.map((pics) => {

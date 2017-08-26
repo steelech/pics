@@ -1,0 +1,11 @@
+.thumbnail-wrapper {
+  width: 25%;
+
+  .thumbnail {
+    border: 1px solid lightgrey;
+    border-radius: 2px;
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}
