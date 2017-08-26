@@ -3,6 +3,7 @@ import PicsHeader from 'components/base/pics/PicsHeader';
 import PicsNav from 'components/base/pics/PicsNav';
 import Pics from 'model/pics';
 import PicsList from 'components/base/pics/PicsList';
+import AlbumsIndex from 'components/base/pics/albums/index';
 
 const picsIndex = {
   _showPics() {
@@ -59,6 +60,7 @@ const picsIndex = {
     picsContent.id = 'pics-content';
 
     const headerProps = {
+      albums: props.albums,
       handleUploadButtonClick: () => this._handleUploadButtonClick(),
       container: this.container,
     };
@@ -74,7 +76,10 @@ const picsIndex = {
     });
 
     document.getElementById('main-content').appendChild(this.container);
-    Pics.get().then(PicsList.render);
+
+    props.albums
+      ? props.albumid ? AlbumsIndex.render() : AlbumsIndex.render()
+      : Pics.get().then(PicsList.render);
   },
 };
 
