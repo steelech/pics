@@ -1,12 +1,47 @@
 import Modal from 'components/ui/Modal';
 import Pics from 'model/pics';
 
-FileList.prototype.toArray = function() {
+FileList.prototype.toArray = function () {
   const files = [];
   for (let i = 0; i < this.length; i++) {
     files.push(this[i]);
   }
   return files;
+};
+
+const tearDownLoader = () => {
+  const wrapper = document.getElementById('modal');
+  if (wrapper) {
+    while (wrapper.firstChild) {
+      wrapper.removeChild(wrapper.firstChild);
+    }
+  }
+  document.body.removeChild(wrapper);
+};
+
+const renderLoader = () => {
+  const wrapper = document.getElementById('pics-modal');
+  if (wrapper) {
+    while (wrapper.firstChild) {
+      wrapper.removeChild(wrapper.firstChild);
+    }
+  }
+  const loadingSpinner = document.createElement('div');
+  loadingSpinner.id = 'loading-spinner';
+  loadingSpinner.classList.add('loading-spinner');
+
+  const loader = document.createElement('div');
+  loader.id = 'loader';
+  loader.classList.add('loader');
+  loadingSpinner.appendChild(loader);
+  wrapper.appendChild(loadingSpinner);
+  const refreshWarning = document.createElement('div');
+  refreshWarning.id = 'refresh-warning';
+  refreshWarning.classList.add('refresh-warning');
+  refreshWarning.appendChild(
+    document.createTextNode('Processing pictures. Please do not refresh.'),
+  );
+  wrapper.appendChild(refreshWarning);
 };
 
 const PicsModal = {
@@ -22,7 +57,10 @@ const PicsModal = {
   },
   _handleSubmit(event) {
     console.log('submitting: ', this.fileList);
-    Pics.send(this.fileList).then(message => {
+    // tear down view, render loading spinner + message
+    renderLoader();
+    Pics.send(this.fileList).then((message) => {
+      tearDownLoader();
       this.onSubmit();
     });
   },
@@ -32,19 +70,19 @@ const PicsModal = {
     const picsModal = document.createElement('div');
     picsModal.classList.add('pics-modal');
     picsModal.id = 'pics-modal';
-    picsModal.ondragenter = function(event) {
+    picsModal.ondragenter = function (event) {
       event.preventDefault();
       event.currentTarget.classList.add('drag-enter');
       console.log('drag enter');
     };
-    picsModal.ondragleave = function(event) {
+    picsModal.ondragleave = function (event) {
       event.preventDefault();
       event.currentTarget.classList.remove('drag-enter');
       console.log('drag leave');
     };
     picsModal.ondrop = e => this._handleFileDrop(e);
 
-    picsModal.ondragover = function(event) {
+    picsModal.ondragover = function (event) {
       event.preventDefault();
     };
     const picsModalHeader = document.createElement('div');

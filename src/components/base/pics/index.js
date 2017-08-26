@@ -31,6 +31,7 @@ const picsIndex = {
   },
   _handlePicsUpload() {
     console.log('pics uploaded');
+    this.render({});
   },
   _handleAlbumCreateClick() {
     const props = {};

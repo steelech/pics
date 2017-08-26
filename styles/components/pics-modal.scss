@@ -1,51 +1,88 @@
 .pics-modal {
+  .refresh-warning {
+    margin-top: 40px;
+  }
+  .loading-spinner {
+    width: 30%;
+    margin-left: 35%;
+    margin-right: 35%;
+    margin-top: 100px;
 
-	// &.drag-enter {
-	// 	background: lightgrey;
-	// }
+    .loader {
+      border: 16px solid #f3f3f3;
+      border-radius: 50%;
+      border-top: 16px solid #3498db;
+      width: 120px;
+      height: 120px;
+      -webkit-animation: spin 2s linear infinite;
+      animation: spin 2s linear infinite;
+    }
 
-	height: 100%;
-	font-family: "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif;
-	.pics-modal-header {
-		border-bottom: 1px solid lightgrey;
-		font-family: "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif;
-		color: #3F51B5;
-	}
-	.pics-modal-content {
-		margin-top: 40px;
+    @-webkit-keyframes spin {
+      0% {
+        -webkit-transform: rotate(0deg);
+      }
+      100% {
+        -webkit-transform: rotate(360deg);
+      }
+    }
 
-		.upload-file {
-			display: none;
-		}
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+  }
 
-		.file-upload-button-label {
-			margin-top: 5px;
-			padding: 5px;
-			border: 1px solid lightgrey;
-			border-radius: 3px;
+  // &.drag-enter {
+  // 	background: lightgrey;
+  // }
 
-			&:hover {
-				background: lightgrey;
-				cursor: pointer;
-			}
-		}
+  height: 100%;
+  font-family: "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif;
+  .pics-modal-header {
+    border-bottom: 1px solid lightgrey;
+    font-family: "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif;
+    color: #3f51b5;
+  }
+  .pics-modal-content {
+    margin-top: 40px;
 
-		.pics-drag-and-drop {
-			margin-top: 20px;
-		}
+    .upload-file {
+      display: none;
+    }
 
-		.pics-modal-submit {
-			margin-top: 30px;
-			border: 1px solid lightgrey;
-			width: 15%;
-			margin-left: 42.5%;
-			margin-right: 42.5%;
-			padding: 3px;
-			border-radius: 3px;
+    .file-upload-button-label {
+      margin-top: 5px;
+      padding: 5px;
+      border: 1px solid lightgrey;
+      border-radius: 3px;
 
-			&:hover {
-				background: lightgrey;
-			}
-		}
-	}
+      &:hover {
+        background: lightgrey;
+        cursor: pointer;
+      }
+    }
+
+    .pics-drag-and-drop {
+      margin-top: 20px;
+    }
+
+    .pics-modal-submit {
+      margin-top: 30px;
+      border: 1px solid lightgrey;
+      width: 15%;
+      margin-left: 42.5%;
+      margin-right: 42.5%;
+      padding: 3px;
+      border-radius: 3px;
+
+      &:hover {
+        background: lightgrey;
+      }
+    }
+  }
 }
