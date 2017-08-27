@@ -4,6 +4,7 @@ import PicsNav from 'components/base/pics/PicsNav';
 import Pics from 'model/pics';
 import PicsList from 'components/base/pics/PicsList';
 import AlbumsIndex from 'components/base/pics/albums/index';
+import AlbumsModal from 'components/base/pics/albums/AlbumsModal';
 
 const picsIndex = {
   _showPics() {
@@ -36,6 +37,10 @@ const picsIndex = {
   },
   _handleAlbumCreateClick() {
     const props = {};
+    console.log('clicked album create button');
+    AlbumsModal.render({
+      container: this.container,
+    });
   },
   _handleUploadButtonClick() {
     PicsModal.render({
@@ -62,6 +67,7 @@ const picsIndex = {
     const headerProps = {
       albums: props.albums,
       handleUploadButtonClick: () => this._handleUploadButtonClick(),
+      handleAlbumCreateClick: () => this._handleAlbumCreateClick(),
       container: this.container,
     };
     PicsHeader.render(headerProps);
