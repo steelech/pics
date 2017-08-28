@@ -35,11 +35,14 @@ const picsIndex = {
     console.log('pics uploaded');
     this.render({});
   },
+  handleAlbumSubmit() {
+    AlbumsIndex.render();
+  },
   _handleAlbumCreateClick() {
     const props = {};
     console.log('clicked album create button');
     AlbumsModal.render({
-      container: this.container,
+      onSubmit: () => this.handleAlbumSubmit(),
     });
   },
   _handleUploadButtonClick() {

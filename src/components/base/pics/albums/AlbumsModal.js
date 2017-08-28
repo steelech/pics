@@ -2,12 +2,13 @@ import Modal from 'components/ui/modal';
 import Albums from 'model/albums';
 
 const AlbumsModal = {
+  tearDown() {
+    document.body.removeChild(document.getElementById('modal'));
+  },
   handleSubmit() {
-    console.log('handling submit');
     const albumName = document.getElementById('album-name-input-field').value;
-    Albums.create(albumName).then(() => {
-      console.log('album created');
-    });
+    Albums.create(albumName).then(this.onSubmit);
+    this.tearDown();
   },
   drawHeader({ container }) {
     const wrapper = document.createElement('div');
@@ -45,7 +46,7 @@ const AlbumsModal = {
     albumSubmitButton.classList.add('album-submit-button');
     albumSubmitButton.appendChild(document.createTextNode('Submit'));
 
-    albumSubmitButton.addEventListener('click', this.handleSubmit);
+    albumSubmitButton.addEventListener('click', () => this.handleSubmit());
     albumSubmitButton.addEventListener('mousedown', () => {
       document.getElementById('album-submit-button').classList.add('clicked');
     });
@@ -64,7 +65,8 @@ const AlbumsModal = {
     this.drawSubmitButton({ wrapper });
     container.appendChild(wrapper);
   },
-  render() {
+  render({ onSubmit }) {
+    this.onSubmit = () => onSubmit();
     const container = document.createElement('div');
     container.id = 'albums-modal';
     container.classList.add('albums-modal');
