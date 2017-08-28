@@ -2,8 +2,6 @@ import Modal from 'components/ui/modal';
 
 const AlbumsModal = {
   drawHeader({ container }) {
-    console.log('rendering AlbumsModal header');
-
     const wrapper = document.createElement('div');
     wrapper.id = 'albums-modal-header';
     wrapper.classList.add('albums-modal-header');
@@ -11,21 +9,45 @@ const AlbumsModal = {
     const headerText = document.createElement('h1');
     headerText.id = 'albums-modal-header-text';
     headerText.classList.add('albums-modal-header-text');
-    headerText.appendChild(document.createTextNode('Albums Modal Header'));
+    headerText.appendChild(document.createTextNode('New Album'));
 
     wrapper.appendChild(headerText);
     container.appendChild(wrapper);
   },
+  drawAlbumNameInput({ wrapper }) {
+    const albumNameInput = document.createElement('div');
+    albumNameInput.id = 'album-name-input';
+    albumNameInput.classList.add('album-name-input');
+
+    const albumNameInputField = document.createElement('input');
+    albumNameInputField.id = 'album-name-input-field';
+    albumNameInputField.classList.add('album-name-input-field');
+    albumNameInputField.placeholder = 'Album Name';
+    albumNameInput.appendChild(albumNameInputField);
+
+    wrapper.appendChild(albumNameInput);
+  },
+  drawSubmitButton({ wrapper }) {
+    const albumSubmit = document.createElement('div');
+    albumSubmit.id = 'album-submit';
+    albumSubmit.classList.add('album-submit');
+
+    const albumSubmitButton = document.createElement('div');
+    albumSubmitButton.id = 'album-submit-button';
+    albumSubmitButton.classList.add('album-submit-button');
+    albumSubmitButton.appendChild(document.createTextNode('Submit'));
+    albumSubmit.appendChild(albumSubmitButton);
+    wrapper.appendChild(albumSubmit);
+  },
   drawForm({ container }) {
-    console.log('rendering AlbumsModal form');
     const wrapper = document.createElement('div');
     wrapper.id = 'albums-modal-form';
     wrapper.classList.add('albums-modal-form');
-    wrapper.appendChild(document.createTextNode('Albums Modal Form'));
+    this.drawAlbumNameInput({ wrapper });
+    this.drawSubmitButton({ wrapper });
     container.appendChild(wrapper);
   },
   render() {
-    console.log('rendering albums modal');
     const container = document.createElement('div');
     container.id = 'albums-modal';
     container.classList.add('albums-modal');
