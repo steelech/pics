@@ -42,6 +42,10 @@
         padding-top: 5px;
         font-size: 20px;
         cursor: pointer;
+
+        &.clicked {
+          background: #6c79c1;
+        }
       }
     }
   }

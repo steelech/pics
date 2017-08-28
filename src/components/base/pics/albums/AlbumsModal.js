@@ -36,6 +36,13 @@ const AlbumsModal = {
     albumSubmitButton.id = 'album-submit-button';
     albumSubmitButton.classList.add('album-submit-button');
     albumSubmitButton.appendChild(document.createTextNode('Submit'));
+    albumSubmitButton.addEventListener('mousedown', () => {
+      document.getElementById('album-submit-button').classList.add('clicked');
+    });
+    albumSubmitButton.addEventListener('mouseup', () => {
+      document.getElementById('album-submit-button').classList.remove('clicked');
+    });
+
     albumSubmit.appendChild(albumSubmitButton);
     wrapper.appendChild(albumSubmit);
   },
