@@ -36,7 +36,8 @@ const picsIndex = {
     this.render({});
   },
   handleAlbumSubmit() {
-    AlbumsIndex.render();
+    history.replaceState({}, {}, '/pics/albums');
+    this.render({ albums: true });
   },
   _handleAlbumCreateClick() {
     const props = {};
