@@ -1,8 +1,9 @@
 import PicsRow from 'components/base/pics/PicsRow';
+
 const splitUpFiles = (files, numChunks) => {
   const fileList = [];
   for (let i = 0; i < numChunks; i += 1) {
-    fileList.push(files.slice(i * 4, (i * 4) + 4));
+    fileList.push(files.slice(i * 4, i * 4 + 4));
   }
   return fileList;
 };
@@ -18,13 +19,11 @@ const PicsList = {
     const fileList = splitUpFiles(pics, numChunks);
 
     fileList.map((pics) => {
-      // const thisPic = document.createElement('img');
-      // thisPic.src = pic.thmbUrl;
       const params = {
         pics,
-        container: picsListContainer
+        container: picsListContainer,
       };
-      PicsRow.render(params)
+      PicsRow.render(params);
     });
     document.getElementById('pics-content').appendChild(picsListContainer);
   },

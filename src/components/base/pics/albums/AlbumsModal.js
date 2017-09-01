@@ -32,6 +32,7 @@ const AlbumsModal = {
     albumNameInputField.id = 'album-name-input-field';
     albumNameInputField.classList.add('album-name-input-field');
     albumNameInputField.placeholder = 'Album Name';
+    albumNameInputField.autofocus = true;
     albumNameInput.appendChild(albumNameInputField);
 
     wrapper.appendChild(albumNameInput);

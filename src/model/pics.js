@@ -1,7 +1,7 @@
 const splitUpFiles = (files, numChunks) => {
   const fileList = [];
   for (let i = 0; i < numChunks; i += 1) {
-    fileList.push(files.slice(i * 30, (i * 30) + 30));
+    fileList.push(files.slice(i * 30, i * 30 + 30));
   }
   return fileList;
 };
@@ -10,6 +10,7 @@ const sendPicsChunk = files =>
   new Promise((resolve) => {
     const formData = new FormData();
     files.map(file => formData.append(file.name, file));
+    formData.append('selectedAlbum', "charlie's album");
 
     const xhr = new XMLHttpRequest();
     xhr.open('POST', 'http://localhost:8888/pics', true);
