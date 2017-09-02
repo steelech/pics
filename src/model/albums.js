@@ -12,10 +12,14 @@ const Albums = {
       };
     });
   },
-  get() {
+  get(query) {
+    const { id } = query;
     return new Promise((resolve, reject) => {
       const xhr = new XMLHttpRequest();
-      xhr.open('GET', 'http://localhost:8888/albums', true);
+      const albumsQuery = id ? `?id=${id}` : '';
+      console.log(`AlbumID: ${id}`);
+      console.log(`QUERYSTRING: ${albumsQuery}`);
+      xhr.open('GET', `http://localhost:8888/albums${albumsQuery}`, true);
       xhr.send();
       xhr.onload = function () {
         resolve(JSON.parse(this.response));

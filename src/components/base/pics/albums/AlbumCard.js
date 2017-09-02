@@ -7,6 +7,7 @@ const AlbumCard = {
     const albumCard = document.createElement('div');
     albumCard.id = 'album-card';
     albumCard.classList.add('album-card');
+    albumCard.addEventListener('click', id => onClick());
 
     const icon = document.createElement('i');
     icon.className = 'fa fa-folder';
@@ -15,12 +16,11 @@ const AlbumCard = {
     cardText.classList.add('album-card-text');
     cardText.appendChild(document.createTextNode(album.name));
 
-
+    console.log('album: ', album);
     albumCard.appendChild(icon);
     albumCard.appendChild(cardText);
     wrapper.appendChild(albumCard);
     albumsRow.appendChild(wrapper);
-    debugger
   },
 };
 export default AlbumCard;

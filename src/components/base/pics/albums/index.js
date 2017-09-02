@@ -10,8 +10,8 @@ const formatAlbums = (albums, numChunks) => {
 };
 
 const albumsIndex = {
-  render() {
-    Albums.get().then((response) => {
+  render({ onAlbumSelect }) {
+    Albums.get({}).then((response) => {
       const container = document.createElement('div');
       container.id = 'albums-index';
       container.classList.add('albums-index');
@@ -23,6 +23,7 @@ const albumsIndex = {
         const params = {
           albums,
           container,
+          onAlbumSelect,
         };
         AlbumsRow.render(params);
       });

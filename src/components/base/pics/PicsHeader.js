@@ -25,24 +25,26 @@ const drawButtons = ({ container, handleUploadButtonClick, handleAlbumCreateClic
   container.appendChild(buttonsContainer);
 };
 
-const drawHeaderText = ({ container, albums }) => {
+const drawHeaderText = ({ container, albums, albumName }) => {
   const picsHeaderText = document.createElement('div');
   picsHeaderText.classList.add('pics-header-text');
   picsHeaderText.id = 'pics-header-text';
-  picsHeaderText.appendChild(document.createTextNode(albums ? 'Albums' : 'Pictures'));
+  debugger
+  const headerText = albums ? albumName || 'Albums' : 'Pictures';
+  picsHeaderText.appendChild(document.createTextNode(headerText));
   container.appendChild(picsHeaderText);
 };
 
 const PicsHeader = {
   render(props) {
-    const { handleUploadButtonClick, handleAlbumCreateClick, albums } = props;
+    const { handleUploadButtonClick, handleAlbumCreateClick, albums, albumName } = props;
     this.container = props.container;
 
     const container = document.createElement('div');
     container.classList.add('pics-header');
     container.id = 'pics-header';
     drawButtons({ container, handleUploadButtonClick, handleAlbumCreateClick });
-    drawHeaderText({ container, albums });
+    drawHeaderText({ container, albums, albumName });
     this.container.appendChild(container);
   },
 };

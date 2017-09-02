@@ -2,11 +2,19 @@ import PicsModal from 'components/base/pics/PicsModal';
 import PicsHeader from 'components/base/pics/PicsHeader';
 import PicsNav from 'components/base/pics/PicsNav';
 import Pics from 'model/pics';
+import Albums from 'model/albums';
 import PicsList from 'components/base/pics/PicsList';
 import AlbumsIndex from 'components/base/pics/albums/index';
 import AlbumsModal from 'components/base/pics/albums/AlbumsModal';
 
 const picsIndex = {
+  _showAlbum(id) {
+    history.replaceState({}, {}, `/pics/albums/${id}`);
+    this.render({
+      albums: true,
+      albumid: id,
+    });
+  },
   _showPics() {
     // tear down entire view
     while (document.getElementById('main-content').firstChild) {
@@ -41,7 +49,6 @@ const picsIndex = {
   },
   _handleAlbumCreateClick() {
     const props = {};
-    console.log('clicked album create button');
     AlbumsModal.render({
       onSubmit: () => this.handleAlbumSubmit(),
     });
@@ -68,28 +75,40 @@ const picsIndex = {
     picsContent.classList.add('pics-content');
     picsContent.id = 'pics-content';
 
-    const headerProps = {
-      albums: props.albums,
-      handleUploadButtonClick: () => this._handleUploadButtonClick(),
-      handleAlbumCreateClick: () => this._handleAlbumCreateClick(),
-      container: this.container,
-    };
-    PicsHeader.render(headerProps);
+    // for both the header and actual content, we might need to retrieve an
+    // album name given an albumid
+    // we dont want to repeat the same logic twice (once for albumid, once for no albumid),
 
-    this.container.appendChild(picsContent);
+    Albums.get({ id: props.albumid }).then((albums) => {
+      const album = albums[0];
+      const headerProps = {
+        albums: props.albums,
+        albumName: album.name,
+        handleUploadButtonClick: () => this._handleUploadButtonClick(),
+        handleAlbumCreateClick: () => this._handleAlbumCreateClick(),
+        container: this.container,
+      };
+      PicsHeader.render(headerProps);
 
-    PicsNav.render({
-      container: picsContent,
-      tab: this.props.albums ? 'albums' : 'pics',
-      handlePicsClick: () => this._showPics(),
-      handleAlbumsClick: () => this._showAlbums(),
+      this.container.appendChild(picsContent);
+
+      PicsNav.render({
+        container: picsContent,
+        tab: this.props.albums ? 'albums' : 'pics',
+        handlePicsClick: () => this._showPics(),
+        handleAlbumsClick: () => this._showAlbums(),
+      });
+
+      document.getElementById('main-content').appendChild(this.container);
+
+      const params = {
+        onAlbumSelect: id => this._showAlbum(id),
+      };
+
+      props.albums
+        ? props.albumid ? Pics.get().then(PicsList.render) : AlbumsIndex.render(params)
+        : Pics.get().then(PicsList.render);
     });
-
-    document.getElementById('main-content').appendChild(this.container);
-
-    props.albums
-      ? props.albumid ? AlbumsIndex.render() : AlbumsIndex.render()
-      : Pics.get().then(PicsList.render);
   },
 };
 
