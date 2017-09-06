@@ -69,7 +69,7 @@ const PicsModal = {
   },
   render(params) {
     console.log('rendering pics modal');
-    Albums.get().then(albums => {
+    Albums.get({}).then((albums) => {
       this.onSubmit = params.onSubmit;
       const picsModal = document.createElement('div');
       picsModal.classList.add('pics-modal');
@@ -130,9 +130,9 @@ const PicsModal = {
       albums.map((album) => {
         const albumOption = document.createElement('option');
         albumOption.value = album.name;
-        albumOption.appendChild(document.createTextNode(album.name))
+        albumOption.appendChild(document.createTextNode(album.name));
         select.appendChild(albumOption);
-      })
+      });
       picsModalContent.appendChild(select);
 
       const submitButton = document.createElement('div');
@@ -145,8 +145,7 @@ const PicsModal = {
       picsModal.appendChild(picsModalHeader);
       picsModal.appendChild(picsModalContent);
       Modal.render(picsModal);
-    })
-
+    });
   },
 };
 

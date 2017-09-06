@@ -32,10 +32,21 @@ const AlbumHeader = {
     albumNameWrapper.classList.add('album-name-wrapper');
     albumNameWrapper.appendChild(document.createTextNode(albumName));
 
-    albumHeaderText.appendChild(backIconWrapper);
-    albumHeaderText.appendChild(backTextWrapper);
-    albumHeaderText.appendChild(rightArrowWrapper);
-    albumHeaderText.appendChild(albumNameWrapper);
+    const albumHeaderTextLeft = document.createElement('div');
+    albumHeaderTextLeft.id = 'album-header-text-left';
+    albumHeaderTextLeft.classList.add('album-header-text-left');
+
+    const albumHeaderTextRight = document.createElement('div');
+    albumHeaderTextRight.id = 'album-header-text-right';
+    albumHeaderTextRight.classList.add('album-header-text-right');
+
+    albumHeaderTextLeft.appendChild(backIconWrapper);
+    albumHeaderTextLeft.appendChild(backTextWrapper);
+    albumHeaderTextLeft.appendChild(rightArrowWrapper);
+    albumHeaderTextRight.appendChild(albumNameWrapper);
+
+    albumHeaderText.appendChild(albumHeaderTextLeft);
+    albumHeaderText.appendChild(albumHeaderTextRight);
 
     container.appendChild(albumHeaderText);
   },
