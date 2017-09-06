@@ -65,6 +65,31 @@
       .album-header-text-left {
         display: inline-flex;
         width: 35%;
+        color: grey;
+
+        .back-wrapper {
+          width: 50%;
+          display: inline-flex;
+          border-radius: 4px;
+
+          &:hover {
+            color: #3f51b5;
+            background: lightgrey;
+            cursor: pointer;
+          }
+
+          .back-icon-wrapper {
+            width: 15%;
+          }
+
+          .back-text-wrapper {
+            width: 85%;
+          }
+        }
+
+        .right-arrow-wrapper {
+          width: 50%;
+        }
       }
     }
   }

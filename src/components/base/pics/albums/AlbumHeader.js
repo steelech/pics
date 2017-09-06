@@ -40,8 +40,14 @@ const AlbumHeader = {
     albumHeaderTextRight.id = 'album-header-text-right';
     albumHeaderTextRight.classList.add('album-header-text-right');
 
-    albumHeaderTextLeft.appendChild(backIconWrapper);
-    albumHeaderTextLeft.appendChild(backTextWrapper);
+    const backWrapper = document.createElement('div');
+    backWrapper.id = 'back-wrapper';
+    backWrapper.classList.add('back-wrapper');
+
+    backWrapper.appendChild(backIconWrapper);
+    backWrapper.appendChild(backTextWrapper);
+
+    albumHeaderTextLeft.appendChild(backWrapper);
     albumHeaderTextLeft.appendChild(rightArrowWrapper);
     albumHeaderTextRight.appendChild(albumNameWrapper);
 
