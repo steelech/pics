@@ -1,52 +1,58 @@
 .pics-container {
-	font-size: 35px;
-	text-align: center;
-	font-family: "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif;
+  font-size: 35px;
+  text-align: center;
+  font-family: "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif;
 
-	.buttons-container {
-		display: inline-flex;
-		width: 30%;
-		float: right;
+  .pics-header {
+    border-bottom: 1px solid lightgrey;
+    padding: 30px;
+    .buttons-container {
+      display: inline-flex;
+      width: 100%;
+      float: right;
 
-		.file-upload-button {
-			background: lightgrey;
-			margin-right: 10px;
-			padding: 5px;
-			width: 50%;
-			font-size: 20px;
-			border: 1px solid black;
-			border-radius: 3px; 
-			
-			&:hover {
-				background: lightgrey;
-				cursor: pointer;
-			}
-		}
-		.add-album-button {
-			background: lightgrey;
-			margin-right: 10px;
-			padding: 5px;
-			width: 50%;
-			font-size: 20px;
-			border: 1px solid black;
-			border-radius: 3px; 
-			
-			&:hover {
-				background: lightgrey;
-				cursor: pointer;
-			}
-		}
-	}
+      .buttons {
+        display: inline-flex;
+        width: 40%;
+        padding-left: 60%;
+      }
 
-	.pics-header-text {
-		margin-top: 40px;
-		padding-bottom: 30px;
-		border-bottom: 1px solid lightgrey;
-		margin-bottom: 10px;
-	}
+      .file-upload-button {
+        background: lightgrey;
+        margin-right: 10px;
+        padding: 5px;
+        width: 50%;
+        font-size: 20px;
+        border: 1px solid black;
+        border-radius: 3px;
 
-	.pics-content {
-		min-height: 300px;
-	}
+        &:hover {
+          background: lightgrey;
+          cursor: pointer;
+        }
+      }
+      .add-album-button {
+        background: lightgrey;
+        margin-right: 10px;
+        padding: 5px;
+        width: 50%;
+        font-size: 20px;
+        border: 1px solid black;
+        border-radius: 3px;
 
+        &:hover {
+          background: lightgrey;
+          cursor: pointer;
+        }
+      }
+    }
+
+    .pics-header-text {
+      display: inline-flex;
+    }
+  }
+
+  .pics-content {
+    min-height: 300px;
+  }
 }

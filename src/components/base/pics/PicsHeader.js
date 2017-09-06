@@ -1,38 +1,43 @@
 import AlbumHeader from 'components/base/pics/albums/AlbumHeader';
 
-const drawUploadButton = ({ buttonsContainer, handleUploadButtonClick }) => {
+const drawUploadButton = ({ buttons, handleUploadButtonClick }) => {
   const fileUploadButton = document.createElement('div');
   fileUploadButton.classList.add('file-upload-button');
   fileUploadButton.id = 'file-upload-button';
   fileUploadButton.appendChild(document.createTextNode('+Pictures'));
   fileUploadButton.addEventListener('click', handleUploadButtonClick);
-  buttonsContainer.appendChild(fileUploadButton);
+  buttons.appendChild(fileUploadButton);
 };
 
-const drawAlbumCreateButton = ({ buttonsContainer, handleAlbumCreateClick }) => {
+const drawAlbumCreateButton = ({ buttons, handleAlbumCreateClick }) => {
   const albumCreateButton = document.createElement('div');
   albumCreateButton.classList.add('add-album-button');
   albumCreateButton.id = 'add-album-button';
   albumCreateButton.appendChild(document.createTextNode('+Album'));
   albumCreateButton.addEventListener('click', handleAlbumCreateClick);
-  buttonsContainer.appendChild(albumCreateButton);
+  buttons.appendChild(albumCreateButton);
 };
 
 const drawButtons = ({ container, handleUploadButtonClick, handleAlbumCreateClick }) => {
   const buttonsContainer = document.createElement('div');
   buttonsContainer.classList.add('buttons-container');
   buttonsContainer.id = 'buttons-container';
-  drawUploadButton({ buttonsContainer, handleUploadButtonClick });
-  drawAlbumCreateButton({ buttonsContainer, handleAlbumCreateClick });
+
+  const buttons = document.createElement('div');
+  buttons.classList.add('buttons');
+  buttons.id = 'pics-header-buttons';
+
+  buttonsContainer.appendChild(buttons);
+
+  drawUploadButton({ buttons, handleUploadButtonClick });
+  drawAlbumCreateButton({ buttons, handleAlbumCreateClick });
   container.appendChild(buttonsContainer);
 };
 
 const drawHeaderText = ({ container, albums, albumName }) => {
   // if albumsName, draw AlbumHeader, else :
   if (albumName) {
-    debugger
     AlbumHeader.render({ container, albumName });
-
   } else {
     const picsHeaderText = document.createElement('div');
     picsHeaderText.classList.add('pics-header-text');
