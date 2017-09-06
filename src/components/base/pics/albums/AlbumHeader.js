@@ -2,8 +2,8 @@ const AlbumHeader = {
   render({ container, albumName }) {
     console.log('rendering AlbumHeader');
     const albumHeaderText = document.createElement('div');
-    albumHeaderText.classList.add('pics-header-text');
-    albumHeaderText.id = 'pics-header-text';
+    albumHeaderText.classList.add('albums-header-text');
+    albumHeaderText.id = 'albums-header-text';
 
     const backIconWrapper = document.createElement('div');
     backIconWrapper.id = 'back-icon-wrapper';
