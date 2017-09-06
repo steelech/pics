@@ -1,3 +1,5 @@
+import AlbumHeader from 'components/base/pics/albums/AlbumHeader';
+
 const drawUploadButton = ({ buttonsContainer, handleUploadButtonClick }) => {
   const fileUploadButton = document.createElement('div');
   fileUploadButton.classList.add('file-upload-button');
@@ -26,13 +28,20 @@ const drawButtons = ({ container, handleUploadButtonClick, handleAlbumCreateClic
 };
 
 const drawHeaderText = ({ container, albums, albumName }) => {
-  const picsHeaderText = document.createElement('div');
-  picsHeaderText.classList.add('pics-header-text');
-  picsHeaderText.id = 'pics-header-text';
-  debugger
-  const headerText = albums ? albumName || 'Albums' : 'Pictures';
-  picsHeaderText.appendChild(document.createTextNode(headerText));
-  container.appendChild(picsHeaderText);
+  // if albumsName, draw AlbumHeader, else :
+  if (albumName) {
+    debugger
+    AlbumHeader.render({ container, albumName });
+
+  } else {
+    const picsHeaderText = document.createElement('div');
+    picsHeaderText.classList.add('pics-header-text');
+    picsHeaderText.id = 'pics-header-text';
+
+    const headerText = albums ? 'Albums' : 'Pictures';
+    picsHeaderText.appendChild(document.createTextNode(headerText));
+    container.appendChild(picsHeaderText);
+  }
 };
 
 const PicsHeader = {

@@ -80,14 +80,15 @@ const picsIndex = {
     // we dont want to repeat the same logic twice (once for albumid, once for no albumid),
 
     Albums.get({ id: props.albumid }).then((albums) => {
-      const album = albums[0];
+      const albumName = props.albumid ? albums[0].name : null;
       const headerProps = {
         albums: props.albums,
-        albumName: album.name,
+        albumName,
         handleUploadButtonClick: () => this._handleUploadButtonClick(),
         handleAlbumCreateClick: () => this._handleAlbumCreateClick(),
         container: this.container,
       };
+
       PicsHeader.render(headerProps);
 
       this.container.appendChild(picsContent);
