@@ -1,5 +1,10 @@
 const AlbumHeader = {
-  render({ container, albumName }) {
+  handleBackClick() {
+    this.props.handleBackClick();
+  },
+  render({ container, albumName, handleBackClick }) {
+    this.props = {};
+    this.props.handleBackClick = () => handleBackClick();
     console.log('rendering AlbumHeader');
     const albumHeaderText = document.createElement('div');
     albumHeaderText.classList.add('albums-header-text');
@@ -46,6 +51,7 @@ const AlbumHeader = {
 
     backWrapper.appendChild(backIconWrapper);
     backWrapper.appendChild(backTextWrapper);
+    backWrapper.addEventListener('click', () => this.props.handleBackClick());
 
     albumHeaderTextLeft.appendChild(backWrapper);
     albumHeaderTextLeft.appendChild(rightArrowWrapper);
