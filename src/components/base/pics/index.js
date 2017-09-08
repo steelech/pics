@@ -86,9 +86,7 @@ const picsIndex = {
         albumName,
         handleUploadButtonClick: () => this._handleUploadButtonClick(),
         handleAlbumCreateClick: () => this._handleAlbumCreateClick(),
-        handleBackClick: () => {
-          console.log('clicked back!');
-        },
+        handleBackClick: () => this.render({ albums: true }),
         container: this.container,
       };
 

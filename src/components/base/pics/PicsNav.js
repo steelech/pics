@@ -8,7 +8,8 @@ const PicsNav = {
     }
   },
   _handleAlbumsClick() {
-    if (this.activeTab != this.albumsOptionContainer) {
+    debugger
+    if (location.pathname != '/pics/albums') {
       this.activeTab.classList.remove('active');
       this.activeTab = this.albumsOptionContainer;
       this.activeTab.classList.add('active');
