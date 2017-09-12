@@ -6,6 +6,7 @@ const AlbumPics = {
     this.props = props;
     const { albumid } = this.props;
     console.log(`rendering AlbumPics, albumid: ${albumid}`);
+
     Pics.getByAlbum(albumid).then(PicsList.render);
   },
 };

@@ -6,12 +6,12 @@ const splitUpFiles = (files, numChunks) => {
   return fileList;
 };
 
-const sendPicsChunk = files =>
+const sendPicsChunk = (files, albumid) =>
   new Promise((resolve) => {
     const formData = new FormData();
     files.map(file => formData.append(file.name, file));
-    formData.append('selectedAlbum', "charlie's album");
-
+    formData.append('_id', albumid);
+    debugger
     const xhr = new XMLHttpRequest();
     xhr.open('POST', 'http://localhost:8888/pics', true);
     xhr.send(formData);
@@ -21,11 +21,11 @@ const sendPicsChunk = files =>
     };
   });
 
-const sendAllPics = fileList =>
+const sendAllPics = (fileList, albumid) =>
   new Promise((resolve) => {
     const sendPics = (fileList) => {
       if (fileList.length) {
-        sendPicsChunk(fileList.pop()).then(() => sendPics(fileList));
+        sendPicsChunk(fileList.pop(), albumid).then(() => sendPics(fileList, albumid));
       } else {
         resolve();
       }
@@ -54,13 +54,13 @@ const Pics = {
       };
     });
   },
-  send(files) {
+  send(files, albumid) {
     return new Promise((resolve) => {
       // need to split up files to avoid browser timeout
       const numChunks = Math.ceil(files.length / 30);
       const fileList = splitUpFiles(files, numChunks);
 
-      sendAllPics(fileList).then(resolve);
+      sendAllPics(fileList, albumid).then(resolve);
     });
   },
 };
