@@ -44,6 +44,16 @@ const Pics = {
       };
     });
   },
+  getByAlbum(albumid) {
+    return new Promise((resolve) => {
+      const xhr = new XMLHttpRequest();
+      xhr.open('GET', `http://localhost:8888/albums/${albumid}`, true);
+      xhr.send();
+      xhr.onload = function () {
+        resolve(JSON.parse(this.response));
+      };
+    });
+  },
   send(files) {
     return new Promise((resolve) => {
       // need to split up files to avoid browser timeout

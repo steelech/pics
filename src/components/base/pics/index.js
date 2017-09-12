@@ -6,6 +6,7 @@ import Albums from 'model/albums';
 import PicsList from 'components/base/pics/PicsList';
 import AlbumsIndex from 'components/base/pics/albums/index';
 import AlbumsModal from 'components/base/pics/albums/AlbumsModal';
+import AlbumPics from 'components/base/pics/albums/AlbumPics';
 
 const picsIndex = {
   _showAlbum(id) {
@@ -108,7 +109,7 @@ const picsIndex = {
       };
 
       props.albums
-        ? props.albumid ? Pics.get().then(PicsList.render) : AlbumsIndex.render(params)
+        ? props.albumid ? AlbumPics.render({ albumid: props.albumid }) : AlbumsIndex.render(params)
         : Pics.get().then(PicsList.render);
     });
   },
