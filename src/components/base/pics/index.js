@@ -40,9 +40,14 @@ const picsIndex = {
       albums: true,
     });
   },
-  _handlePicsUpload() {
+  _handlePicsUpload(albumid) {
     console.log('pics uploaded');
-    this.render({});
+    const path = albumid ? `/pics/albums/${albumid}` : `/pics`;
+    history.replaceState({}, {}, path);
+    this.render({
+      albums: albumid ? true : false,
+      albumid
+    });
   },
   handleAlbumSubmit() {
     history.replaceState({}, {}, '/pics/albums');
@@ -55,8 +60,9 @@ const picsIndex = {
     });
   },
   _handleUploadButtonClick() {
+    debugger
     PicsModal.render({
-      onSubmit: () => this._handlePicsUpload(),
+      onSubmit: albumid => this._handlePicsUpload(albumid),
     });
   },
 

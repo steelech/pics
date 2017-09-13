@@ -63,7 +63,7 @@ const PicsModal = {
     // send album as well as fileList
     Pics.send(this.fileList, this.albumid).then((message) => {
       tearDownLoader();
-      this.onSubmit();
+      this.onSubmit(this.albumid);
     });
   },
   render(params) {
@@ -131,12 +131,16 @@ const PicsModal = {
 
       select.onchange = (event) => {
         this.albumid = event.srcElement.value;
-      }
+      };
+      const defaultOption = document.createElement('option');
+      defaultOption.selected = 'selected';
+      defaultOption.appendChild(document.createTextNode('None'));
+      defaultOption.value = null;
+      select.appendChild(defaultOption);
       albums.map((album) => {
         const albumOption = document.createElement('option');
         albumOption.value = album._id;
         albumOption.appendChild(document.createTextNode(album.name));
-        this.albumid = album._id;
         select.appendChild(albumOption);
       });
       picsModalContent.appendChild(select);
