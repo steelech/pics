@@ -11,7 +11,6 @@ const sendPicsChunk = (files, albumid) =>
     const formData = new FormData();
     files.map(file => formData.append(file.name, file));
     formData.append('_id', albumid);
-    debugger
     const xhr = new XMLHttpRequest();
     xhr.open('POST', 'http://localhost:8888/pics', true);
     xhr.send(formData);

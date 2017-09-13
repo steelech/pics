@@ -57,18 +57,17 @@ const PicsModal = {
     this.fileList = this.fileList.concat(files.toArray());
   },
   _handleSubmit(event) {
-    debugger
     console.log('submitting: ', this.fileList);
     // tear down view, render loading spinner + message
     renderLoader();
-    const albumid = 1;
     // send album as well as fileList
-    Pics.send(this.fileList, albumid).then((message) => {
+    Pics.send(this.fileList, this.albumid).then((message) => {
       tearDownLoader();
       this.onSubmit();
     });
   },
   render(params) {
+    // TODO: clean this up
     console.log('rendering pics modal');
     Albums.get({}).then((albums) => {
       // this.albumid = albums.
@@ -129,10 +128,15 @@ const PicsModal = {
       const select = document.createElement('select');
       select.id = 'pics-album-select';
       select.classList.add('pics-album-select');
+
+      select.onchange = (event) => {
+        this.albumid = event.srcElement.value;
+      }
       albums.map((album) => {
         const albumOption = document.createElement('option');
         albumOption.value = album._id;
         albumOption.appendChild(document.createTextNode(album.name));
+        this.albumid = album._id;
         select.appendChild(albumOption);
       });
       picsModalContent.appendChild(select);

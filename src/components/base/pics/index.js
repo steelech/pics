@@ -79,8 +79,8 @@ const picsIndex = {
     // for both the header and actual content, we might need to retrieve an
     // album name given an albumid
     // we dont want to repeat the same logic twice (once for albumid, once for no albumid),
-
-    Albums.get({ id: props.albumid }).then((albums) => {
+    const id = (props || {}).albumid;
+    Albums.get(id).then((albums) => {
       const albumName = props.albumid ? albums[0].name : null;
       const headerProps = {
         albums: props.albums,

@@ -13,7 +13,7 @@ const Albums = {
     });
   },
   get(query) {
-    const { id } = query;
+    const id = (query || {}).id;
     return new Promise((resolve, reject) => {
       const xhr = new XMLHttpRequest();
       const albumsQuery = id ? `?id=${id}` : '';
