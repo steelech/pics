@@ -81,7 +81,9 @@ const picsIndex = {
     // we dont want to repeat the same logic twice (once for albumid, once for no albumid),
     const id = (props || {}).albumid;
     Albums.get(id).then((albums) => {
-      const albumName = props.albumid ? albums[0].name : null;
+      const hasId = album => album._id === parseInt(id);
+
+      const albumName = props.albumid ? albums.find(hasId).name : null;
       const headerProps = {
         albums: props.albums,
         albumName,
