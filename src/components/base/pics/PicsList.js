@@ -7,21 +7,33 @@ const splitUpFiles = (files, numChunks) => {
   }
   return fileList;
 };
+
 const PicsList = {
-  render({ pics }) {
-    console.log('rendering pics List: ', pics);
+  handlePicClick(pic) {
+    console.log('PICSLIST KNOWS', pic);
+    // re-render view w/ picsSlideshow = true
+    this.render({
+      pics: this.pics,
+      picsSlideshow: true,
+      albumid: this.albumid
+    })
+  },
+  render({ pics, picsSlideshow, albumid }) {
+    this.pics = pics;
+    this.picsSlideshow = picsSlideshow;
+    this.albumid = albumid;
 
     const picsListContainer = document.createElement('div');
     picsListContainer.classList.add('pics-list');
     picsListContainer.id = 'pics-list';
 
-    const numChunks = Math.ceil(pics.length / 4);
-    const fileList = splitUpFiles(pics, numChunks);
-
+    const numChunks = Math.ceil(this.pics.length / 4);
+    const fileList = splitUpFiles(this.pics, numChunks);
     fileList.map((pics) => {
       const params = {
         pics,
         container: picsListContainer,
+        picClick: pic => this.handlePicClick(pic),
       };
       PicsRow.render(params);
     });

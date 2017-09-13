@@ -60,7 +60,6 @@ const picsIndex = {
     });
   },
   _handleUploadButtonClick() {
-    debugger
     PicsModal.render({
       onSubmit: albumid => this._handlePicsUpload(albumid),
     });
@@ -116,9 +115,10 @@ const picsIndex = {
         onAlbumSelect: id => this._showAlbum(id),
       };
 
+      console.log('this: ', this);
       props.albums
         ? props.albumid ? AlbumPics.render({ albumid: props.albumid }) : AlbumsIndex.render(params)
-        : Pics.get().then(PicsList.render);
+        : Pics.get().then((pics) => PicsList.render({ pics, picsSlideshow: false, albumid: null }));
     });
   },
 };

@@ -1,8 +1,9 @@
 const Thumbnail = {
-  render({ pic, container }) {
+  render({ pic, container, onClick }) {
     const wrapper = document.createElement('div');
     wrapper.id = 'thumbnail-wrapper';
     wrapper.classList.add('thumbnail-wrapper');
+    wrapper.onclick = onClick;
     const img = document.createElement('img');
     img.src = pic.thmbUrl;
     img.id = 'thumbnail';
