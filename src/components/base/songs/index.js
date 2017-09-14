@@ -1,6 +1,5 @@
 const songsIndex = {
   render(props) {
-    console.log('rendering songs index');
     const container = document.createElement('div');
     container.classList.add('songs-index');
     container.id = 'songs-index';

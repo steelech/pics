@@ -41,12 +41,11 @@ const picsIndex = {
     });
   },
   _handlePicsUpload(albumid) {
-    console.log('pics uploaded');
-    const path = albumid ? `/pics/albums/${albumid}` : `/pics`;
+    const path = albumid ? `/pics/albums/${albumid}` : '/pics';
     history.replaceState({}, {}, path);
     this.render({
-      albums: albumid ? true : false,
-      albumid
+      albums: !!albumid,
+      albumid,
     });
   },
   handleAlbumSubmit() {
@@ -115,10 +114,9 @@ const picsIndex = {
         onAlbumSelect: id => this._showAlbum(id),
       };
 
-      console.log('this: ', this);
       props.albums
         ? props.albumid ? AlbumPics.render({ albumid: props.albumid }) : AlbumsIndex.render(params)
-        : Pics.get().then((pics) => PicsList.render({ pics, picsSlideshow: false, albumid: null }));
+        : Pics.get().then(pics => PicsList.render({ pics, picsSlideshow: false, albumid: null }));
     });
   },
 };

@@ -1,13 +1,7 @@
 const Navbar = {
-  _handleMusicClick() {
-    console.log('opening music player footer');
-  },
-  _handleSignOut() {
-    console.log('signing out');
-  },
-  handleArbView() {
-    console.log('displaying the arb view');
-  },
+  _handleMusicClick() {},
+  _handleSignOut() {},
+  handleArbView() {},
   _drawBars(onClick) {
     const barsIcon = document.createElement('i');
     barsIcon.className += ' fa fa-bars bars-icon';

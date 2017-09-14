@@ -5,7 +5,6 @@ const AlbumHeader = {
   render({ container, albumName, handleBackClick }) {
     this.props = {};
     this.props.handleBackClick = () => handleBackClick();
-    console.log('rendering AlbumHeader');
     const albumHeaderText = document.createElement('div');
     albumHeaderText.classList.add('albums-header-text');
     albumHeaderText.id = 'albums-header-text';

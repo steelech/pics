@@ -57,7 +57,6 @@ const PicsModal = {
     this.fileList = this.fileList.concat(files.toArray());
   },
   _handleSubmit(event) {
-    console.log('submitting: ', this.fileList);
     // tear down view, render loading spinner + message
     renderLoader();
     // send album as well as fileList
@@ -68,7 +67,6 @@ const PicsModal = {
   },
   render(params) {
     // TODO: clean this up
-    console.log('rendering pics modal');
     Albums.get({}).then((albums) => {
       // this.albumid = albums.
       this.onSubmit = params.onSubmit;
@@ -78,12 +76,10 @@ const PicsModal = {
       picsModal.ondragenter = function (event) {
         event.preventDefault();
         event.currentTarget.classList.add('drag-enter');
-        console.log('drag enter');
       };
       picsModal.ondragleave = function (event) {
         event.preventDefault();
         event.currentTarget.classList.remove('drag-enter');
-        console.log('drag leave');
       };
       picsModal.ondrop = e => this._handleFileDrop(e);
 

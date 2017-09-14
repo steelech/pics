@@ -16,7 +16,6 @@ const AlbumCard = {
     cardText.classList.add('album-card-text');
     cardText.appendChild(document.createTextNode(album.name));
 
-    console.log('album: ', album);
     albumCard.appendChild(icon);
     albumCard.appendChild(cardText);
     wrapper.appendChild(albumCard);

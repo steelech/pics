@@ -1,7 +1,6 @@
 const Modal = {
   _handleClick(event) {
     if (event.target.id == 'modal') {
-      console.log('close');
       document.body.removeChild(document.getElementById('modal'));
     }
   },

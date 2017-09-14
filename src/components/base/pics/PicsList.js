@@ -10,13 +10,11 @@ const splitUpFiles = (files, numChunks) => {
 
 const PicsList = {
   handlePicClick(pic) {
-    console.log('PICSLIST KNOWS', pic);
-    // re-render view w/ picsSlideshow = true
     this.render({
       pics: this.pics,
       picsSlideshow: true,
-      albumid: this.albumid
-    })
+      albumid: this.albumid,
+    });
   },
   render({ pics, picsSlideshow, albumid }) {
     this.pics = pics;
