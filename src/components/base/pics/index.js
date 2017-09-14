@@ -116,7 +116,9 @@ const picsIndex = {
 
       props.albums
         ? props.albumid ? AlbumPics.render({ albumid: props.albumid }) : AlbumsIndex.render(params)
-        : Pics.get().then(pics => PicsList.render({ pics, picsSlideshow: false, albumid: null }));
+        : Pics.get().then(pics =>
+          PicsList.render({ pics, picsSlideshow: false, albumid: null, startingPic: null }),
+        );
     });
   },
 };

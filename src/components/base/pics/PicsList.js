@@ -1,4 +1,5 @@
 import PicsRow from 'components/base/pics/PicsRow';
+import PicsSlideshow from 'components/base/pics/PicsSlideshow';
 
 const splitUpFiles = (files, numChunks) => {
   const fileList = [];
@@ -14,12 +15,14 @@ const PicsList = {
       pics: this.pics,
       picsSlideshow: true,
       albumid: this.albumid,
+      startingPic: pic.key,
     });
   },
-  render({ pics, picsSlideshow, albumid }) {
+  render({ pics, picsSlideshow, albumid, startingPic }) {
     this.pics = pics;
     this.picsSlideshow = picsSlideshow;
     this.albumid = albumid;
+    this.startingPic = startingPic;
 
     const picsListContainer = document.createElement('div');
     picsListContainer.classList.add('pics-list');
@@ -35,6 +38,9 @@ const PicsList = {
       };
       PicsRow.render(params);
     });
+    if (this.picsSlideshow) {
+      PicsSlideshow.render({ pics, albumid, startingPic });
+    }
     document.getElementById('pics-content').appendChild(picsListContainer);
   },
 };
