@@ -19,6 +19,9 @@ const PicsList = {
     });
   },
   render({ pics, picsSlideshow, albumid, startingPic }) {
+    if (document.getElementById('pics-list')) {
+      document.getElementById('pics-content').removeChild(document.getElementById('pics-list'));
+    }
     this.pics = pics;
     this.picsSlideshow = picsSlideshow;
     this.albumid = albumid;
