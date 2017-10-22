@@ -1,4 +1,14 @@
 .pics-modal {
+  background: white;
+  border: 1px solid black;
+  border-radius: 3px;
+  background: white;
+  width: 50%;
+  height: 60%;
+  margin-top: 10%;
+  margin-left: 25%;
+  margin-right: 25%;
+  text-align: center;
   .refresh-warning {
     margin-top: 40px;
   }
@@ -37,11 +47,6 @@
     }
   }
 
-  // &.drag-enter {
-  // 	background: lightgrey;
-  // }
-
-  height: 100%;
   font-family: "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif;
   .pics-modal-header {
     border-bottom: 1px solid lightgrey;
