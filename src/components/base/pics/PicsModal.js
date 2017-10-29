@@ -150,7 +150,7 @@ const PicsModal = {
 
       picsModal.appendChild(picsModalHeader);
       picsModal.appendChild(picsModalContent);
-      Modal.render(picsModal);
+      Modal.render({ child: picsModal });
     });
   },
 };

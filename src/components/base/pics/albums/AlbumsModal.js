@@ -73,7 +73,7 @@ const AlbumsModal = {
     container.classList.add('albums-modal');
     this.drawHeader({ container });
     this.drawForm({ container });
-    Modal.render(container);
+    Modal.render({ child: container });
   },
 };
 

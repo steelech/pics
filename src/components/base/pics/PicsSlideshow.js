@@ -71,7 +71,7 @@ const PicsSlideshow = {
     rightSectionWrapper.appendChild(rightSection);
     modalContent.appendChild(rightSectionWrapper);
 
-    Modal.render(modalContent);
+    Modal.render({ child: modalContent, url: '/pics' });
   },
 };
 export default PicsSlideshow;
