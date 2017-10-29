@@ -119,6 +119,7 @@ const picsIndex = {
         : Pics.get().then(pics =>
           PicsList.render({
             pics,
+            picid: props.picid,
             picsSlideshow: false,
             albumid: null,
             startingPic: null,

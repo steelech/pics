@@ -11,19 +11,20 @@ const splitUpFiles = (files, numChunks) => {
 
 const PicsList = {
   handlePicClick(pic) {
-    console.log('pic: ', this.pics.indexOf(pic));
     this.render({
       pics: this.pics,
+      picid: pic.id,
       picsSlideshow: true,
       albumid: this.albumid,
       index: this.pics.indexOf(pic),
     });
   },
-  render({ pics, picsSlideshow, albumid, index, albumName }) {
+  render({ pics, picid, picsSlideshow, albumid, index, albumName }) {
     if (document.getElementById('pics-list')) {
       document.getElementById('pics-content').removeChild(document.getElementById('pics-list'));
     }
     this.pics = pics;
+    this.picid = picid;
     this.picsSlideshow = picsSlideshow;
     this.albumid = albumid;
     this.index = index;
@@ -42,8 +43,10 @@ const PicsList = {
       };
       PicsRow.render(params);
     });
-    if (this.picsSlideshow) {
-      PicsSlideshow.render({ pics, albumid, index, albumName });
+    if (this.picid) {
+      console.log('picid: ', this.picid);
+      history.replaceState(null, null, `/pics/${this.picid}`);
+      PicsSlideshow.render({ pics, picid, index, url: '/pics' });
     }
     document.getElementById('pics-content').appendChild(picsListContainer);
   },

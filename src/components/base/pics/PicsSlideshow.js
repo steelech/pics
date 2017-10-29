@@ -4,6 +4,7 @@ import Modal from 'components/ui/Modal';
 const PicsSlideshow = {
   nextPic() {
     if (this.index + 1 < this.pics.length) {
+      history.replaceState(null, null, `/pics/${this.pics[this.index + 1].id}`);
       this.render({
         pics: this.pics,
         index: this.index + 1,
@@ -12,16 +13,21 @@ const PicsSlideshow = {
   },
   prevPic() {
     if (this.index - 1 >= 0) {
+      history.replaceState(null, null, `/pics/${this.pics[this.index - 1].id}`);
       this.render({
         pics: this.pics,
         index: this.index - 1,
       });
     }
   },
-  render({ pics, index }) {
+  render({ pics, picid, index }) {
     Modal.tearDown();
     this.pics = pics;
     this.index = index;
+
+    if (typeof index === 'undefined') {
+      this.index = pics.indexOf(pics.find(pic => pic.id === picid));
+    }
 
     const modalContent = document.createElement('div');
     modalContent.id = 'pics-slideshow';
@@ -41,7 +47,7 @@ const PicsSlideshow = {
     imageWrapper.id = 'image-wrapper';
     imageWrapper.classList.add('image-wrapper');
     const image = document.createElement('img');
-    image.src = pics[index].ssUrl;
+    image.src = pics[this.index].ssUrl;
     imageWrapper.appendChild(image);
     modalContent.appendChild(imageWrapper);
 
