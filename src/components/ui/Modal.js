@@ -4,6 +4,11 @@ const Modal = {
       document.body.removeChild(document.getElementById('modal'));
     }
   },
+  tearDown() {
+    if (document.getElementById('modal')) {
+      document.body.removeChild(document.getElementById('modal'));
+    }
+  },
   render(child) {
     const modal = document.createElement('div');
     modal.classList.add('modal');

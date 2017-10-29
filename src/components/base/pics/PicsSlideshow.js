@@ -19,6 +19,7 @@ const PicsSlideshow = {
     }
   },
   render({ pics, index }) {
+    Modal.tearDown();
     this.pics = pics;
     this.index = index;
 
