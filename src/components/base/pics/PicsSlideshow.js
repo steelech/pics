@@ -20,8 +20,24 @@ const PicsSlideshow = {
       });
     }
   },
+
+  keyPressHandler(e) {
+    if (e.keyCode === 37) {
+      console.log('pressed left');
+    }
+    if (e.keyCode === 39) {
+      console.log('pressed right');
+    }
+  },
   render({ pics, picid, index, hidden = true }) {
     Modal.tearDown();
+    const handler = this.keyPressHandler.bind(this);
+    document.addEventListener('click', (e) => {
+      if (e.target.id === 'modal') {
+        document.removeEventListener('keydown', handler);
+      }
+    });
+    document.addEventListener('keydown', handler);
     this.pics = pics;
     this.index = index;
     this.hidden = hidden;
