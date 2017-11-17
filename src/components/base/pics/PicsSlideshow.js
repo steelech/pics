@@ -20,10 +20,11 @@ const PicsSlideshow = {
       });
     }
   },
-  render({ pics, picid, index }) {
+  render({ pics, picid, index, hidden = true }) {
     Modal.tearDown();
     this.pics = pics;
     this.index = index;
+    this.hidden = hidden;
 
     if (typeof index === 'undefined') {
       this.index = pics.indexOf(pics.find(pic => pic.id === picid));
@@ -32,45 +33,24 @@ const PicsSlideshow = {
     const modalContent = document.createElement('div');
     modalContent.id = 'pics-slideshow';
     modalContent.classList.add('pics-slideshow');
+    modalContent.style = `background-image: url(${pics[this.index].ssUrl});background-repeat:no-repeat;background-position: center;`;
 
-    const leftArrowWrapper = document.createElement('div');
-    leftArrowWrapper.id = 'left-arrow-wrapper';
-    leftArrowWrapper.classList.add('left-arrow-wrapper');
-    const leftArrow = document.createElement('i');
-    leftArrow.classList.add('fa');
-    leftArrow.classList.add('fa-arrow-left');
-    leftArrowWrapper.appendChild(leftArrow);
-    modalContent.appendChild(leftArrowWrapper);
-    leftArrow.addEventListener('click', () => this.prevPic());
+    const contentWrapper = document.createElement('div');
+    contentWrapper.id = 'content-wrapper';
+    contentWrapper.classList.add('content-wrapper');
+    contentWrapper.addEventListener('mouseleave', () => {
+      contentWrapper.classList.add('hide');
+    });
+    contentWrapper.addEventListener('mouseenter', () => {
+      contentWrapper.classList.remove('hide');
+    });
+    contentWrapper.appendChild(document.createTextNode('Hello!'));
+    if (this.hidden) {
+      contentWrapper.classList.add('hide');
+    }
 
-    const imageWrapper = document.createElement('div');
-    imageWrapper.id = 'image-wrapper';
-    imageWrapper.classList.add('image-wrapper');
-    const image = document.createElement('img');
-    image.src = pics[this.index].ssUrl;
-    imageWrapper.appendChild(image);
-    modalContent.appendChild(imageWrapper);
 
-    const rightArrowWrapper = document.createElement('div');
-    rightArrowWrapper.id = 'right-arrow-wrapper';
-    rightArrowWrapper.classList.add('right-arrow-wrapper');
-    const rightArrow = document.createElement('i');
-    rightArrow.classList.add('fa');
-    rightArrow.classList.add('fa-arrow-right');
-    rightArrow.addEventListener('click', () => this.nextPic());
-    rightArrowWrapper.appendChild(rightArrow);
-    modalContent.appendChild(rightArrowWrapper);
-
-    const rightSectionWrapper = document.createElement('div');
-    rightSectionWrapper.id = 'right-section-wrapper';
-    rightSectionWrapper.classList.add('right-section-wrapper');
-    const rightSection = document.createElement('div');
-    rightSection.id = 'pics-slideshow-right';
-    rightSection.classList.add('pics-slideshow-right');
-    rightSection.appendChild(document.createTextNode('right section'));
-    rightSectionWrapper.appendChild(rightSection);
-    modalContent.appendChild(rightSectionWrapper);
-
+    modalContent.appendChild(contentWrapper);
     Modal.render({ child: modalContent, url: '/pics' });
   },
 };
