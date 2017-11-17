@@ -4,29 +4,25 @@ import Modal from 'components/ui/Modal';
 const PicsSlideshow = {
   nextPic() {
     if (this.index + 1 < this.pics.length) {
-      history.replaceState(null, null, `/pics/${this.pics[this.index + 1].id}`);
-      this.render({
-        pics: this.pics,
-        index: this.index + 1,
-      });
+      this.index = this.index + 1;
     }
+    history.replaceState(null, null, `/pics/${this.pics[this.index].id}`);
+    this.modalContent.style = `background-image: url(${this.pics[this.index].ssUrl});background-repeat:no-repeat;background-position: center;`;
   },
   prevPic() {
     if (this.index - 1 >= 0) {
-      history.replaceState(null, null, `/pics/${this.pics[this.index - 1].id}`);
-      this.render({
-        pics: this.pics,
-        index: this.index - 1,
-      });
+      this.index = this.index - 1;
     }
+    history.replaceState(null, null, `/pics/${this.pics[this.index].id}`);
+    this.modalContent.style = `background-image: url(${this.pics[this.index].ssUrl});background-repeat:no-repeat;background-position: center;`;
   },
 
   keyPressHandler(e) {
     if (e.keyCode === 37) {
-      console.log('pressed left');
+      this.prevPic();
     }
     if (e.keyCode === 39) {
-      console.log('pressed right');
+      this.nextPic();
     }
   },
   render({ pics, picid, index, hidden = true }) {
@@ -46,10 +42,10 @@ const PicsSlideshow = {
       this.index = pics.indexOf(pics.find(pic => pic.id === picid));
     }
 
-    const modalContent = document.createElement('div');
-    modalContent.id = 'pics-slideshow';
-    modalContent.classList.add('pics-slideshow');
-    modalContent.style = `background-image: url(${pics[this.index].ssUrl});background-repeat:no-repeat;background-position: center;`;
+    this.modalContent = document.createElement('div');
+    this.modalContent.id = 'pics-slideshow';
+    this.modalContent.classList.add('pics-slideshow');
+    this.modalContent.style = `background-image: url(${pics[this.index].ssUrl});background-repeat:no-repeat;background-position: center;`;
 
     const contentWrapper = document.createElement('div');
     contentWrapper.id = 'content-wrapper';
@@ -108,8 +104,8 @@ const PicsSlideshow = {
 
     contentWrapper.appendChild(leftWrapper);
     contentWrapper.appendChild(rightWrapper);
-    modalContent.appendChild(contentWrapper);
-    Modal.render({ child: modalContent, url: '/pics' });
+    this.modalContent.appendChild(contentWrapper);
+    Modal.render({ child: this.modalContent, url: '/pics' });
   },
 };
 export default PicsSlideshow;
