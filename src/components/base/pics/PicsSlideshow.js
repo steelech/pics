@@ -44,12 +44,54 @@ const PicsSlideshow = {
     contentWrapper.addEventListener('mouseenter', () => {
       contentWrapper.classList.remove('hide');
     });
-    contentWrapper.appendChild(document.createTextNode('Hello!'));
     if (this.hidden) {
       contentWrapper.classList.add('hide');
     }
 
+    const leftWrapper = document.createElement('div');
+    leftWrapper.classList.add('left-wrapper');
+    leftWrapper.id = 'left-wrapper';
 
+    const leftArrowWrapper = document.createElement('div');
+    leftArrowWrapper.classList.add('left-arrow-wrapper');
+    leftArrowWrapper.id = 'left-arrow-wrapper';
+
+    const leftArrow = document.createElement('i');
+    leftArrow.classList.add('fa');
+    leftArrow.classList.add('fa-arrow-left');
+
+    const downloadWrapper = document.createElement('div');
+    downloadWrapper.classList.add('download-wrapper');
+    downloadWrapper.id = 'download-wrapper';
+    downloadWrapper.appendChild(document.createTextNode('download-wrapper'));
+
+    leftArrowWrapper.appendChild(leftArrow);
+    leftWrapper.appendChild(leftArrowWrapper);
+    leftWrapper.appendChild(downloadWrapper);
+
+    const rightWrapper = document.createElement('div');
+    rightWrapper.classList.add('right-wrapper');
+    rightWrapper.id = 'right-wrapper';
+
+    const rightArrowWrapper = document.createElement('div');
+    rightArrowWrapper.classList.add('right-arrow-wrapper');
+    rightArrowWrapper.id = 'right-arrow-wrapper';
+
+    const rightArrow = document.createElement('i');
+    rightArrow.classList.add('fa');
+    rightArrow.classList.add('fa-arrow-right');
+
+    const deleteWrapper = document.createElement('div');
+    deleteWrapper.classList.add('delete-wrapper');
+    deleteWrapper.id = 'download-wrapper';
+    deleteWrapper.appendChild(document.createTextNode('delete-wrapper-wrapper'));
+
+    rightArrowWrapper.appendChild(rightArrow);
+    rightWrapper.appendChild(rightArrowWrapper);
+    rightWrapper.appendChild(deleteWrapper);
+
+    contentWrapper.appendChild(leftWrapper);
+    contentWrapper.appendChild(rightWrapper);
     modalContent.appendChild(contentWrapper);
     Modal.render({ child: modalContent, url: '/pics' });
   },
