@@ -13,7 +13,7 @@ const PicsList = {
   handlePicClick(pic) {
     this.render({
       pics: this.pics,
-      picid: pic.id,
+      picid: pic._id,
       picsSlideshow: true,
       albumid: this.albumid,
       index: this.pics.indexOf(pic),

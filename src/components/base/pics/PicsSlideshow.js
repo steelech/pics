@@ -6,14 +6,14 @@ const PicsSlideshow = {
     if (this.index + 1 < this.pics.length) {
       this.index = this.index + 1;
     }
-    history.replaceState(null, null, `/pics/${this.pics[this.index].id}`);
+    history.replaceState(null, null, `/pics/${this.pics[this.index]._id}`);
     this.modalContent.style = `background-image: url(${this.pics[this.index].ssUrl});background-repeat:no-repeat;background-position: center;`;
   },
   prevPic() {
     if (this.index - 1 >= 0) {
       this.index = this.index - 1;
     }
-    history.replaceState(null, null, `/pics/${this.pics[this.index].id}`);
+    history.replaceState(null, null, `/pics/${this.pics[this.index]._id}`);
     this.modalContent.style = `background-image: url(${this.pics[this.index].ssUrl});background-repeat:no-repeat;background-position: center;`;
   },
 
@@ -46,7 +46,7 @@ const PicsSlideshow = {
     this.hidden = hidden;
 
     if (typeof index === 'undefined') {
-      this.index = pics.indexOf(pics.find(pic => pic.id === picid));
+      this.index = pics.indexOf(pics.find(pic => pic._id === picid));
     }
 
     this.modalContent = document.createElement('div');
