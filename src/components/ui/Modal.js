@@ -8,6 +8,7 @@ const Modal = {
   tearDown() {
     if (document.getElementById('modal')) {
       document.body.removeChild(document.getElementById('modal'));
+      history.replaceState(null, null, this.url);
     }
   },
   render({ child, url }) {

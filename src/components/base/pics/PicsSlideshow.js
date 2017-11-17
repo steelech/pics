@@ -33,6 +33,13 @@ const PicsSlideshow = {
         document.removeEventListener('keydown', handler);
       }
     });
+
+    document.addEventListener('keyup', (e) => {
+      if (e.keyCode === 27) {
+        Modal.tearDown();
+        document.removeEventListener('keydown', handler);
+      }
+    });
     document.addEventListener('keydown', handler);
     this.pics = pics;
     this.index = index;
