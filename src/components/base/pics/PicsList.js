@@ -17,9 +17,10 @@ const PicsList = {
       picsSlideshow: true,
       albumid: this.albumid,
       index: this.pics.indexOf(pic),
+      onPicDelete: this.onPicDelete,
     });
   },
-  render({ pics, picid, picsSlideshow, albumid, index, albumName }) {
+  render({ pics, picid, picsSlideshow, albumid, index, albumName, onPicDelete }) {
     if (document.getElementById('pics-list')) {
       document.getElementById('pics-content').removeChild(document.getElementById('pics-list'));
     }
@@ -28,6 +29,7 @@ const PicsList = {
     this.picsSlideshow = picsSlideshow;
     this.albumid = albumid;
     this.index = index;
+    this.onPicDelete = onPicDelete;
 
     const picsListContainer = document.createElement('div');
     picsListContainer.classList.add('pics-list');
@@ -44,9 +46,8 @@ const PicsList = {
       PicsRow.render(params);
     });
     if (this.picid) {
-      console.log('picid: ', this.picid);
       history.replaceState(null, null, `/pics/${this.picid}`);
-      PicsSlideshow.render({ pics, picid, index, url: '/pics' });
+      PicsSlideshow.render({ pics, picid, index, url: '/pics', onPicDelete: this.onPicDelete });
     }
     document.getElementById('pics-content').appendChild(picsListContainer);
   },

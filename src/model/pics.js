@@ -68,6 +68,7 @@ const Pics = {
       xhr.open('DELETE', `http://localhost:8888/pics/${picid}`);
       xhr.send();
       xhr.onload = function () {
+        console.log('DELETED');
         resolve(JSON.parse(this.response));
       };
     });

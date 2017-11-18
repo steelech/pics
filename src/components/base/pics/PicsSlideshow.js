@@ -26,7 +26,7 @@ const PicsSlideshow = {
       this.nextPic();
     }
   },
-  render({ pics, picid, index, hidden = true }) {
+  render({ pics, picid, index, hidden = true, onPicDelete }) {
     Modal.tearDown();
     const handler = this.keyPressHandler.bind(this);
     document.addEventListener('keyup', (e) => {
@@ -39,6 +39,7 @@ const PicsSlideshow = {
     this.pics = pics;
     this.index = index;
     this.hidden = hidden;
+    this.onPicDelete = onPicDelete;
 
     if (typeof index === 'undefined') {
       this.index = pics.indexOf(pics.find(pic => pic._id === picid));
@@ -87,8 +88,10 @@ const PicsSlideshow = {
     deleteIcon.classList.add('fa-trash-o');
     deleteIcon.onclick = () => {
       Pics.delete(this.pics[this.index]._id)
-        .then(response => console.log);
-    }
+        .then(response => {
+          this.onPicDelete();
+        });
+    };
     deleteButton.appendChild(deleteIcon);
 
     leftArrowWrapper.appendChild(leftArrow);
