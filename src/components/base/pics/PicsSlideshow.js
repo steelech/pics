@@ -87,7 +87,11 @@ const PicsSlideshow = {
     const downloadButton = document.createElement('div');
     downloadButton.classList.add('download-button');
     downloadButton.id = 'download-button';
-    downloadButton.appendChild(document.createTextNode('Download'));
+
+    const downloadIcon = document.createElement('i');
+    downloadIcon.classList.add('fa');
+    downloadIcon.classList.add('fa-download');
+    downloadButton.appendChild(downloadIcon);
 
     leftArrowWrapper.appendChild(leftArrow);
     leftWrapper.appendChild(leftArrowWrapper);
@@ -114,7 +118,11 @@ const PicsSlideshow = {
     const deleteButton = document.createElement('div');
     deleteButton.classList.add('delete-button');
     deleteButton.id = 'delete-button';
-    deleteButton.appendChild(document.createTextNode('Delete'));
+
+    const deleteIcon = document.createElement('i');
+    deleteIcon.classList.add('fa');
+    deleteIcon.classList.add('fa-trash-o');
+    deleteButton.appendChild(deleteIcon);
 
     rightArrowWrapper.appendChild(rightArrow);
     rightWrapper.appendChild(rightArrowWrapper);

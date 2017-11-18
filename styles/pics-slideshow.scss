@@ -48,7 +48,17 @@
 
         .download-button {
           position: absolute;
-          bottom: 0;
+          bottom: 10px;
+
+          .fa-download {
+            color: #08ce24;
+            cursor: pointer;
+            font-size: 40px;
+
+            &:hover {
+              color: rgba(8, 206, 36, 0.41);
+            }
+          }
         }
       }
     }
@@ -80,9 +90,19 @@
 
         .delete-button {
           position: absolute;
-          bottom: 0;
+          bottom: 10px;
           right: 0;
-        }
+
+          .fa-trash-o {
+            color: rgb(162, 3, 3);
+            font-size: 40px;
+            cursor: pointer;
+
+            &:hover {
+              color: rgba(162, 3, 3, 0.44);
+            }
+          }
+         }
       }
     }
   }
