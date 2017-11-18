@@ -1,4 +1,5 @@
 import Modal from 'components/ui/Modal';
+import Pics from 'model/pics';
 
 
 const PicsSlideshow = {
@@ -84,6 +85,10 @@ const PicsSlideshow = {
     const deleteIcon = document.createElement('i');
     deleteIcon.classList.add('fa');
     deleteIcon.classList.add('fa-trash-o');
+    deleteIcon.onclick = () => {
+      Pics.delete(this.pics[this.index]._id)
+        .then(response => console.log);
+    }
     deleteButton.appendChild(deleteIcon);
 
     leftArrowWrapper.appendChild(leftArrow);

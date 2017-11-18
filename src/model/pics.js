@@ -62,5 +62,15 @@ const Pics = {
       sendAllPics(fileList, albumid).then(resolve);
     });
   },
+  delete(picid) {
+    return new Promise((resolve, reject) => {
+      const xhr = new XMLHttpRequest();
+      xhr.open('DELETE', `http://localhost:8888/pics/${picid}`);
+      xhr.send();
+      xhr.onload = function () {
+        resolve(JSON.parse(this.response));
+      };
+    });
+  },
 };
 export default Pics;
