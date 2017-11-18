@@ -85,6 +85,7 @@ const PicsSlideshow = {
     const downloadIcon = document.createElement('i');
     downloadIcon.classList.add('fa');
     downloadIcon.classList.add('fa-download');
+    downloadIcon.onclick = () => window.open(this.pics[this.index].url);
     downloadButton.appendChild(downloadIcon);
 
     leftArrowWrapper.appendChild(leftArrow);
