@@ -78,14 +78,20 @@ const PicsSlideshow = {
     const leftArrow = document.createElement('i');
     leftArrow.classList.add('fa');
     leftArrow.classList.add('fa-arrow-left');
+    leftArrow.onclick = () => this.prevPic();
 
     const downloadWrapper = document.createElement('div');
     downloadWrapper.classList.add('download-wrapper');
     downloadWrapper.id = 'download-wrapper';
-    downloadWrapper.appendChild(document.createTextNode('download-wrapper'));
+
+    const downloadButton = document.createElement('div');
+    downloadButton.classList.add('download-button');
+    downloadButton.id = 'download-button';
+    downloadButton.appendChild(document.createTextNode('Download'));
 
     leftArrowWrapper.appendChild(leftArrow);
     leftWrapper.appendChild(leftArrowWrapper);
+    downloadWrapper.appendChild(downloadButton);
     leftWrapper.appendChild(downloadWrapper);
 
     const rightWrapper = document.createElement('div');
@@ -99,14 +105,20 @@ const PicsSlideshow = {
     const rightArrow = document.createElement('i');
     rightArrow.classList.add('fa');
     rightArrow.classList.add('fa-arrow-right');
+    rightArrow.onclick = () => this.nextPic();
 
     const deleteWrapper = document.createElement('div');
     deleteWrapper.classList.add('delete-wrapper');
-    deleteWrapper.id = 'download-wrapper';
-    deleteWrapper.appendChild(document.createTextNode('delete-wrapper-wrapper'));
+    deleteWrapper.id = 'delete-wrapper';
+
+    const deleteButton = document.createElement('div');
+    deleteButton.classList.add('delete-button');
+    deleteButton.id = 'delete-button';
+    deleteButton.appendChild(document.createTextNode('Delete'));
 
     rightArrowWrapper.appendChild(rightArrow);
     rightWrapper.appendChild(rightArrowWrapper);
+    deleteWrapper.appendChild(deleteButton);
     rightWrapper.appendChild(deleteWrapper);
 
     contentWrapper.appendChild(leftWrapper);
