@@ -74,24 +74,22 @@ const PicsSlideshow = {
     leftArrow.classList.add('fa-arrow-left');
     leftArrow.onclick = () => this.prevPic();
 
-    const downloadWrapper = document.createElement('div');
-    downloadWrapper.classList.add('download-wrapper');
-    downloadWrapper.id = 'download-wrapper';
+    const deleteWrapper = document.createElement('div');
+    deleteWrapper.classList.add('delete-wrapper');
+    deleteWrapper.id = 'delete-wrapper';
+    const deleteButton = document.createElement('div');
+    deleteButton.classList.add('delete-button');
+    deleteButton.id = 'delete-button';
 
-    const downloadButton = document.createElement('div');
-    downloadButton.classList.add('download-button');
-    downloadButton.id = 'download-button';
-
-    const downloadIcon = document.createElement('i');
-    downloadIcon.classList.add('fa');
-    downloadIcon.classList.add('fa-download');
-    downloadIcon.onclick = () => window.open(this.pics[this.index].url);
-    downloadButton.appendChild(downloadIcon);
+    const deleteIcon = document.createElement('i');
+    deleteIcon.classList.add('fa');
+    deleteIcon.classList.add('fa-trash-o');
+    deleteButton.appendChild(deleteIcon);
 
     leftArrowWrapper.appendChild(leftArrow);
     leftWrapper.appendChild(leftArrowWrapper);
-    downloadWrapper.appendChild(downloadButton);
-    leftWrapper.appendChild(downloadWrapper);
+    deleteWrapper.appendChild(deleteButton);
+    leftWrapper.appendChild(deleteWrapper);
 
     const rightWrapper = document.createElement('div');
     rightWrapper.classList.add('right-wrapper');
@@ -119,24 +117,25 @@ const PicsSlideshow = {
     rightArrow.classList.add('fa-arrow-right');
     rightArrow.onclick = () => this.nextPic();
 
-    const deleteWrapper = document.createElement('div');
-    deleteWrapper.classList.add('delete-wrapper');
-    deleteWrapper.id = 'delete-wrapper';
+    const downloadWrapper = document.createElement('div');
+    downloadWrapper.classList.add('download-wrapper');
+    downloadWrapper.id = 'download-wrapper';
 
-    const deleteButton = document.createElement('div');
-    deleteButton.classList.add('delete-button');
-    deleteButton.id = 'delete-button';
+    const downloadButton = document.createElement('div');
+    downloadButton.classList.add('download-button');
+    downloadButton.id = 'download-button';
 
-    const deleteIcon = document.createElement('i');
-    deleteIcon.classList.add('fa');
-    deleteIcon.classList.add('fa-trash-o');
-    deleteButton.appendChild(deleteIcon);
+    const downloadIcon = document.createElement('i');
+    downloadIcon.classList.add('fa');
+    downloadIcon.classList.add('fa-download');
+    downloadIcon.onclick = () => window.open(this.pics[this.index].url);
+    downloadButton.appendChild(downloadIcon);
 
     rightWrapper.appendChild(closeWrapper);
     rightArrowWrapper.appendChild(rightArrow);
     rightWrapper.appendChild(rightArrowWrapper);
-    deleteWrapper.appendChild(deleteButton);
-    rightWrapper.appendChild(deleteWrapper);
+    downloadWrapper.appendChild(downloadButton);
+    rightWrapper.appendChild(downloadWrapper);
 
     contentWrapper.appendChild(leftWrapper);
     contentWrapper.appendChild(rightWrapper);

@@ -46,24 +46,24 @@
         }
       }
 
-      .download-wrapper {
+      .delete-wrapper {
         height: 50%;
         position: relative;
 
-        .download-button {
+        .delete-button {
           position: absolute;
           bottom: 10px;
 
-          .fa-download {
-            color: #08ce24;
-            cursor: pointer;
+          .fa-trash-o {
+            color: rgb(162, 3, 3);
             font-size: 40px;
+            cursor: pointer;
 
             &:hover {
-              color: rgba(8, 206, 36, 0.41);
+              color: rgba(162, 3, 3, 0.44);
             }
           }
-        }
+         }
       }
     }
 
@@ -104,26 +104,27 @@
         }
       }
 
-      .delete-wrapper {
+      .download-wrapper {
         height: 50%;
         position: relative;
 
-        .delete-button {
+        .download-button {
           position: absolute;
           bottom: 10px;
           right: 0;
 
-          .fa-trash-o {
-            color: rgb(162, 3, 3);
-            font-size: 40px;
+          .fa-download {
+            color: #08ce24;
             cursor: pointer;
+            font-size: 40px;
 
             &:hover {
-              color: rgba(162, 3, 3, 0.44);
+              color: rgba(8, 206, 36, 0.41);
             }
           }
-         }
+        }
       }
+
     }
   }
 }
