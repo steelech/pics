@@ -28,12 +28,6 @@ const PicsSlideshow = {
   render({ pics, picid, index, hidden = true }) {
     Modal.tearDown();
     const handler = this.keyPressHandler.bind(this);
-    document.addEventListener('click', (e) => {
-      if (e.target.id === 'modal') {
-        document.removeEventListener('keydown', handler);
-      }
-    });
-
     document.addEventListener('keyup', (e) => {
       if (e.keyCode === 27) {
         Modal.tearDown();
@@ -102,6 +96,19 @@ const PicsSlideshow = {
     rightWrapper.classList.add('right-wrapper');
     rightWrapper.id = 'right-wrapper';
 
+    const closeWrapper = document.createElement('div');
+    closeWrapper.classList.add('close-wrapper');
+    closeWrapper.id = closeWrapper;
+
+    const closeIcon = document.createElement('i');
+    closeIcon.classList.add('fa');
+    closeIcon.classList.add('fa-times');
+    closeIcon.onclick = () => {
+      document.removeEventListener('keydown', handler);
+      Modal.tearDown();
+    };
+    closeWrapper.appendChild(closeIcon);
+
     const rightArrowWrapper = document.createElement('div');
     rightArrowWrapper.classList.add('right-arrow-wrapper');
     rightArrowWrapper.id = 'right-arrow-wrapper';
@@ -124,6 +131,7 @@ const PicsSlideshow = {
     deleteIcon.classList.add('fa-trash-o');
     deleteButton.appendChild(deleteIcon);
 
+    rightWrapper.appendChild(closeWrapper);
     rightArrowWrapper.appendChild(rightArrow);
     rightWrapper.appendChild(rightArrowWrapper);
     deleteWrapper.appendChild(deleteButton);
