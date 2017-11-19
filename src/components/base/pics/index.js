@@ -16,13 +16,13 @@ const picsIndex = {
       albumid: id,
     });
   },
-  refetch() {
+  refetch(id) {
     history.replaceState(null, null, '/pics');
     this.render({
       albumid: this.props.albumid,
       albums: this.props.albums,
       picsSlideshow: true,
-      picic: this.props.picid,
+      picid: id,
     });
   },
   _showPics() {
@@ -136,7 +136,7 @@ const picsIndex = {
             pics,
             picid: this.props.picid,
             picsSlideshow: this.props.picsSlideshow,
-            onPicDelete: () => this.refetch(),
+            onPicDelete: (id) => this.refetch(id),
           }),
         );
     });
