@@ -17,11 +17,11 @@ const picsIndex = {
     });
   },
   refetch() {
-    console.log('REFETCHING!!!!!!');
+    history.replaceState(null, null, '/pics');
     this.render({
       albumid: this.props.albumid,
       albums: this.props.albums,
-      picsSlideshow: this.props.picsSlideshow,
+      picsSlideshow: true,
       picic: this.props.picid,
     });
   },
@@ -74,7 +74,6 @@ const picsIndex = {
   },
 
   render(props) {
-    console.log('HAAAA');
     this.props = props;
 
     if(document.getElementById('modal')) {

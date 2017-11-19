@@ -88,9 +88,7 @@ const PicsSlideshow = {
     deleteIcon.classList.add('fa-trash-o');
     deleteIcon.onclick = () => {
       Pics.delete(this.pics[this.index]._id)
-        .then(response => {
-          this.onPicDelete();
-        });
+        .then(this.onPicDelete);
     };
     deleteButton.appendChild(deleteIcon);
 
