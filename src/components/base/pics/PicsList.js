@@ -21,6 +21,7 @@ const PicsList = {
     });
   },
   render({ pics, picid, picsSlideshow, albumid, index, albumName, onPicDelete }) {
+    console.log('PicsList pics: ', pics);
     if (document.getElementById('pics-list')) {
       document.getElementById('pics-content').removeChild(document.getElementById('pics-list'));
     }

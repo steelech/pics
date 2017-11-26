@@ -131,13 +131,15 @@ const picsIndex = {
         ? this.props.albumid
           ? AlbumPics.render({ albumid: this.props.albumid })
           : AlbumsIndex.render(params)
-        : Pics.get().then(pics =>
+        : Pics.get().then(pics => {
+          console.log('new pics: ', this.props, pics);
           PicsList.render({
             pics,
             picid: this.props.picid,
             picsSlideshow: this.props.picsSlideshow,
             onPicDelete: (id) => this.refetch(id),
-          }),
+          })
+        },
         );
     });
   },

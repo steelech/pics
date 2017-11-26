@@ -45,6 +45,7 @@ const PicsSlideshow = {
       this.index = pics.indexOf(pics.find(pic => pic._id === picid));
     }
 
+
     this.modalContent = document.createElement('div');
     this.modalContent.id = 'pics-slideshow';
     this.modalContent.classList.add('pics-slideshow');
@@ -95,6 +96,7 @@ const PicsSlideshow = {
               ? this.pics[this.index - 1]._id
               : this.pics[this.index + 1]._id
             : null
+          document.removeEventListener('keydown', handler);
           this.onPicDelete(id);
         });
     };
