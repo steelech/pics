@@ -26,7 +26,7 @@ const PicsSlideshow = {
       this.nextPic();
     }
   },
-  render({ pics, picid, index, hidden = true, onPicDelete }) {
+  render({ pics, picid, index, hidden = true, onPicDelete, url }) {
     Modal.tearDown();
     const handler = this.keyPressHandler.bind(this);
     document.addEventListener('keyup', (e) => {
@@ -40,6 +40,7 @@ const PicsSlideshow = {
     this.index = index;
     this.hidden = hidden;
     this.onPicDelete = onPicDelete;
+    this.url = url;
 
     if (typeof index === 'undefined') {
       this.index = pics.indexOf(pics.find(pic => pic._id === picid));
@@ -156,7 +157,7 @@ const PicsSlideshow = {
     contentWrapper.appendChild(leftWrapper);
     contentWrapper.appendChild(rightWrapper);
     this.modalContent.appendChild(contentWrapper);
-    Modal.render({ child: this.modalContent, url: '/pics' });
+    Modal.render({ child: this.modalContent, url: this.url });
   },
 };
 export default PicsSlideshow;

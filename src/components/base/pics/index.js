@@ -138,6 +138,7 @@ const picsIndex = {
             picid: this.props.picid,
             picsSlideshow: this.props.picsSlideshow,
             onPicDelete: (id) => this.refetch(id),
+            url: '/pics',
           })
         },
         );

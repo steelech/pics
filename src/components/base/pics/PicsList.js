@@ -18,9 +18,10 @@ const PicsList = {
       albumid: this.albumid,
       index: this.pics.indexOf(pic),
       onPicDelete: this.onPicDelete,
+      url: this.url,
     });
   },
-  render({ pics, picid, picsSlideshow, albumid, index, albumName, onPicDelete }) {
+  render({ pics, picid, picsSlideshow, albumid, index, albumName, onPicDelete, url }) {
     console.log('PicsList pics: ', pics);
     if (document.getElementById('pics-list')) {
       document.getElementById('pics-content').removeChild(document.getElementById('pics-list'));
@@ -31,6 +32,7 @@ const PicsList = {
     this.albumid = albumid;
     this.index = index;
     this.onPicDelete = onPicDelete;
+    this.url = url;
 
     const picsListContainer = document.createElement('div');
     picsListContainer.classList.add('pics-list');
@@ -48,7 +50,7 @@ const PicsList = {
     });
     if (this.picid) {
       history.replaceState(null, null, `/pics/${this.picid}`);
-      PicsSlideshow.render({ pics, picid, index, url: '/pics', onPicDelete: this.onPicDelete });
+      PicsSlideshow.render({ pics, picid, index, url: this.url, onPicDelete: this.onPicDelete });
     }
     document.getElementById('pics-content').appendChild(picsListContainer);
   },
