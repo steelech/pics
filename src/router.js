@@ -51,7 +51,7 @@ const routeRegex = (url) => {
     '^/pics$',
     '^/songs$',
     '^/pics/albums$',
-    '^/pics/([a-z0-9])([a-z0-9]+)?$',
+    '^/pics/([a-z0-9-])([a-z0-9-]+)?$',
     '^/songs/([1-9])([0-9]+)?$',
     '^/pics/albums/([1-9])([0-9]+)?$',
   ];
