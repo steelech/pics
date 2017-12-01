@@ -21,7 +21,7 @@ const PicsList = {
       url: this.url,
     });
   },
-  render({ pics, picid, picsSlideshow, albumid, index, albumName, onPicDelete, url }) {
+  render({ pics, picid, picsSlideshow, albumid, index, onPicDelete, url }) {
     console.log('PicsList pics: ', pics);
     if (document.getElementById('pics-list')) {
       document.getElementById('pics-content').removeChild(document.getElementById('pics-list'));

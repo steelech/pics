@@ -17,7 +17,13 @@ const picsIndex = {
     });
   },
   refetch(id) {
-    history.replaceState(null, null, '/pics');
+    const url = this.props.albums
+      ? this.props.albumid
+        ? `/pics/albums/${this.props.albumid}`
+        : '/pics/albums'
+      : '/pics'
+    history.replaceState(null, null, url);
+    console.log('rerendering: ', this.props);
     this.render({
       albumid: this.props.albumid,
       albums: this.props.albums,
@@ -129,10 +135,14 @@ const picsIndex = {
 
       this.props.albums
         ? this.props.albumid
-          ? AlbumPics.render({ albumid: this.props.albumid })
+          ? AlbumPics.render({
+            picsSlideshow: this.props.picsSlideshow,
+            picid: this.props.picid,
+            albumid: this.props.albumid,
+            onDelete: picid => this.refetch(picid)
+          })
           : AlbumsIndex.render(params)
         : Pics.get().then(pics => {
-          console.log('new pics: ', this.props, pics);
           PicsList.render({
             pics,
             picid: this.props.picid,
