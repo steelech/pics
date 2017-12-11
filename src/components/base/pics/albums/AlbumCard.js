@@ -9,6 +9,9 @@ const AlbumCard = {
     albumCard.classList.add('album-card');
     albumCard.addEventListener('click', id => onClick());
 
+    const trashIcon = document.createElement('i');
+    trashIcon.className = 'fa fa-trash-o';
+
     const icon = document.createElement('i');
     icon.className = 'fa fa-folder';
 
@@ -18,6 +21,7 @@ const AlbumCard = {
 
     albumCard.appendChild(icon);
     albumCard.appendChild(cardText);
+    wrapper.appendChild(trashIcon);
     wrapper.appendChild(albumCard);
     albumsRow.appendChild(wrapper);
   },

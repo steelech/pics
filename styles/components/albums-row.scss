@@ -1,10 +1,12 @@
 .albums-row {
   display: inline-flex;
   width: 100%;
+  position: relative;
 
   .album-card-container {
     margin-bottom: 60px;
     width: 25%;
+    position: relative;
 
     .album-card {
       margin-left: 20px;
@@ -14,12 +16,33 @@
       font-size: 15px;
       word-wrap: break-word;
       &:hover {
-        background: lightgrey;
+        background: #d3d3d32b;
       }
 
       i {
         font-size: 100px;
         color: #40e0d0;
+      }
+    }
+    .fa-trash-o {
+      font-size: 20px;
+      color: red;
+      position: absolute;
+      right: 20px;
+      visibility: hidden;
+    }
+
+    &:hover {
+      .fa-trash-o {
+        font-size: 20px;
+        color: red;
+        position: absolute;
+        right: 20px;
+        visibility: visible;
+        &:hover {
+          color: #de8282;
+          cursor: pointer;
+        }
       }
     }
   }
