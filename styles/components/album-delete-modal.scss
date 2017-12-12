@@ -1,0 +1,79 @@
+.album-delete-container {
+  position: relative;
+  background: white;
+  border: 1px solid black;
+  border-radius: 3px;
+  background: white;
+  width: 50%;
+  height: 60%;
+  margin-top: 10%;
+  margin-left: 25%;
+  margin-right: 25%;
+  text-align: center;
+  font-family: "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif;
+
+  .album-delete-header {
+    border-bottom: 1px solid lightgrey;
+    font-family: "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif;
+    color: #3f51b5;
+  }
+
+  .album-delete-content {
+    margin-top: 10%;
+    .album-delete-content-text {
+      margin-bottom: 10%;
+    }
+
+    .album-delete-content-checkbox {
+
+    }
+  }
+
+  .album-delete-footer {
+    bottom: 0px;
+    display: flex;
+    position: absolute;
+    border-top: 1px solid lightgrey;
+    width: 100%;
+    padding-top: 85px;
+
+    .album-delete-cancel {
+      position: absolute;
+      left: 20px;
+      bottom: 20px;
+
+      .album-delete-cancel-button {
+        cursor: pointer;
+        background: lightgrey;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        padding-left: 10px;
+        padding-right: 10px;
+        border-radius: 3px;
+
+        &:hover {
+          background: #968e8e;
+        }
+      }
+    }
+
+    .album-delete-confirm {
+      position: absolute;
+      right: 20px;
+      bottom: 20px;
+
+      .album-delete-confirm-button {
+        cursor: pointer;
+        background: #f15d5d;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        padding-left: 10px;
+        padding-right: 10px;
+        border-radius: 3px;
+        &:hover {
+          background: #ce7a7a;
+        }
+      }
+    }
+  }
+}
