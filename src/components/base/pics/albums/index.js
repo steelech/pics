@@ -14,9 +14,14 @@ const albumsIndex = {
     Albums.delete({ albumId, deletePhotos })
       .then((response) => {
         console.log('response: ', response);
+        this.render({ onAlbumSelect: this.onAlbumSelect });
       });
   },
   render({ onAlbumSelect }) {
+    if (document.getElementById('albums-index')) {
+      document.getElementById('pics-content').removeChild(document.getElementById('albums-index'));
+    }
+    this.onAlbumSelect = onAlbumSelect;
     Albums.get({}).then((response) => {
       const container = document.createElement('div');
       container.id = 'albums-index';

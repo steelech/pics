@@ -39,8 +39,7 @@ const Albums = {
       xhr.open('DELETE', `http://localhost:8888/albums${queryString}`);
       xhr.send();
       xhr.onload = function () {
-        resolve()
-        // resolve(JSON.parse(this.response));
+        resolve(JSON.parse(this.response));
       };
     });
   },
