@@ -1,10 +1,5 @@
 import Modal from 'components/ui/Modal';
 
-
-// const handleDeleteClick = (albumName) => {
-//   console.log('clicked delete album!!', albumName);
-// };
-
 const AlbumDeleteHeader = {
   render() {
     const header = document.createElement('h1');
@@ -16,7 +11,7 @@ const AlbumDeleteHeader = {
 };
 
 const AlbumDeleteContent = {
-  render({ albumName }) {
+  render({ albumName, onCheck }) {
     const content = document.createElement('div');
     content.id = 'album-delete-content';
     content.classList.add('album-delete-content');
@@ -32,6 +27,7 @@ const AlbumDeleteContent = {
 
     const checkbox = document.createElement('input');
     checkbox.type = 'checkbox';
+    checkbox.onchange = e => onCheck(e.target.checked);
     checkboxWrapper.appendChild(checkbox);
     checkboxWrapper.appendChild(document.createTextNode('Delete all pictures associated with this album'));
 
@@ -42,7 +38,7 @@ const AlbumDeleteContent = {
 };
 
 const AlbumDeleteFooter = {
-  render() {
+  render({ onCancel, onDelete }) {
     const footer = document.createElement('div');
     footer.id = 'album-delete-footer';
     footer.classList.add('album-delete-footer');
@@ -55,6 +51,7 @@ const AlbumDeleteFooter = {
     cancelButton.id = 'album-delete-cancel-button';
     cancelButton.classList.add('album-delete-cancel-button');
     cancelButton.appendChild(document.createTextNode('Cancel'));
+    cancelButton.addEventListener('click', onCancel);
     cancelButtonWrapper.appendChild(cancelButton);
 
     const confirmButtonWrapper = document.createElement('div');
@@ -64,7 +61,8 @@ const AlbumDeleteFooter = {
     const confirmButton = document.createElement('div');
     confirmButton.id = 'album-delete-confirm-button';
     confirmButton.classList.add('album-delete-confirm-button');
-    confirmButton.appendChild(document.createTextNode('Confirm'));
+    confirmButton.appendChild(document.createTextNode('Delete'));
+    confirmButton.addEventListener('click', onDelete);
     confirmButtonWrapper.appendChild(confirmButton);
 
     footer.appendChild(cancelButtonWrapper);
@@ -76,18 +74,27 @@ const AlbumDeleteFooter = {
 
 const AlbumDeleteModal = {
   tearDown() {
-
+    Modal.tearDown();
   },
-  render({ albumName, onCancel, onConfirm }) {
+  render({ albumName, onDelete }) {
+    this.checked = false;
     const container = document.createElement('div');
     container.id = 'album-delete-container';
     container.classList.add('album-delete-container');
 
-    const header = AlbumDeleteHeader.render()
+    const header = AlbumDeleteHeader.render();
 
-    const content = AlbumDeleteContent.render({ albumName });
+    const content = AlbumDeleteContent.render({
+      albumName,
+      onCheck: (checked) => {
+        this.checked = checked;
+      },
+    });
 
-    const footer = AlbumDeleteFooter.render();
+    const footer = AlbumDeleteFooter.render({
+      onCancel: () => this.tearDown(),
+      onDelete: () => onDelete(this.checked),
+    });
 
     container.appendChild(header);
     container.appendChild(content);
@@ -97,11 +104,7 @@ const AlbumDeleteModal = {
 };
 
 const AlbumCard = {
-  handleDeleteClick(albumName) {
-    console.log('confirmed album delete!', albumName);
-    // Modal.render({ child: document.createTextNode('hello modal') });
-  },
-  render({ album, albumsRow, onClick }) {
+  render({ album, albumsRow, onClick, onAlbumDelete }) {
     const wrapper = document.createElement('div');
     wrapper.id = 'album-card-container';
     wrapper.classList.add('album-card-container');
@@ -123,7 +126,7 @@ const AlbumCard = {
 
     trashIcon.onclick = (e) => AlbumDeleteModal.render({
       albumName: album.name,
-      onConfirm: () => this.handleDeleteClick(album.name),
+      onDelete: checked => onAlbumDelete(checked),
     });
 
     albumCard.appendChild(icon);

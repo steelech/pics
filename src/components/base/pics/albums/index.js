@@ -10,6 +10,12 @@ const formatAlbums = (albums, numChunks) => {
 };
 
 const albumsIndex = {
+  deleteAlbum(albumId, deletePhotos) {
+    Albums.delete({ albumId, deletePhotos })
+      .then((response) => {
+        console.log('response: ', response);
+      });
+  },
   render({ onAlbumSelect }) {
     Albums.get({}).then((response) => {
       const container = document.createElement('div');
@@ -24,6 +30,7 @@ const albumsIndex = {
           albums,
           container,
           onAlbumSelect,
+          onAlbumDelete: ({ albumId, checked }) => this.deleteAlbum(albumId, checked),
         };
         AlbumsRow.render(params);
       });

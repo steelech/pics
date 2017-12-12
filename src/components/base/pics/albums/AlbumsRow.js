@@ -1,7 +1,7 @@
 import AlbumCard from 'components/base/pics/albums/AlbumCard';
 
 const AlbumsRow = {
-  render({ albums, container, onAlbumSelect }) {
+  render({ albums, container, onAlbumSelect, onAlbumDelete }) {
     const albumsRow = document.createElement('div');
     albumsRow.id = 'albums-row';
     albumsRow.classList.add('albums-row');
@@ -12,6 +12,7 @@ const AlbumsRow = {
         onClick: () => {
           onAlbumSelect(album._id);
         },
+        onAlbumDelete: checked => onAlbumDelete({ albumId: album._id, checked }),
       }),
     );
     return container.appendChild(albumsRow);

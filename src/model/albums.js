@@ -24,6 +24,26 @@ const Albums = {
       };
     });
   },
+  delete(query) {
+    const id = (query || {}).albumId;
+    const deletePics = (query || {}).deletePhotos;
+    return new Promise((resolve, reject) => {
+      const xhr = new XMLHttpRequest();
+      let queryString = '';
+      if (id) queryString += `?id=${id}`;
+      if (deletePics) {
+        queryString += deletePics
+          ? '&deletePics=true'
+          : '?deletePics=true';
+      }
+      xhr.open('DELETE', `http://localhost:8888/albums${queryString}`);
+      xhr.send();
+      xhr.onload = function () {
+        resolve()
+        // resolve(JSON.parse(this.response));
+      };
+    });
+  },
 };
 
 export default Albums;
