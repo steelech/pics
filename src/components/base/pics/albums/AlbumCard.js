@@ -93,10 +93,7 @@ const AlbumDeleteModal = {
 
     const footer = AlbumDeleteFooter.render({
       onCancel: () => this.tearDown(),
-      onDelete: () => {
-        onDelete(this.checked);
-        this.tearDown();
-      },
+      onDelete: () => onDelete(this.checked),
     });
 
     container.appendChild(header);

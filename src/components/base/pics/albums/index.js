@@ -1,5 +1,6 @@
 import Albums from 'model/albums';
 import AlbumsRow from 'components/base/pics/albums/AlbumsRow';
+import Modal from 'components/ui/Modal';
 
 const formatAlbums = (albums, numChunks) => {
   const albumList = [];
@@ -14,6 +15,7 @@ const albumsIndex = {
     Albums.delete({ albumId, deletePhotos })
       .then((response) => {
         console.log('response: ', response);
+        Modal.tearDown();
         this.render({ onAlbumSelect: this.onAlbumSelect });
       });
   },
