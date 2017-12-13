@@ -20,8 +20,43 @@ const AlbumsModalContent = {
     const content = document.createElement('div');
     content.id = 'albums-modal-content';
     content.classList.add('albums-modal-content');
-    content.appendChild(document.createTextNode('Content'));
 
+    const textFieldWrapper = document.createElement('div');
+    textFieldWrapper.id = 'albums-modal-textfield-wrapper';
+    textFieldWrapper.classList.add('albums-modal-textfield-wrapper');
+
+    const textFieldLabel = document.createElement('div');
+    textFieldLabel.id = 'albums-modal-textfield-label';
+    textFieldLabel.classList.add('albums-modal-textfield-label');
+    textFieldLabel.appendChild(document.createTextNode('Album name: '));
+
+    const textFieldInput = document.createElement('input');
+    textFieldInput.id = 'albums-modal-textfield-input';
+    textFieldInput.classList.add('albums-modal-textfield-input');
+    textFieldInput.type = 'text';
+
+    const checkboxWrapper = document.createElement('div');
+    checkboxWrapper.id = 'albums-modal-checkbox-wrapper';
+    checkboxWrapper.classList.add('albums-modal-checkbox-wrapper');
+
+    const checkbox = document.createElement('input');
+    checkbox.id = 'albums-modal-checkbox';
+    checkbox.classList.add('albums-modal-checkbox');
+    checkbox.type = 'checkbox';
+
+    const checkboxLabel = document.createElement('div');
+    checkboxLabel.id = 'albums-modal-checkbox-label';
+    checkboxLabel.classList.add('albums-modal-checkbox-label');
+    checkboxLabel.appendChild(document.createTextNode('Add images now'));
+
+    textFieldWrapper.appendChild(textFieldLabel);
+    textFieldWrapper.appendChild(textFieldInput);
+
+    checkboxWrapper.appendChild(checkbox);
+    checkboxWrapper.appendChild(checkboxLabel);
+
+    content.appendChild(textFieldWrapper);
+    content.appendChild(checkboxWrapper);
     return content;
   },
 };
@@ -59,74 +94,6 @@ const AlbumsModalFooter = () => {
 const AlbumsModal = {
   tearDown() {
     document.body.removeChild(document.getElementById('modal'));
-  },
-  handleSubmit() {
-    const albumName = document.getElementById('album-name-input-field').value;
-    Albums.create(albumName).then(this.onSubmit);
-    this.tearDown();
-  },
-  drawAlbumNameInput({ wrapper }) {
-    const albumNameInput = document.createElement('div');
-    albumNameInput.id = 'album-name-input';
-    albumNameInput.classList.add('album-name-input');
-
-    const albumNameInputField = document.createElement('input');
-    albumNameInputField.id = 'album-name-input-field';
-    albumNameInputField.classList.add('album-name-input-field');
-    albumNameInputField.placeholder = 'Album Name';
-    albumNameInputField.autofocus = true;
-    albumNameInput.appendChild(albumNameInputField);
-
-    wrapper.appendChild(albumNameInput);
-  },
-  drawPicCreateCheckbox({ wrapper }) {
-    const picCreateCheckboxWrapper = document.createElement('div');
-    picCreateCheckboxWrapper.id = 'pic-create-checkbox-wrapper';
-    picCreateCheckboxWrapper.classList.add('pic-create-checkbox-wrapper');
-
-    const addPicsCheckbox = document.createElement('input');
-    addPicsCheckbox.id = 'add-pics-checkbox';
-    addPicsCheckbox.classList.add('add-pics-checkbox');
-    addPicsCheckbox.type = 'checkbox';
-
-    const addPicsLabel = document.createElement('div');
-    addPicsLabel.id = 'add-pics-label';
-    addPicsLabel.classList.add('add-pics-label');
-    addPicsLabel.appendChild(document.createTextNode('Add images now'));
-
-    picCreateCheckboxWrapper.appendChild(addPicsCheckbox);
-    picCreateCheckboxWrapper.appendChild(addPicsLabel);
-    wrapper.appendChild(picCreateCheckboxWrapper);
-  },
-  drawSubmitButton({ wrapper }) {
-    const albumSubmit = document.createElement('div');
-    albumSubmit.id = 'album-submit';
-    albumSubmit.classList.add('album-submit');
-
-    const albumSubmitButton = document.createElement('div');
-    albumSubmitButton.id = 'album-submit-button';
-    albumSubmitButton.classList.add('album-submit-button');
-    albumSubmitButton.appendChild(document.createTextNode('Submit'));
-
-    albumSubmitButton.addEventListener('click', () => this.handleSubmit());
-    albumSubmitButton.addEventListener('mousedown', () => {
-      document.getElementById('album-submit-button').classList.add('clicked');
-    });
-    albumSubmitButton.addEventListener('mouseup', () => {
-      document.getElementById('album-submit-button').classList.remove('clicked');
-    });
-
-    albumSubmit.appendChild(albumSubmitButton);
-    wrapper.appendChild(albumSubmit);
-  },
-  drawForm({ container }) {
-    const wrapper = document.createElement('div');
-    wrapper.id = 'albums-modal-form';
-    wrapper.classList.add('albums-modal-form');
-    this.drawAlbumNameInput({ wrapper });
-    this.drawPicCreateCheckbox({ wrapper });
-    this.drawSubmitButton({ wrapper });
-    container.appendChild(wrapper);
   },
   render({ onSubmit }) {
     this.onSubmit = () => onSubmit();

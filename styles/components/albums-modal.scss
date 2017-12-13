@@ -18,7 +18,22 @@
   }
 
   .albums-modal-content {
+    .albums-modal-textfield-wrapper {
+      margin-top: 15px;
+      display: inline-flex;
+    }
+    .albums-modal-checkbox-wrapper {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      margin-top: 20px;
 
+      .albums-modal-checkbox {
+
+      }
+
+
+    }
   }
 
   .albums-modal-footer {
@@ -37,9 +52,14 @@
       margin-right: 30%;
 
       .albums-modal-cancel-button {
+        cursor: pointer;
         background: lightgrey;
         padding: 10px;
         border-radius: 3px;
+
+        &:hover {
+          background: #adbfba;
+        }
       }
     }
 
@@ -50,55 +70,15 @@
       margin-right: 5%;
 
       .albums-modal-create-button {
+        cursor: pointer;
         background: #5bff89;
         padding: 10px;
         border-radius: 3px;
+
+        &:hover {
+          background: #42d06a;
+        }
       }
     }
   }
-
-  // .albums-modal-form {
-  //   margin-top: 50px;
-  //   font-family: "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif;
-  //   color: lightgrey;
-  //
-  //   .album-name-input {
-  //     margin-top: 50px;
-  //     margin-bottom: 30px;
-  //
-  //     .album-name-input-field {
-  //       font-size: 20px;
-  //       border-top-right-radius: 5px;
-  //       border-top-left-radius: 5px;
-  //       border-bottom-left-radius: 5px;
-  //       border-bottom-right-radius: 5px;
-  //       border: 1px solid lightgrey;
-  //       padding-right: 10px;
-  //
-  //       &:focus {
-  //         outline: none;
-  //       }
-  //     }
-  //   }
-  //
-  //   .album-submit {
-  //     margin-top: 100px;
-  //
-  //     .album-submit-button {
-  //       border-radius: 3px;
-  //       background: #3f51b5;
-  //       height: 30px;
-  //       width: 20%;
-  //       margin-left: 40%;
-  //       margin-right: 40%;
-  //       padding-top: 5px;
-  //       font-size: 20px;
-  //       cursor: pointer;
-  //
-  //       &.clicked {
-  //         background: #6c79c1;
-  //       }
-  //     }
-  //   }
-  // }
 }
