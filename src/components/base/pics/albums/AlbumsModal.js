@@ -1,6 +1,35 @@
 import Modal from 'components/ui/modal';
 import Albums from 'model/albums';
 
+const fileUpload = {
+  render() {
+    const fileUploadWrapper = document.createElement('div');
+    fileUploadWrapper.id = 'file-upload-wrapper';
+    fileUploadWrapper.classList.add('file-upload-wrapper');
+
+    const fileInput = document.createElement('input');
+    fileInput.id = 'file-input';
+    fileInput.classList.add('file-input');
+    fileInput.type = 'file';
+
+    const fileInputLabel = document.createElement('label');
+    fileInputLabel.id = 'file-input-label';
+    fileInputLabel.classList.add('file-input-label');
+    fileInputLabel.htmlFor = 'file-input';
+    fileInputLabel.appendChild(document.createTextNode('Browse'));
+
+    const dragAndDropText = document.createElement('div');
+    dragAndDropText.id = 'drag-and-drop-text';
+    dragAndDropText.classList.add('drag-and-drop-text');
+    dragAndDropText.appendChild(document.createTextNode('or Drag and drop'));
+
+    fileUploadWrapper.appendChild(fileInput);
+    fileUploadWrapper.appendChild(fileInputLabel);
+    fileUploadWrapper.appendChild(dragAndDropText);
+    return fileUploadWrapper;
+  },
+};
+
 const AlbumsModalHeader = () => {
   const wrapper = document.createElement('div');
   wrapper.id = 'albums-modal-header';
@@ -16,10 +45,18 @@ const AlbumsModalHeader = () => {
 };
 
 const AlbumsModalContent = {
+  toggleFileInput(checked) {
+    console.log('checked: ', checked)
+    if (checked) {
+      this.fileUploadWrapper.style.visibility = '';
+    } else {
+      this.fileUploadWrapper.style.visibility = 'hidden';
+    }
+  },
   render() {
-    const content = document.createElement('div');
-    content.id = 'albums-modal-content';
-    content.classList.add('albums-modal-content');
+    this.content = document.createElement('div');
+    this.content.id = 'albums-modal-content';
+    this.content.classList.add('albums-modal-content');
 
     const textFieldWrapper = document.createElement('div');
     textFieldWrapper.id = 'albums-modal-textfield-wrapper';
@@ -43,6 +80,7 @@ const AlbumsModalContent = {
     checkbox.id = 'albums-modal-checkbox';
     checkbox.classList.add('albums-modal-checkbox');
     checkbox.type = 'checkbox';
+    checkbox.onchange = (e) => this.toggleFileInput(e.target.checked);
 
     const checkboxLabel = document.createElement('div');
     checkboxLabel.id = 'albums-modal-checkbox-label';
@@ -55,9 +93,13 @@ const AlbumsModalContent = {
     checkboxWrapper.appendChild(checkbox);
     checkboxWrapper.appendChild(checkboxLabel);
 
-    content.appendChild(textFieldWrapper);
-    content.appendChild(checkboxWrapper);
-    return content;
+    this.fileUploadWrapper = fileUpload.render();
+    this.fileUploadWrapper.style.visibility = 'hidden';
+
+    this.content.appendChild(textFieldWrapper);
+    this.content.appendChild(checkboxWrapper);
+    this.content.appendChild(this.fileUploadWrapper);
+    return this.content;
   },
 };
 

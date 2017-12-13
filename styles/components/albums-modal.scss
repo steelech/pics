@@ -31,8 +31,22 @@
       .albums-modal-checkbox {
 
       }
-
-
+    }
+    .file-upload-wrapper {
+      margin-top: 20px;
+      .file-input {
+        visibility: hidden;
+        position: absolute;
+      }
+      .file-input-label {
+        border-radius: 3px;
+        padding: 10px;
+        background: #7a87d0;
+        cursor: pointer;
+      }
+      .drag-and-drop-text {
+        margin-top: 20px;
+      }
     }
   }
 
