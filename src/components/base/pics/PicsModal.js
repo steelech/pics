@@ -21,6 +21,7 @@ const tearDownLoader = () => {
 };
 
 const renderLoader = () => {
+  Modal.lock();
   const wrapper = document.getElementById('pics-modal');
   if (wrapper) {
     while (wrapper.firstChild) {

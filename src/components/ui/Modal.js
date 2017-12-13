@@ -1,6 +1,6 @@
 const Modal = {
   _handleClick(event) {
-    if (event.target.id === 'modal') {
+    if (event.target.id === 'modal' && !this.locked) {
       document.body.removeChild(document.getElementById('modal'));
       history.replaceState(null, null, this.url);
     }
@@ -11,7 +11,11 @@ const Modal = {
       history.replaceState(null, null, this.url);
     }
   },
+  lock() {
+    this.locked = true;
+  },
   render({ child, url }) {
+    this.locked = false;
     this.url = url;
     const modal = document.createElement('div');
     modal.classList.add('modal');
