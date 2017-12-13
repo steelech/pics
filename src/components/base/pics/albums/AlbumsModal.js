@@ -35,7 +35,13 @@ const fileList = {
       const listEntryDelete = document.createElement('div');
       listEntryDelete.id = 'file-list-entry-delete';
       listEntryDelete.classList.add('file-list-entry-delete');
-      listEntryDelete.appendChild(document.createTextNode('X'));
+
+      const deleteIcon = document.createElement('i');
+      deleteIcon.id = 'file-delete-icon';
+      deleteIcon.classList.add('fa');
+      deleteIcon.classList.add('fa-close');
+      deleteIcon.classList.add('file-delete-icon');
+      listEntryDelete.appendChild(deleteIcon);
       listEntry.appendChild(listEntryDelete);
 
       listWrapper.appendChild(listEntry);
@@ -61,7 +67,7 @@ const FileListWrapper = {
     const fileListHeaderText = document.createElement('div');
     fileListHeaderText.id = 'file-list-header-text';
     fileListHeaderText.classList.add('file-list-header-text');
-    fileListHeaderText.appendChild(document.createTextNode('file(s) to be uploaded:'));
+    fileListHeaderText.appendChild(document.createTextNode('file(s) to be added:'));
 
     const list = fileList.render({ files });
 
@@ -69,6 +75,26 @@ const FileListWrapper = {
     fileListHeader.appendChild(fileListHeaderText);
     fileListWrapper.appendChild(fileListHeader);
     fileListWrapper.appendChild(list);
+    if (files.length) {
+      const fileListRemoveAll = document.createElement('div');
+      fileListRemoveAll.id = 'file-list-remove-all';
+      fileListRemoveAll.classList.add('file-list-remove-all');
+
+      const fileListRemoveAllText = document.createElement('div');
+      fileListRemoveAllText.id = 'file-list-remove-all-text';
+      fileListRemoveAllText.classList.add('file-list-remove-all-text');
+      fileListRemoveAllText.appendChild(document.createTextNode('Remove all images'));
+      fileListRemoveAll.appendChild(fileListRemoveAllText);
+
+      const deleteIcon = document.createElement('i');
+      deleteIcon.id = 'remove-all-delete-icon';
+      deleteIcon.classList.add('remove-all-delete-icon');
+      deleteIcon.classList.add('fa');
+      deleteIcon.classList.add('fa-close');
+      fileListRemoveAll.appendChild(deleteIcon);
+
+      fileListWrapper.appendChild(fileListRemoveAll);
+    }
 
     return fileListWrapper;
   },
