@@ -9,6 +9,24 @@ FileList.prototype.toArray = function () {
   return files;
 };
 
+const fileList = {
+  render({ files }) {
+    if (!files.length) {
+      const placeholder = document.createElement('div');
+      placeholder.id = 'empty-filelist-placeholder';
+      placeholder.classList.add('empty-filelist-placeholder');
+      placeholder.appendChild(document.createTextNode('Add images now, or wait until later'));
+      return placeholder;
+    } else {
+      const listWrapper = document.createElement('div');
+      listWrapper.id = 'file-list';
+      listWrapper.classList.add('file-list');
+      listWrapper.appendChild(document.createTextNode('Will be a file list soon'));
+      return listWrapper
+    }
+  }
+};
+
 const fileUpload = {
   handleFileSelect(e) {
     this.files = this.files.concat(e.target.files.toArray());
@@ -16,33 +34,57 @@ const fileUpload = {
   },
   handleDrop(e) {
     e.preventDefault();
-    if (this.fileUploadWrapper.style.visibility !== 'hidden') {
-      this.files = this.files.concat(e.dataTransfer.files.toArray());
-      this.dropZone.style.background = 'white';
-      this.onFileChange(this.files);
-    }
+    this.files = this.files.concat(e.dataTransfer.files.toArray());
+    this.dragAndDropZone.style.background = 'lightgrey';
+    this.onFileChange(this.files);
   },
   handleDragEnter(e) {
+    this.dragAndDropZone.style.background = '#b9dacb';
     e.preventDefault();
-    if (this.fileUploadWrapper.style.visibility !== 'hidden') {
-      this.dropZone.style.background = 'lightgrey';
-    }
   },
   handleDragLeave() {
-    if (this.fileUploadWrapper.style.visibility !== 'hidden') {
-      this.dropZone.style.background = 'white';
-    }
+    this.dragAndDropZone.style.background = 'lightgrey';
   },
-  render({ dropZone, onFileChange }) {
-    this.dropZone = dropZone;
+  render({ onFileChange }) {
+    // this.dropZone = dropZone;
     this.onFileChange = onFileChange;
     this.files = [];
-    dropZone.addEventListener('dragover', (e) => this.handleDragEnter(e));
-    dropZone.addEventListener('dragleave', () => this.handleDragLeave());
-    dropZone.addEventListener('drop', e => this.handleDrop(e));
     this.fileUploadWrapper = document.createElement('div');
     this.fileUploadWrapper.id = 'file-upload-wrapper';
     this.fileUploadWrapper.classList.add('file-upload-wrapper');
+
+    const fileInputWrapper = document.createElement('div');
+    fileInputWrapper.id = 'file-input-wrapper';
+    fileInputWrapper.classList.add('file-input-wrapper');
+
+    const fileListWrapper = document.createElement('div');
+    fileListWrapper.id = 'file-list-wrapper';
+    fileListWrapper.classList.add('file-list-wrapper');
+
+    this.dragAndDropZone = document.createElement('div');
+    this.dragAndDropZone.id = 'drag-and-drop-zone';
+    this.dragAndDropZone.classList.add('drag-and-drop-zone');
+    this.dragAndDropZone.addEventListener('dragover', (e) => this.handleDragEnter(e));
+    this.dragAndDropZone.addEventListener('dragleave', () => this.handleDragLeave());
+    this.dragAndDropZone.addEventListener('drop', e => this.handleDrop(e));
+
+    const dragAndDropTextWrapper = document.createElement('div');
+    dragAndDropTextWrapper.id = 'drag-and-drop-text-wrapper';
+    dragAndDropTextWrapper.classList.add('drag-and-drop-text-wrapper');
+
+    const dragAndDropText = document.createElement('div');
+    dragAndDropText.id = 'drag-and-drop-text';
+    dragAndDropText.classList.add('drag-and-drop-text');
+    dragAndDropText.appendChild(document.createTextNode('Drag and drop to add images'));
+
+    const dragAndDropOr = document.createElement('div');
+    dragAndDropOr.id = 'drag-and-drop-or';
+    dragAndDropOr.classList.add('drag-and-drop-or');
+    dragAndDropOr.appendChild(document.createTextNode('OR'));
+
+    const fileSelectWrapper = document.createElement('div');
+    fileSelectWrapper.id = 'file-select-wrapper';
+    fileSelectWrapper.classList.add('file-select-wrapper');
 
     const fileInput = document.createElement('input');
     fileInput.id = 'file-input';
@@ -55,16 +97,42 @@ const fileUpload = {
     fileInputLabel.id = 'file-input-label';
     fileInputLabel.classList.add('file-input-label');
     fileInputLabel.htmlFor = 'file-input';
-    fileInputLabel.appendChild(document.createTextNode('Browse'));
+    fileInputLabel.appendChild(document.createTextNode('Select files'));
 
-    const dragAndDropText = document.createElement('div');
-    dragAndDropText.id = 'drag-and-drop-text';
-    dragAndDropText.classList.add('drag-and-drop-text');
-    dragAndDropText.appendChild(document.createTextNode('or Drag and drop'));
+    fileSelectWrapper.appendChild(fileInput);
+    fileSelectWrapper.appendChild(fileInputLabel);
 
-    this.fileUploadWrapper.appendChild(fileInput);
-    this.fileUploadWrapper.appendChild(fileInputLabel);
-    this.fileUploadWrapper.appendChild(dragAndDropText);
+    dragAndDropTextWrapper.appendChild(dragAndDropText);
+    dragAndDropTextWrapper.appendChild(dragAndDropOr);
+    dragAndDropTextWrapper.appendChild(fileSelectWrapper);
+
+    this.dragAndDropZone.appendChild(dragAndDropTextWrapper);
+    fileInputWrapper.appendChild(this.dragAndDropZone);
+
+    const fileListHeader = document.createElement('div');
+    fileListHeader.id = 'file-list-header';
+    fileListHeader.classList.add('file-list-header');
+
+    const fileListNumFiles = document.createElement('div');
+    fileListNumFiles.id = 'file-list-num-files';
+    fileListNumFiles.classList.add('file-list-num-files');
+    fileListNumFiles.appendChild(document.createTextNode('0'));
+
+    const fileListHeaderText = document.createElement('div');
+    fileListHeaderText.id = 'file-list-header-text';
+    fileListHeaderText.classList.add('file-list-header-text');
+    fileListHeaderText.appendChild(document.createTextNode('file(s) to be uploaded:'));
+
+    const list = fileList.render({ files: this.files });
+
+    fileListHeader.appendChild(fileListNumFiles);
+    fileListHeader.appendChild(fileListHeaderText);
+    fileListWrapper.appendChild(fileListHeader);
+    fileListWrapper.appendChild(list);
+
+    this.fileUploadWrapper.appendChild(fileInputWrapper);
+    this.fileUploadWrapper.appendChild(fileListWrapper);
+
     return this.fileUploadWrapper;
   },
 };
@@ -84,13 +152,6 @@ const AlbumsModalHeader = () => {
 };
 
 const AlbumsModalContent = {
-  toggleFileInput(checked) {
-    if (checked) {
-      this.fileUploadWrapper.style.visibility = '';
-    } else {
-      this.fileUploadWrapper.style.visibility = 'hidden';
-    }
-  },
   handleFileChange(files) {
     console.log('Files added, new files: ', files);
   },
@@ -113,35 +174,15 @@ const AlbumsModalContent = {
     textFieldInput.classList.add('albums-modal-textfield-input');
     textFieldInput.type = 'text';
 
-    const checkboxWrapper = document.createElement('div');
-    checkboxWrapper.id = 'albums-modal-checkbox-wrapper';
-    checkboxWrapper.classList.add('albums-modal-checkbox-wrapper');
-
-    const checkbox = document.createElement('input');
-    checkbox.id = 'albums-modal-checkbox';
-    checkbox.classList.add('albums-modal-checkbox');
-    checkbox.type = 'checkbox';
-    checkbox.onchange = e => this.toggleFileInput(e.target.checked);
-
-    const checkboxLabel = document.createElement('div');
-    checkboxLabel.id = 'albums-modal-checkbox-label';
-    checkboxLabel.classList.add('albums-modal-checkbox-label');
-    checkboxLabel.appendChild(document.createTextNode('Add images now'));
-
     textFieldWrapper.appendChild(textFieldLabel);
     textFieldWrapper.appendChild(textFieldInput);
-
-    checkboxWrapper.appendChild(checkbox);
-    checkboxWrapper.appendChild(checkboxLabel);
 
     this.fileUploadWrapper = fileUpload.render({
       dropZone,
       onFileChange: files => this.handleFileChange(files),
     });
-    this.fileUploadWrapper.style.visibility = 'hidden';
 
     this.content.appendChild(textFieldWrapper);
-    this.content.appendChild(checkboxWrapper);
     this.content.appendChild(this.fileUploadWrapper);
     return this.content;
   },

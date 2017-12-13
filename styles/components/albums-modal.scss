@@ -5,11 +5,11 @@
   border: 1px solid black;
   border-radius: 3px;
   background: white;
-  width: 50%;
-  height: 60%;
-  margin-top: 10%;
-  margin-left: 25%;
-  margin-right: 25%;
+  width: 70%;
+  height: 80%;
+  margin-top: 5%;
+  margin-left: 15%;
+  margin-right: 15%;
   text-align: center;
   .albums-modal-header {
     border-bottom: 1px solid lightgrey;
@@ -21,31 +21,73 @@
     .albums-modal-textfield-wrapper {
       margin-top: 15px;
       display: inline-flex;
-    }
-    .albums-modal-checkbox-wrapper {
-      position: relative;
-      display: flex;
+      width: 100%;
       justify-content: center;
-      margin-top: 20px;
-
-      .albums-modal-checkbox {
-
-      }
     }
     .file-upload-wrapper {
-      margin-top: 20px;
-      .file-input {
-        visibility: hidden;
-        position: absolute;
+      display: inline-flex;
+      width: 100%;
+      margin-top: 30px;
+
+      .file-input-wrapper {
+        width: 50%;
+
+        .drag-and-drop-zone {
+          width: 80%;
+          height: 300px;
+          background: lightgrey;
+          margin-left: 10%;
+          margin-right: 10%;
+          border: 2px dashed darkgrey;
+          border-radius: 3px;
+
+          .drag-and-drop-text-wrapper {
+            margin-top: 60px;
+            .drag-and-drop-text {
+
+            }
+
+            .drag-and-drop-or {
+              margin-top: 30px;
+              margin-bottom: 30px;
+            }
+
+            .file-select-wrapper {
+              margin-top: 10px;
+              .file-input {
+                visibility: hidden;
+                position: absolute;
+              }
+
+              .file-input-label {
+                background: darkgrey;
+                padding: 5px;
+                border-radius: 4px;
+                cursor: pointer;
+              }
+            }
+          }
+        }
       }
-      .file-input-label {
-        border-radius: 3px;
-        padding: 10px;
-        background: #7a87d0;
-        cursor: pointer;
-      }
-      .drag-and-drop-text {
-        margin-top: 20px;
+      .file-list-wrapper {
+        width: 50%;
+
+        .file-list-header {
+          display: inline-flex;
+          width: 100%;
+          margin-bottom: 10px;
+          padding-bottom: 10px;
+          border-bottom: 1px solid lightgrey;
+          justify-content: center;
+          margin-right: 10px;
+          .file-list-num-files {
+            margin-right: 5px;
+          }
+
+          .file-list-header-text {
+
+          }
+        }
       }
     }
   }
