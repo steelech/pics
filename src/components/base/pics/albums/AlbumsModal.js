@@ -1,16 +1,55 @@
 import Modal from 'components/ui/modal';
 import Albums from 'model/albums';
 
+FileList.prototype.toArray = function () {
+  const files = [];
+  for (let i = 0; i < this.length; i++) {
+    files.push(this[i]);
+  }
+  return files;
+};
+
 const fileUpload = {
-  render() {
-    const fileUploadWrapper = document.createElement('div');
-    fileUploadWrapper.id = 'file-upload-wrapper';
-    fileUploadWrapper.classList.add('file-upload-wrapper');
+  handleFileSelect(e) {
+    this.files = this.files.concat(e.target.files.toArray());
+    this.onFileChange(this.files);
+  },
+  handleDrop(e) {
+    e.preventDefault();
+    if (this.fileUploadWrapper.style.visibility !== 'hidden') {
+      this.files = this.files.concat(e.dataTransfer.files.toArray());
+      this.dropZone.style.background = 'white';
+      this.onFileChange(this.files);
+    }
+  },
+  handleDragEnter(e) {
+    e.preventDefault();
+    if (this.fileUploadWrapper.style.visibility !== 'hidden') {
+      this.dropZone.style.background = 'lightgrey';
+    }
+  },
+  handleDragLeave() {
+    if (this.fileUploadWrapper.style.visibility !== 'hidden') {
+      this.dropZone.style.background = 'white';
+    }
+  },
+  render({ dropZone, onFileChange }) {
+    this.dropZone = dropZone;
+    this.onFileChange = onFileChange;
+    this.files = [];
+    dropZone.addEventListener('dragover', (e) => this.handleDragEnter(e));
+    dropZone.addEventListener('dragleave', () => this.handleDragLeave());
+    dropZone.addEventListener('drop', e => this.handleDrop(e));
+    this.fileUploadWrapper = document.createElement('div');
+    this.fileUploadWrapper.id = 'file-upload-wrapper';
+    this.fileUploadWrapper.classList.add('file-upload-wrapper');
 
     const fileInput = document.createElement('input');
     fileInput.id = 'file-input';
     fileInput.classList.add('file-input');
     fileInput.type = 'file';
+    fileInput.multiple = 'multiple';
+    fileInput.addEventListener('change', e => this.handleFileSelect(e));
 
     const fileInputLabel = document.createElement('label');
     fileInputLabel.id = 'file-input-label';
@@ -23,10 +62,10 @@ const fileUpload = {
     dragAndDropText.classList.add('drag-and-drop-text');
     dragAndDropText.appendChild(document.createTextNode('or Drag and drop'));
 
-    fileUploadWrapper.appendChild(fileInput);
-    fileUploadWrapper.appendChild(fileInputLabel);
-    fileUploadWrapper.appendChild(dragAndDropText);
-    return fileUploadWrapper;
+    this.fileUploadWrapper.appendChild(fileInput);
+    this.fileUploadWrapper.appendChild(fileInputLabel);
+    this.fileUploadWrapper.appendChild(dragAndDropText);
+    return this.fileUploadWrapper;
   },
 };
 
@@ -46,14 +85,16 @@ const AlbumsModalHeader = () => {
 
 const AlbumsModalContent = {
   toggleFileInput(checked) {
-    console.log('checked: ', checked)
     if (checked) {
       this.fileUploadWrapper.style.visibility = '';
     } else {
       this.fileUploadWrapper.style.visibility = 'hidden';
     }
   },
-  render() {
+  handleFileChange(files) {
+    console.log('Files added, new files: ', files);
+  },
+  render({ dropZone }) {
     this.content = document.createElement('div');
     this.content.id = 'albums-modal-content';
     this.content.classList.add('albums-modal-content');
@@ -80,7 +121,7 @@ const AlbumsModalContent = {
     checkbox.id = 'albums-modal-checkbox';
     checkbox.classList.add('albums-modal-checkbox');
     checkbox.type = 'checkbox';
-    checkbox.onchange = (e) => this.toggleFileInput(e.target.checked);
+    checkbox.onchange = e => this.toggleFileInput(e.target.checked);
 
     const checkboxLabel = document.createElement('div');
     checkboxLabel.id = 'albums-modal-checkbox-label';
@@ -93,7 +134,10 @@ const AlbumsModalContent = {
     checkboxWrapper.appendChild(checkbox);
     checkboxWrapper.appendChild(checkboxLabel);
 
-    this.fileUploadWrapper = fileUpload.render();
+    this.fileUploadWrapper = fileUpload.render({
+      dropZone,
+      onFileChange: files => this.handleFileChange(files),
+    });
     this.fileUploadWrapper.style.visibility = 'hidden';
 
     this.content.appendChild(textFieldWrapper);
@@ -144,7 +188,7 @@ const AlbumsModal = {
     container.classList.add('albums-modal');
 
     const header = AlbumsModalHeader();
-    const content = AlbumsModalContent.render();
+    const content = AlbumsModalContent.render({ dropZone: container });
     const footer = AlbumsModalFooter();
 
     container.appendChild(header);
