@@ -50,7 +50,10 @@ const AlbumHeader = {
 
     backWrapper.appendChild(backIconWrapper);
     backWrapper.appendChild(backTextWrapper);
-    backWrapper.addEventListener('click', () => this.props.handleBackClick());
+    backWrapper.addEventListener('click', () => {
+      history.replaceState(null, null, '/pics/albums');
+      this.props.handleBackClick();
+    });
 
     albumHeaderTextLeft.appendChild(backWrapper);
     albumHeaderTextLeft.appendChild(rightArrowWrapper);

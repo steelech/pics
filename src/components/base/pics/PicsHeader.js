@@ -59,7 +59,7 @@ const PicsHeader = {
       AlbumHeader.render({
         container,
         albumName,
-        handleBackClick: this.handleBackClick,
+        handleBackClick: () => this.handleBackClick(),
       });
     } else {
       const picsHeaderText = document.createElement('div');
