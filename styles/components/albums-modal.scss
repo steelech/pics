@@ -74,18 +74,40 @@
 
         .file-list-header {
           display: inline-flex;
-          width: 100%;
+          width: 80%;
           margin-bottom: 10px;
           padding-bottom: 10px;
           border-bottom: 1px solid lightgrey;
           justify-content: center;
-          margin-right: 10px;
           .file-list-num-files {
             margin-right: 5px;
           }
 
           .file-list-header-text {
 
+          }
+        }
+
+        .file-list {
+          width: 80%;
+          margin-left: 10%;
+          margin-right: 10%;
+          height: 230px;
+          overflow-y: auto;
+          .file-list-entry {
+            position: relative;
+            width: 100%;
+            display: inline-flex;
+            margin-bottom: 20px;
+            .file-list-entry-filename {
+              width: 60%;
+            }
+
+            .file-list-entry-delete {
+              color: red;
+              position: absolute;
+              right: 30px;
+            }
           }
         }
       }

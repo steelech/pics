@@ -17,25 +17,81 @@ const fileList = {
       placeholder.classList.add('empty-filelist-placeholder');
       placeholder.appendChild(document.createTextNode('Add images now, or wait until later'));
       return placeholder;
-    } else {
-      const listWrapper = document.createElement('div');
-      listWrapper.id = 'file-list';
-      listWrapper.classList.add('file-list');
-      listWrapper.appendChild(document.createTextNode('Will be a file list soon'));
-      return listWrapper
     }
-  }
+    const listWrapper = document.createElement('div');
+    listWrapper.id = 'file-list';
+    listWrapper.classList.add('file-list');
+    files.map((file) => {
+      const listEntry = document.createElement('div');
+      listEntry.id = 'file-list-entry';
+      listEntry.classList.add('file-list-entry');
+
+      const listEntryFilename = document.createElement('div');
+      listEntryFilename.id = 'file-list-entry-filename';
+      listEntryFilename.classList.add('file-list-entry-filename');
+      listEntryFilename.appendChild(document.createTextNode(file.name));
+      listEntry.appendChild(listEntryFilename);
+
+      const listEntryDelete = document.createElement('div');
+      listEntryDelete.id = 'file-list-entry-delete';
+      listEntryDelete.classList.add('file-list-entry-delete');
+      listEntryDelete.appendChild(document.createTextNode('X'));
+      listEntry.appendChild(listEntryDelete);
+
+      listWrapper.appendChild(listEntry);
+    });
+    return listWrapper;
+  },
+};
+
+const FileListWrapper = {
+  render({ files }) {
+    const fileListWrapper = document.createElement('div');
+    fileListWrapper.id = 'file-list-wrapper';
+    fileListWrapper.classList.add('file-list-wrapper');
+    const fileListHeader = document.createElement('div');
+    fileListHeader.id = 'file-list-header';
+    fileListHeader.classList.add('file-list-header');
+
+    const fileListNumFiles = document.createElement('div');
+    fileListNumFiles.id = 'file-list-num-files';
+    fileListNumFiles.classList.add('file-list-num-files');
+    fileListNumFiles.appendChild(document.createTextNode(`${files.length}`));
+
+    const fileListHeaderText = document.createElement('div');
+    fileListHeaderText.id = 'file-list-header-text';
+    fileListHeaderText.classList.add('file-list-header-text');
+    fileListHeaderText.appendChild(document.createTextNode('file(s) to be uploaded:'));
+
+    const list = fileList.render({ files });
+
+    fileListHeader.appendChild(fileListNumFiles);
+    fileListHeader.appendChild(fileListHeaderText);
+    fileListWrapper.appendChild(fileListHeader);
+    fileListWrapper.appendChild(list);
+
+    return fileListWrapper;
+  },
 };
 
 const fileUpload = {
+  rerenderFileList() {
+    this.fileUploadWrapper.removeChild(this.fileListWrapper);
+    this.fileListWrapper = FileListWrapper.render({
+      files: this.files,
+    });
+    this.fileUploadWrapper.appendChild(this.fileListWrapper);
+  },
   handleFileSelect(e) {
     this.files = this.files.concat(e.target.files.toArray());
+    this.rerenderFileList();
     this.onFileChange(this.files);
   },
   handleDrop(e) {
     e.preventDefault();
     this.files = this.files.concat(e.dataTransfer.files.toArray());
     this.dragAndDropZone.style.background = 'lightgrey';
+    this.rerenderFileList();
     this.onFileChange(this.files);
   },
   handleDragEnter(e) {
@@ -56,10 +112,6 @@ const fileUpload = {
     const fileInputWrapper = document.createElement('div');
     fileInputWrapper.id = 'file-input-wrapper';
     fileInputWrapper.classList.add('file-input-wrapper');
-
-    const fileListWrapper = document.createElement('div');
-    fileListWrapper.id = 'file-list-wrapper';
-    fileListWrapper.classList.add('file-list-wrapper');
 
     this.dragAndDropZone = document.createElement('div');
     this.dragAndDropZone.id = 'drag-and-drop-zone';
@@ -109,29 +161,10 @@ const fileUpload = {
     this.dragAndDropZone.appendChild(dragAndDropTextWrapper);
     fileInputWrapper.appendChild(this.dragAndDropZone);
 
-    const fileListHeader = document.createElement('div');
-    fileListHeader.id = 'file-list-header';
-    fileListHeader.classList.add('file-list-header');
-
-    const fileListNumFiles = document.createElement('div');
-    fileListNumFiles.id = 'file-list-num-files';
-    fileListNumFiles.classList.add('file-list-num-files');
-    fileListNumFiles.appendChild(document.createTextNode('0'));
-
-    const fileListHeaderText = document.createElement('div');
-    fileListHeaderText.id = 'file-list-header-text';
-    fileListHeaderText.classList.add('file-list-header-text');
-    fileListHeaderText.appendChild(document.createTextNode('file(s) to be uploaded:'));
-
-    const list = fileList.render({ files: this.files });
-
-    fileListHeader.appendChild(fileListNumFiles);
-    fileListHeader.appendChild(fileListHeaderText);
-    fileListWrapper.appendChild(fileListHeader);
-    fileListWrapper.appendChild(list);
+    this.fileListWrapper = FileListWrapper.render({ files: this.files });
 
     this.fileUploadWrapper.appendChild(fileInputWrapper);
-    this.fileUploadWrapper.appendChild(fileListWrapper);
+    this.fileUploadWrapper.appendChild(this.fileListWrapper);
 
     return this.fileUploadWrapper;
   },
