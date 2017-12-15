@@ -22,7 +22,6 @@ const PicsList = {
     });
   },
   render({ pics, picid, picsSlideshow, albumid, index, onPicDelete, url }) {
-    console.log('PicsList pics: ', pics);
     if (document.getElementById('pics-list')) {
       document.getElementById('pics-content').removeChild(document.getElementById('pics-list'));
     }

@@ -152,7 +152,6 @@ const fileUpload = {
     this.dragAndDropZone.style.background = 'lightgrey';
   },
   render({ onFileChange }) {
-    // this.dropZone = dropZone;
     this.onFileChange = onFileChange;
     this.files = [];
     this.fileUploadWrapper = document.createElement('div');
@@ -263,10 +262,23 @@ const AlbumsModalContent = {
     textFieldInput.classList.add('albums-modal-textfield-input');
     textFieldInput.type = 'text';
     textFieldInput.autofocus = 'autofocus';
-    textFieldInput.addEventListener('change', e => handleAlbumNameChange(e.target.value));
+    textFieldInput.placeholder = 'Enter album name';
+    textFieldInput.addEventListener('keyup', e => handleAlbumNameChange(e.target.value));
+
+    const textFieldRequired = document.createElement('div');
+    textFieldRequired.id = 'album-name-required';
+    textFieldRequired.classList.add('album-name-required');
+
+    const requiredIcon = document.createElement('i');
+    requiredIcon.id = 'album-name-required-icon';
+    requiredIcon.classList.add('album-name-required-icon');
+    requiredIcon.classList.add('fa');
+    requiredIcon.classList.add('fa-asterisk');
+    textFieldRequired.appendChild(requiredIcon);
 
     textFieldWrapper.appendChild(textFieldLabel);
     textFieldWrapper.appendChild(textFieldInput);
+    textFieldWrapper.appendChild(textFieldRequired);
 
     this.fileUploadWrapper = fileUpload.render({
       onFileChange: files => this.handleFileChange(files),
@@ -278,7 +290,7 @@ const AlbumsModalContent = {
   },
 };
 
-const AlbumsModalFooter = ({ handleSubmit, handleCancel }) => {
+const AlbumsModalFooter = ({ handleSubmit, handleCancel, disableClick }) => {
   const footer = document.createElement('div');
   footer.id = 'albums-modal-footer';
   footer.classList.add('albums-modal-footer');
@@ -301,6 +313,7 @@ const AlbumsModalFooter = ({ handleSubmit, handleCancel }) => {
   const createButton = document.createElement('div');
   createButton.id = 'albums-modal-create-button';
   createButton.classList.add('albums-modal-create-button');
+  if (disableClick) createButton.classList.add('disable-submit');
   createButton.appendChild(document.createTextNode('Create'));
   createButton.onclick = () => handleSubmit();
   createButtonWrapper.appendChild(createButton);
@@ -315,12 +328,27 @@ const AlbumsModal = {
     document.body.removeChild(document.getElementById('modal'));
   },
   handleAlbumNameChange(albumName) {
+    let reRender = false;
+    let disable = false;
+    if (this.albumName === '' && albumName !== '') {
+      reRender = true;
+    }
+    if (this.albumName !== '' && albumName === '') {
+      reRender = true;
+      disable = true;
+    }
     this.albumName = albumName;
+    this.disableSubmit = disable;
+    if (reRender) {
+      this.reRenderFooter(disable);
+    }
   },
   handleSubmit() {
-    console.log('handling submit');
-    console.log('fileList: ', this.fileList);
-    console.log('albumName: ', this.albumName);
+    if (!(this.albumName === '')) {
+      console.log('handling submit');
+      console.log('fileList: ', this.fileList);
+      console.log('albumName: ', this.albumName);
+    }
   },
   handleCancel() {
     console.log('handling cancel');
@@ -328,29 +356,40 @@ const AlbumsModal = {
   handleFileChange(files) {
     this.fileList = files;
   },
+  reRenderFooter(disable) {
+    this.container.removeChild(this.footer);
+    this.footer = AlbumsModalFooter({
+      handleSubmit: () => this.handleSubmit(),
+      handleCancel: () => this.handleCancel(),
+      disableClick: disable,
+    });
+    this.container.appendChild(this.footer);
+  },
   render({ onSubmit }) {
     this.fileList = [];
     this.albumName = '';
+    this.disableSubmit = true;
     this.onSubmit = () => onSubmit();
-    const container = document.createElement('div');
-    container.id = 'albums-modal';
-    container.classList.add('albums-modal');
+    this.container = document.createElement('div');
+    this.container.id = 'albums-modal';
+    this.container.classList.add('albums-modal');
 
     const header = AlbumsModalHeader();
     const content = AlbumsModalContent.render({
       handleFileChange: files => this.handleFileChange(files),
       handleAlbumNameChange: albumName => this.handleAlbumNameChange(albumName),
     });
-    const footer = AlbumsModalFooter({
+    this.footer = AlbumsModalFooter({
       handleSubmit: () => this.handleSubmit(),
       handleCancel: () => this.handleCancel(),
+      disableClick: true,
     });
 
-    container.appendChild(header);
-    container.appendChild(content);
-    container.appendChild(footer);
+    this.container.appendChild(header);
+    this.container.appendChild(content);
+    this.container.appendChild(this.footer);
 
-    Modal.render({ child: container });
+    Modal.render({ child: this.container });
   },
 };
 

@@ -39,6 +39,13 @@
           outline: none;
         }
       }
+
+      .album-name-required {
+        .album-name-required-icon {
+          color: red;
+          font-size: 10px;
+        }
+      }
     }
     .file-upload-wrapper {
       display: inline-flex;
@@ -204,6 +211,11 @@
 
         &:hover {
           background: #42d06a;
+        }
+
+        &.disable-submit {
+          background: #6f9e7c;
+          cursor: not-allowed;
         }
       }
     }
