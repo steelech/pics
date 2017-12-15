@@ -84,7 +84,7 @@ const PicsModalContent = {
   },
 };
 
-const PicsModalFooter = ({ disable }) => {
+const PicsModalFooter = ({ disable, handleSubmit }) => {
   const footer = document.createElement('div');
   footer.id = 'pics-modal-footer';
   footer.classList.add('pics-modal-footer');
@@ -107,6 +107,7 @@ const PicsModalFooter = ({ disable }) => {
   createButton.id = 'pics-modal-create-button';
   createButton.classList.add('pics-modal-create-button');
   createButton.appendChild(document.createTextNode('Create'));
+  createButton.onclick = () => handleSubmit();
   createButtonWrapper.appendChild(createButton);
   if (disable) createButton.classList.add('disable-submit');
 
@@ -116,6 +117,13 @@ const PicsModalFooter = ({ disable }) => {
 };
 
 const PicsModal = {
+  handleSubmit() {
+    if (this.fileList.length) {
+      console.log('submitting');
+      console.log('album: ', this.album);
+      console.log('files: ', this.fileList);
+    }
+  },
   handleFileChange(files) {
     let disable = false;
     let reRender = false;
@@ -133,16 +141,18 @@ const PicsModal = {
     this.fileList = JSON.parse(JSON.stringify(files));
   },
   handleSelectChange(album) {
-    console.log('new album selected: ', album);
+    this.album = album;
   },
   reRenderFooter(disable) {
     this.container.removeChild(this.footer);
     this.footer = PicsModalFooter({
       disable,
+      handleSubmit: () => this.handleSubmit(),
     });
     this.container.appendChild(this.footer);
   },
   render() {
+    this.album = null;
     this.fileList = [];
     this.container = document.createElement('div');
     this.container.classList.add('pics-modal');
@@ -158,6 +168,7 @@ const PicsModal = {
 
       this.footer = PicsModalFooter({
         disable: true,
+        handleSubmit: () => this.handleSubmit(),
       });
 
       this.container.appendChild(header);
