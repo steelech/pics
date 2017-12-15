@@ -11,84 +11,73 @@
   margin-left: 15%;
   margin-right: 15%;
   text-align: center;
-  .refresh-warning {
-    margin-top: 40px;
-  }
-  .loading-spinner {
-    width: 30%;
-    margin-left: 35%;
-    margin-right: 35%;
-    margin-top: 100px;
 
-    .loader {
-      border: 16px solid #f3f3f3;
-      border-radius: 50%;
-      border-top: 16px solid #3498db;
-      width: 120px;
-      height: 120px;
-      -webkit-animation: spin 2s linear infinite;
-      animation: spin 2s linear infinite;
-    }
-
-    @-webkit-keyframes spin {
-      0% {
-        -webkit-transform: rotate(0deg);
-      }
-      100% {
-        -webkit-transform: rotate(360deg);
-      }
-    }
-
-    @keyframes spin {
-      0% {
-        transform: rotate(0deg);
-      }
-      100% {
-        transform: rotate(360deg);
-      }
-    }
-  }
-
-  font-family: "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif;
   .pics-modal-header {
     border-bottom: 1px solid lightgrey;
     font-family: "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif;
     color: #3f51b5;
   }
+
   .pics-modal-content {
-    margin-top: 40px;
+    margin-top: 10px;
+    .album-select-wrapper {
+      display: inline-flex;
+      .album-select-text {
 
-    .upload-file {
-      display: none;
+      }
+      .album-select-input {
+        margin-left: 10px;
+      }
     }
+  }
 
-    .file-upload-button-label {
-      margin-top: 5px;
-      padding: 5px;
-      border: 1px solid lightgrey;
-      border-radius: 3px;
+  .pics-modal-footer {
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+    display: flex;
+    height: 60px;
+    padding-top: 20px;
+    border-top: 1px solid lightgrey;
 
-      &:hover {
-        background: lightgrey;
+    .pics-modal-cancel-wrapper {
+      position: relative;
+      width: 15%;
+      margin-left: 5%;
+      margin-right: 30%;
+
+      .pics-modal-cancel-button {
         cursor: pointer;
+        background: lightgrey;
+        padding: 10px;
+        border-radius: 3px;
+
+        &:hover {
+          background: #adbfba;
+        }
       }
     }
 
-    .pics-drag-and-drop {
-      margin-top: 20px;
-    }
-
-    .pics-modal-submit {
-      margin-top: 30px;
-      border: 1px solid lightgrey;
+    .pics-modal-create-wrapper {
+      position: relative;
       width: 15%;
-      margin-left: 42.5%;
-      margin-right: 42.5%;
-      padding: 3px;
-      border-radius: 3px;
+      margin-left: 30%;
+      margin-right: 5%;
 
-      &:hover {
-        background: lightgrey;
+      .pics-modal-create-button {
+        cursor: pointer;
+        background: #5bff89;
+        padding: 10px;
+        border-radius: 3px;
+
+        &:hover {
+          background: #42d06a;
+        }
+
+        &.disable-submit {
+          background: #6f9e7c;
+          cursor: not-allowed;
+        }
       }
     }
   }

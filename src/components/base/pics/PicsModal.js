@@ -3,6 +3,19 @@ import Pics from 'model/pics';
 import Albums from 'model/albums';
 import FileUpload from 'components/ui/FileUpload';
 
+const PicsModalHeader = () => {
+  const wrapper = document.createElement('div');
+  wrapper.id = 'pics-modal-header';
+  wrapper.classList.add('pics-modal-header');
+
+  const headerText = document.createElement('h1');
+  headerText.id = 'pics-modal-header-text';
+  headerText.classList.add('pics-modal-header-text');
+  headerText.appendChild(document.createTextNode('Add Pictures'));
+
+  wrapper.appendChild(headerText);
+  return wrapper;
+};
 
 FileList.prototype.toArray = function () {
   const files = [];
@@ -12,160 +25,104 @@ FileList.prototype.toArray = function () {
   return files;
 };
 
-const tearDownLoader = () => {
-  const wrapper = document.getElementById('modal');
-  if (wrapper) {
-    while (wrapper.firstChild) {
-      wrapper.removeChild(wrapper.firstChild);
-    }
-  }
-  document.body.removeChild(wrapper);
+const PicsModalContent = {
+  handleFileChange(files) {
+    console.log('files: ', files);
+  },
+  render({ albums }) {
+    this.fileList = [];
+    this.content = document.createElement('div');
+    this.content.id = 'pics-modal-content';
+    this.content.classList.add('pics-modal-content');
+
+    const albumSelectWrapper = document.createElement('div');
+    albumSelectWrapper.id = 'album-select-wrapper';
+    albumSelectWrapper.classList.add('album-select-wrapper');
+
+    const albumSelectText = document.createElement('div');
+    albumSelectText.id = 'album-select-text';
+    albumSelectText.classList.add('album-select-text');
+    albumSelectText.appendChild(document.createTextNode('Album Select'));
+
+    const albumSelectInput = document.createElement('select');
+    albumSelectInput.id = 'album-select-input';
+    albumSelectInput.classList.add('album-select-input');
+
+    const defaultOption = document.createElement('option');
+    defaultOption.selected = 'selected';
+    defaultOption.appendChild(document.createTextNode('None'));
+    defaultOption.value = null;
+    albumSelectInput.appendChild(defaultOption);
+
+    albums.map((album) => {
+      const albumOption = document.createElement('option');
+      albumOption.value = album._id;
+      albumOption.appendChild(document.createTextNode(album.name));
+      albumSelectInput.appendChild(albumOption);
+    });
+
+    albumSelectWrapper.appendChild(albumSelectText);
+    albumSelectWrapper.appendChild(albumSelectInput);
+
+    this.fileUploadWrapper = FileUpload.render({
+      onFileChange: files => this.handleFileChange(files),
+    });
+
+    this.content.appendChild(albumSelectWrapper);
+    this.content.appendChild(this.fileUploadWrapper);
+    return this.content;
+  },
 };
 
-const renderLoader = () => {
-  Modal.lock();
-  const wrapper = document.getElementById('pics-modal');
-  if (wrapper) {
-    while (wrapper.firstChild) {
-      wrapper.removeChild(wrapper.firstChild);
-    }
-  }
-  const loadingSpinner = document.createElement('div');
-  loadingSpinner.id = 'loading-spinner';
-  loadingSpinner.classList.add('loading-spinner');
+const PicsModalFooter = () => {
+  const footer = document.createElement('div');
+  footer.id = 'pics-modal-footer';
+  footer.classList.add('pics-modal-footer');
 
-  const loader = document.createElement('div');
-  loader.id = 'loader';
-  loader.classList.add('loader');
-  loadingSpinner.appendChild(loader);
-  wrapper.appendChild(loadingSpinner);
-  const refreshWarning = document.createElement('div');
-  refreshWarning.id = 'refresh-warning';
-  refreshWarning.classList.add('refresh-warning');
-  refreshWarning.appendChild(
-    document.createTextNode('Processing pictures. Please do not refresh.'),
-  );
-  wrapper.appendChild(refreshWarning);
+  const cancelButtonWrapper = document.createElement('div');
+  cancelButtonWrapper.id = 'pics-modal-cancel-wrapper';
+  cancelButtonWrapper.classList.add('pics-modal-cancel-wrapper');
+
+  const cancelButton = document.createElement('div');
+  cancelButton.id = 'pics-modal-cancel-button';
+  cancelButton.classList.add('pics-modal-cancel-button');
+  cancelButton.appendChild(document.createTextNode('Cancel'));
+  cancelButtonWrapper.appendChild(cancelButton);
+
+  const createButtonWrapper = document.createElement('div');
+  createButtonWrapper.id = 'pics-modal-create-wrapper';
+  createButtonWrapper.classList.add('pics-modal-create-wrapper');
+
+  const createButton = document.createElement('div');
+  createButton.id = 'pics-modal-create-button';
+  createButton.classList.add('pics-modal-create-button');
+  createButton.appendChild(document.createTextNode('Create'));
+  createButtonWrapper.appendChild(createButton);
+
+  footer.appendChild(cancelButtonWrapper);
+  footer.appendChild(createButtonWrapper);
+  return footer;
 };
 
 const PicsModal = {
-  fileList: [],
-  _handleFileDrop(event) {
-    event.preventDefault();
-    const files = event.dataTransfer.files;
-    this.fileList = this.fileList.concat(files.toArray());
-  },
-  _handleFileUpload(event) {
-    const files = document.getElementById('upload-file').files;
-    this.fileList = this.fileList.concat(files.toArray());
-  },
-  _handleSubmit(event) {
-    // tear down view, render loading spinner + message
-    renderLoader();
-    // send album as well as fileList
-    Pics.send(this.fileList, this.albumid).then((message) => {
-      tearDownLoader();
-      this.onSubmit(this.albumid);
-    });
-  },
   render(params) {
-    const picsModal = document.createElement('div');
-    picsModal.classList.add('pics-modal');
-    picsModal.id = 'pics-modal';
+    Albums.get({}).then(albums => {
+      this.fileList = [];
+      const picsModal = document.createElement('div');
+      picsModal.classList.add('pics-modal');
+      picsModal.id = 'pics-modal';
 
-    const fileUpload = FileUpload.render({
-      onFileChange: (files) => {
-        console.log('new fileList: ', files);
-      },
+      const header = PicsModalHeader();
+
+      const content = PicsModalContent.render({ albums });
+
+      const footer = PicsModalFooter();
+
+      picsModal.appendChild(header);
+      picsModal.appendChild(content);
+      picsModal.appendChild(footer);
+      Modal.render({ child: picsModal });
     });
-    picsModal.appendChild(fileUpload);
-    Modal.render({ child: picsModal });
-    // // TODO: clean this up
-    // Albums.get({}).then((albums) => {
-    //   // this.albumid = albums.
-    //   this.onSubmit = params.onSubmit;
-    //   const picsModal = document.createElement('div');
-    //   picsModal.classList.add('pics-modal');
-    //   picsModal.id = 'pics-modal';
-    //   picsModal.ondragenter = function (event) {
-    //     event.preventDefault();
-    //     event.currentTarget.classList.add('drag-enter');
-    //   };
-    //   picsModal.ondragleave = function (event) {
-    //     event.preventDefault();
-    //     event.currentTarget.classList.remove('drag-enter');
-    //   };
-    //   picsModal.ondrop = e => this._handleFileDrop(e);
-    //
-    //   picsModal.ondragover = function (event) {
-    //     event.preventDefault();
-    //   };
-    //   const picsModalHeader = document.createElement('div');
-    //   picsModalHeader.classList.add('pics-modal-header');
-    //   picsModalHeader.id = 'pics-modal-header';
-    //   const headerText = document.createElement('h1');
-    //   headerText.classList.add('header-text');
-    //   headerText.id = 'pics-modal-header-text';
-    //   headerText.appendChild(document.createTextNode('Add Pics'));
-    //   picsModalHeader.appendChild(headerText);
-    //
-    //   const picsModalContent = document.createElement('div');
-    //   picsModalContent.classList.add('pics-modal-content');
-    //   picsModalContent.id = 'pics-modal-content';
-    //
-    //   const fileUploadButton = document.createElement('input');
-    //   fileUploadButton.type = 'file';
-    //   fileUploadButton.accept = '.jpg, .png';
-    //   fileUploadButton.classList.add('upload-file');
-    //   fileUploadButton.id = 'upload-file';
-    //   fileUploadButton.multiple = 'multiple';
-    //   fileUploadButton.onchange = () => this._handleFileUpload();
-    //   picsModalContent.appendChild(fileUploadButton);
-    //
-    //   const fileUploadButtonLabel = document.createElement('label');
-    //   fileUploadButtonLabel.classList.add('file-upload-button-label');
-    //   fileUploadButtonLabel.id = 'file-upload-button-label';
-    //   fileUploadButtonLabel.htmlFor = 'upload-file';
-    //   fileUploadButtonLabel.appendChild(document.createTextNode('Browse Files'));
-    //   picsModalContent.appendChild(fileUploadButtonLabel);
-    //
-    //   const dragAndDrop = document.createElement('div');
-    //   dragAndDrop.classList.add('pics-drag-and-drop');
-    //   dragAndDrop.id = 'pics-drag-and-drop';
-    //   dragAndDrop.appendChild(document.createTextNode('or Drag and Drop'));
-    //   picsModalContent.appendChild(dragAndDrop);
-    //
-    //   const select = document.createElement('select');
-    //   select.id = 'pics-album-select';
-    //   select.classList.add('pics-album-select');
-    //
-    //   select.onchange = (event) => {
-    //     this.albumid = event.srcElement.value;
-    //   };
-    //   const defaultOption = document.createElement('option');
-    //   defaultOption.selected = 'selected';
-    //   defaultOption.appendChild(document.createTextNode('None'));
-    //   defaultOption.value = null;
-    //   select.appendChild(defaultOption);
-    //   albums.map((album) => {
-    //     const albumOption = document.createElement('option');
-    //     albumOption.value = album._id;
-    //     albumOption.appendChild(document.createTextNode(album.name));
-    //     select.appendChild(albumOption);
-    //   });
-    //   picsModalContent.appendChild(select);
-    //
-    //   const submitButton = document.createElement('div');
-    //   submitButton.classList.add('pics-modal-submit');
-    //   submitButton.id = 'pics-modal-submit';
-    //   submitButton.appendChild(document.createTextNode('Upload'));
-    //   submitButton.onclick = () => this._handleSubmit();
-    //   picsModalContent.appendChild(submitButton);
-    //
-    //   picsModal.appendChild(picsModalHeader);
-    //   picsModal.appendChild(picsModalContent);
-    //   Modal.render({ child: picsModal });
-    // });
   },
 };
 
