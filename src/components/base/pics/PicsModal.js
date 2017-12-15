@@ -26,10 +26,18 @@ FileList.prototype.toArray = function () {
 };
 
 const PicsModalContent = {
-  handleFileChange(files) {
-    console.log('files: ', files);
+  onSelectChange(e) {
+    this.handleSelectChange(e);
+    const albumName = e.target.options[e.target.selectedIndex].text;
+    const album = this.albums.filter((thisAlbum) => {
+      return thisAlbum.name === albumName;
+    })[0];
+    this.handleSelectChange((album));
   },
-  render({ albums }) {
+  render({ albums, handleFileChange, handleSelectChange }) {
+    this.albums = albums;
+    this.handleFileChange = handleFileChange;
+    this.handleSelectChange = handleSelectChange;
     this.fileList = [];
     this.content = document.createElement('div');
     this.content.id = 'pics-modal-content';
@@ -47,6 +55,8 @@ const PicsModalContent = {
     const albumSelectInput = document.createElement('select');
     albumSelectInput.id = 'album-select-input';
     albumSelectInput.classList.add('album-select-input');
+    albumSelectInput.addEventListener('change', e => this.handleSelectChange(e));
+    albumSelectInput.onchange = (e) => this.onSelectChange(e);
 
     const defaultOption = document.createElement('option');
     defaultOption.selected = 'selected';
@@ -74,7 +84,7 @@ const PicsModalContent = {
   },
 };
 
-const PicsModalFooter = () => {
+const PicsModalFooter = ({ disable }) => {
   const footer = document.createElement('div');
   footer.id = 'pics-modal-footer';
   footer.classList.add('pics-modal-footer');
@@ -98,6 +108,7 @@ const PicsModalFooter = () => {
   createButton.classList.add('pics-modal-create-button');
   createButton.appendChild(document.createTextNode('Create'));
   createButtonWrapper.appendChild(createButton);
+  if (disable) createButton.classList.add('disable-submit');
 
   footer.appendChild(cancelButtonWrapper);
   footer.appendChild(createButtonWrapper);
@@ -105,23 +116,54 @@ const PicsModalFooter = () => {
 };
 
 const PicsModal = {
-  render(params) {
-    Albums.get({}).then(albums => {
-      this.fileList = [];
-      const picsModal = document.createElement('div');
-      picsModal.classList.add('pics-modal');
-      picsModal.id = 'pics-modal';
-
+  handleFileChange(files) {
+    let disable = false;
+    let reRender = false;
+    if (!files.length) {
+      disable = true;
+      if (this.fileList.length) {
+        reRender = true;
+      }
+    } else {
+      if (!this.fileList.length) {
+        reRender = true;
+      }
+    }
+    if (reRender) this.reRenderFooter(disable);
+    this.fileList = JSON.parse(JSON.stringify(files));
+  },
+  handleSelectChange(album) {
+    console.log('new album selected: ', album);
+  },
+  reRenderFooter(disable) {
+    this.container.removeChild(this.footer);
+    this.footer = PicsModalFooter({
+      disable,
+    });
+    this.container.appendChild(this.footer);
+  },
+  render() {
+    this.fileList = [];
+    this.container = document.createElement('div');
+    this.container.classList.add('pics-modal');
+    this.container.id = 'pics-modal';
+    Albums.get({}).then((albums) => {
       const header = PicsModalHeader();
 
-      const content = PicsModalContent.render({ albums });
+      const content = PicsModalContent.render({
+        albums,
+        handleFileChange: files => this.handleFileChange(files),
+        handleSelectChange: e => this.handleSelectChange(e),
+      });
 
-      const footer = PicsModalFooter();
+      this.footer = PicsModalFooter({
+        disable: true,
+      });
 
-      picsModal.appendChild(header);
-      picsModal.appendChild(content);
-      picsModal.appendChild(footer);
-      Modal.render({ child: picsModal });
+      this.container.appendChild(header);
+      this.container.appendChild(content);
+      this.container.appendChild(this.footer);
+      Modal.render({ child: this.container });
     });
   },
 };
