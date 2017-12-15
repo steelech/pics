@@ -7,8 +7,8 @@ const Albums = {
       xhr.open('POST', 'http://localhost:8888/albums', true);
       xhr.send(formData);
 
-      xhr.onload = () => {
-        resolve();
+      xhr.onload = function () {
+        resolve(JSON.parse(this.response));
       };
     });
   },

@@ -1,5 +1,6 @@
 import Modal from 'components/ui/modal';
 import Albums from 'model/albums';
+import Pics from 'model/pics';
 
 FileList.prototype.toArray = function () {
   const files = [];
@@ -222,6 +223,20 @@ const fileUpload = {
   },
 };
 
+const createAlbum = (albumName, files) => {
+  return new Promise((resolve, reject) => {
+    Albums.create(albumName)
+      .then((response) => {
+        if (files.length) {
+          Pics.send(files, response.albumId)
+            .then(resolve);
+        } else {
+          resolve();
+        }
+      });
+  });
+};
+
 const AlbumsModalHeader = () => {
   const wrapper = document.createElement('div');
   wrapper.id = 'albums-modal-header';
@@ -348,6 +363,10 @@ const AlbumsModal = {
       console.log('handling submit');
       console.log('fileList: ', this.fileList);
       console.log('albumName: ', this.albumName);
+      createAlbum(this.albumName, this.fileList)
+        .then(() => {
+          console.log('DONE!!!!');
+        });
     }
   },
   handleCancel() {
