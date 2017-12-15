@@ -1,13 +1,15 @@
 .pics-modal {
+  font-family: "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif;
+  position: relative;
   background: white;
   border: 1px solid black;
   border-radius: 3px;
   background: white;
-  width: 50%;
-  height: 60%;
-  margin-top: 10%;
-  margin-left: 25%;
-  margin-right: 25%;
+  width: 70%;
+  height: 80%;
+  margin-top: 5%;
+  margin-left: 15%;
+  margin-right: 15%;
   text-align: center;
   .refresh-warning {
     margin-top: 40px;
