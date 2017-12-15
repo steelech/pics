@@ -239,9 +239,12 @@ const AlbumsModalHeader = () => {
 
 const AlbumsModalContent = {
   handleFileChange(files) {
-    console.log('Files added, new files: ', files);
+    this.fileList = files;
+    this.onFileChange(this.fileList);
   },
-  render({ dropZone }) {
+  render({ handleFileChange, handleAlbumNameChange }) {
+    this.onFileChange = handleFileChange;
+    this.fileList = [];
     this.content = document.createElement('div');
     this.content.id = 'albums-modal-content';
     this.content.classList.add('albums-modal-content');
@@ -260,12 +263,12 @@ const AlbumsModalContent = {
     textFieldInput.classList.add('albums-modal-textfield-input');
     textFieldInput.type = 'text';
     textFieldInput.autofocus = 'autofocus';
+    textFieldInput.addEventListener('change', e => handleAlbumNameChange(e.target.value));
 
     textFieldWrapper.appendChild(textFieldLabel);
     textFieldWrapper.appendChild(textFieldInput);
 
     this.fileUploadWrapper = fileUpload.render({
-      dropZone,
       onFileChange: files => this.handleFileChange(files),
     });
 
@@ -275,7 +278,7 @@ const AlbumsModalContent = {
   },
 };
 
-const AlbumsModalFooter = () => {
+const AlbumsModalFooter = ({ handleSubmit, handleCancel }) => {
   const footer = document.createElement('div');
   footer.id = 'albums-modal-footer';
   footer.classList.add('albums-modal-footer');
@@ -288,6 +291,7 @@ const AlbumsModalFooter = () => {
   cancelButton.id = 'albums-modal-cancel-button';
   cancelButton.classList.add('albums-modal-cancel-button');
   cancelButton.appendChild(document.createTextNode('Cancel'));
+  cancelButton.onclick = () => handleCancel();
   cancelButtonWrapper.appendChild(cancelButton);
 
   const createButtonWrapper = document.createElement('div');
@@ -298,6 +302,7 @@ const AlbumsModalFooter = () => {
   createButton.id = 'albums-modal-create-button';
   createButton.classList.add('albums-modal-create-button');
   createButton.appendChild(document.createTextNode('Create'));
+  createButton.onclick = () => handleSubmit();
   createButtonWrapper.appendChild(createButton);
 
   footer.appendChild(cancelButtonWrapper);
@@ -309,15 +314,37 @@ const AlbumsModal = {
   tearDown() {
     document.body.removeChild(document.getElementById('modal'));
   },
+  handleAlbumNameChange(albumName) {
+    this.albumName = albumName;
+  },
+  handleSubmit() {
+    console.log('handling submit');
+    console.log('fileList: ', this.fileList);
+    console.log('albumName: ', this.albumName);
+  },
+  handleCancel() {
+    console.log('handling cancel');
+  },
+  handleFileChange(files) {
+    this.fileList = files;
+  },
   render({ onSubmit }) {
+    this.fileList = [];
+    this.albumName = '';
     this.onSubmit = () => onSubmit();
     const container = document.createElement('div');
     container.id = 'albums-modal';
     container.classList.add('albums-modal');
 
     const header = AlbumsModalHeader();
-    const content = AlbumsModalContent.render({ dropZone: container });
-    const footer = AlbumsModalFooter();
+    const content = AlbumsModalContent.render({
+      handleFileChange: files => this.handleFileChange(files),
+      handleAlbumNameChange: albumName => this.handleAlbumNameChange(albumName),
+    });
+    const footer = AlbumsModalFooter({
+      handleSubmit: () => this.handleSubmit(),
+      handleCancel: () => this.handleCancel(),
+    });
 
     container.appendChild(header);
     container.appendChild(content);
