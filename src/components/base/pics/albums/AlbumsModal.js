@@ -10,7 +10,11 @@ FileList.prototype.toArray = function () {
 };
 
 const fileList = {
-  render({ files }) {
+  handleFileRemove(file) {
+    this.onFileRemove(file);
+  },
+  render({ files, onFileRemove }) {
+    this.onFileRemove = onFileRemove;
     if (!files.length) {
       const placeholder = document.createElement('div');
       placeholder.id = 'empty-filelist-placeholder';
@@ -41,6 +45,7 @@ const fileList = {
       deleteIcon.classList.add('fa');
       deleteIcon.classList.add('fa-close');
       deleteIcon.classList.add('file-delete-icon');
+      deleteIcon.addEventListener('click', () => this.handleFileRemove(file));
       listEntryDelete.appendChild(deleteIcon);
       listEntry.appendChild(listEntryDelete);
 
@@ -51,7 +56,11 @@ const fileList = {
 };
 
 const FileListWrapper = {
-  render({ files }) {
+  handleFileRemove(file) {
+    this.onFileRemove(file);
+  },
+  render({ files, onFileRemove }) {
+    this.onFileRemove = onFileRemove;
     const fileListWrapper = document.createElement('div');
     fileListWrapper.id = 'file-list-wrapper';
     fileListWrapper.classList.add('file-list-wrapper');
@@ -69,7 +78,10 @@ const FileListWrapper = {
     fileListHeaderText.classList.add('file-list-header-text');
     fileListHeaderText.appendChild(document.createTextNode('file(s) to be added:'));
 
-    const list = fileList.render({ files });
+    const list = fileList.render({
+      files,
+      onFileRemove: file => this.handleFileRemove(file),
+    });
 
     fileListHeader.appendChild(fileListNumFiles);
     fileListHeader.appendChild(fileListHeaderText);
@@ -92,7 +104,7 @@ const FileListWrapper = {
       deleteIcon.classList.add('fa');
       deleteIcon.classList.add('fa-close');
       fileListRemoveAll.appendChild(deleteIcon);
-
+      fileListRemoveAll.addEventListener('click', () => this.handleFileRemove());
       fileListWrapper.appendChild(fileListRemoveAll);
     }
 
@@ -101,10 +113,22 @@ const FileListWrapper = {
 };
 
 const fileUpload = {
+  handleFileRemove(file) {
+    if (!file) {
+      this.files = [];
+      this.rerenderFileList();
+      this.onFileChange(this.files);
+    } else {
+      this.files.splice(this.files.indexOf(file), 1);
+      this.rerenderFileList();
+      this.onFileChange(this.files);
+    }
+  },
   rerenderFileList() {
     this.fileUploadWrapper.removeChild(this.fileListWrapper);
     this.fileListWrapper = FileListWrapper.render({
       files: this.files,
+      onFileRemove: file => this.handleFileRemove(file),
     });
     this.fileUploadWrapper.appendChild(this.fileListWrapper);
   },
@@ -187,7 +211,10 @@ const fileUpload = {
     this.dragAndDropZone.appendChild(dragAndDropTextWrapper);
     fileInputWrapper.appendChild(this.dragAndDropZone);
 
-    this.fileListWrapper = FileListWrapper.render({ files: this.files });
+    this.fileListWrapper = FileListWrapper.render({
+      files: this.files,
+      onFileRemove: file => this.handleFileRemove(file),
+    });
 
     this.fileUploadWrapper.appendChild(fileInputWrapper);
     this.fileUploadWrapper.appendChild(this.fileListWrapper);
@@ -232,6 +259,7 @@ const AlbumsModalContent = {
     textFieldInput.id = 'albums-modal-textfield-input';
     textFieldInput.classList.add('albums-modal-textfield-input');
     textFieldInput.type = 'text';
+    textFieldInput.autofocus = 'autofocus';
 
     textFieldWrapper.appendChild(textFieldLabel);
     textFieldWrapper.appendChild(textFieldInput);

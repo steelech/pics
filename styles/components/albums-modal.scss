@@ -35,6 +35,9 @@
         border-radius: 3px;
         font-size: 20px;
         color: #596294;
+        &:focus {
+          outline: none;
+        }
       }
     }
     .file-upload-wrapper {
@@ -51,18 +54,19 @@
           background: lightgrey;
           margin-left: 10%;
           margin-right: 10%;
-          border: 2px dashed darkgrey;
+          border: 2px dashed rgba(91, 255, 137, .51);
           border-radius: 3px;
 
           .drag-and-drop-text-wrapper {
             margin-top: 60px;
             .drag-and-drop-text {
-
+              color: rgba(0, 0, 0, .37);
             }
 
             .drag-and-drop-or {
               margin-top: 30px;
               margin-bottom: 30px;
+              color: rgba(0, 0, 0, .37);
             }
 
             .file-select-wrapper {
@@ -73,9 +77,9 @@
               }
 
               .file-input-label {
-                background: darkgrey;
-                padding: 5px;
-                border-radius: 4px;
+                background: rgba(63, 81, 181, 0.57);
+                padding: 7px;
+                border-radius: 15px;
                 cursor: pointer;
               }
             }
@@ -111,9 +115,13 @@
             position: relative;
             width: 100%;
             display: inline-flex;
-            margin-bottom: 20px;
+            margin-top: 5px;
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            border-bottom: 1px dashed #a9b6ff3b;
             .file-list-entry-filename {
               width: 60%;
+              font-size: 13px;
             }
 
             .file-list-entry-delete {
