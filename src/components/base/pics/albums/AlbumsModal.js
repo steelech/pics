@@ -1,6 +1,7 @@
 import Modal from 'components/ui/modal';
 import Albums from 'model/albums';
 import Pics from 'model/pics';
+import AlbumsModalLoader from 'components/base/pics/albums/AlbumsModalLoader';
 
 FileList.prototype.toArray = function () {
   const files = [];
@@ -229,9 +230,13 @@ const createAlbum = (albumName, files) => {
       .then((response) => {
         if (files.length) {
           Pics.send(files, response.albumId)
-            .then(resolve);
+            .then(() => resolve({
+              albumId: response.albumId,
+            }));
         } else {
-          resolve();
+          resolve({
+            albumId: response.albumId,
+          });
         }
       });
   });
@@ -360,12 +365,14 @@ const AlbumsModal = {
   },
   handleSubmit() {
     if (!(this.albumName === '')) {
-      console.log('handling submit');
-      console.log('fileList: ', this.fileList);
-      console.log('albumName: ', this.albumName);
+      AlbumsModalLoader.render({
+        wrapper: this.container,
+      });
       createAlbum(this.albumName, this.fileList)
-        .then(() => {
-          console.log('DONE!!!!');
+        .then((response) => {
+          AlbumsModalLoader.tearDown();
+          console.log('response: ', response);
+          this.onSubmit(response.albumId);
         });
     }
   },
@@ -388,7 +395,7 @@ const AlbumsModal = {
     this.fileList = [];
     this.albumName = '';
     this.disableSubmit = true;
-    this.onSubmit = () => onSubmit();
+    this.onSubmit = onSubmit;
     this.container = document.createElement('div');
     this.container.id = 'albums-modal';
     this.container.classList.add('albums-modal');

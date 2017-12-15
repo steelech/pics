@@ -63,14 +63,16 @@ const picsIndex = {
       albumid,
     });
   },
-  handleAlbumSubmit() {
-    history.replaceState({}, {}, '/pics/albums');
-    this.render({ albums: true });
+  handleAlbumSubmit(albumId) {
+    history.replaceState({}, {}, `/pics/albums/${albumId}`);
+    this.render({
+      albums: true,
+      albumid: albumId,
+    });
   },
   _handleAlbumCreateClick() {
-    const props = {};
     AlbumsModal.render({
-      onSubmit: () => this.handleAlbumSubmit(),
+      onSubmit: albumId => this.handleAlbumSubmit(albumId),
     });
   },
   _handleUploadButtonClick() {
