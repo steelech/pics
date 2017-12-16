@@ -2,6 +2,8 @@ import Modal from 'components/ui/Modal';
 import Pics from 'model/pics';
 import Albums from 'model/albums';
 import FileUpload from 'components/ui/FileUpload';
+import AlbumsModalLoader from 'components/base/pics/albums/AlbumsModalLoader';
+
 
 const PicsModalHeader = () => {
   const wrapper = document.createElement('div');
@@ -119,9 +121,15 @@ const PicsModalFooter = ({ disable, handleSubmit }) => {
 const PicsModal = {
   handleSubmit() {
     if (this.fileList.length) {
-      console.log('submitting');
-      console.log('album: ', this.album);
-      console.log('files: ', this.fileList);
+      AlbumsModalLoader.render({
+        wrapper: this.container,
+      });
+      const _id = (this.album || {})._id;
+      Pics.send(this.fileList, _id)
+        .then(() => {
+          AlbumsModalLoader.tearDown();
+          this.onSubmit(_id);
+        });
     }
   },
   handleFileChange(files) {
@@ -138,7 +146,7 @@ const PicsModal = {
       }
     }
     if (reRender) this.reRenderFooter(disable);
-    this.fileList = JSON.parse(JSON.stringify(files));
+    this.fileList = files;
   },
   handleSelectChange(album) {
     this.album = album;
@@ -151,7 +159,8 @@ const PicsModal = {
     });
     this.container.appendChild(this.footer);
   },
-  render() {
+  render({ onSubmit }) {
+    this.onSubmit = onSubmit;
     this.album = null;
     this.fileList = [];
     this.container = document.createElement('div');
