@@ -57,7 +57,6 @@ const PicsModalContent = {
     const albumSelectInput = document.createElement('select');
     albumSelectInput.id = 'album-select-input';
     albumSelectInput.classList.add('album-select-input');
-    albumSelectInput.addEventListener('change', e => this.handleSelectChange(e));
     albumSelectInput.onchange = (e) => this.onSelectChange(e);
 
     const defaultOption = document.createElement('option');

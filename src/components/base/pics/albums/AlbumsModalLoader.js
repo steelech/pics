@@ -20,7 +20,6 @@ const AlbumsModalLoader = {
   },
   render({ wrapper }) {
     this.wrapper = wrapper;
-    console.log('rendering AlbumsModalLoader');
     Modal.lock();
     while (wrapper.firstChild) {
       wrapper.removeChild(wrapper.firstChild);

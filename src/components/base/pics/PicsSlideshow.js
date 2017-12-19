@@ -1,21 +1,29 @@
 import Modal from 'components/ui/Modal';
 import Pics from 'model/pics';
+import Image from 'components/ui/Image';
+
+// const getImage = (url, _id) => {
+//
+// }
 
 
 const PicsSlideshow = {
+  // since we are setting the background in css, we cant use the Image object
+  // gotta make a 'fetch' request, check if picture is 'good', then set url
+  // according to the response ()
   nextPic() {
     if (this.index + 1 < this.pics.length) {
       this.index = this.index + 1;
     }
     history.replaceState(null, null, `/pics/${this.pics[this.index]._id}`);
-    this.modalContent.style = `background-image: url(${this.pics[this.index].ssUrl});background-repeat:no-repeat;background-position: center;`;
+    // this.modalContent.style = `background-image: url(${this.pics[this.index].ssUrl});background-repeat:no-repeat;background-position: center;`;
   },
   prevPic() {
     if (this.index - 1 >= 0) {
       this.index = this.index - 1;
     }
     history.replaceState(null, null, `/pics/${this.pics[this.index]._id}`);
-    this.modalContent.style = `background-image: url(${this.pics[this.index].ssUrl});background-repeat:no-repeat;background-position: center;`;
+    // this.modalContent.style = `background-image: url(${this.pics[this.index].ssUrl});background-repeat:no-repeat;background-position: center;`;
   },
 
   keyPressHandler(e) {
@@ -50,7 +58,13 @@ const PicsSlideshow = {
     this.modalContent = document.createElement('div');
     this.modalContent.id = 'pics-slideshow';
     this.modalContent.classList.add('pics-slideshow');
-    this.modalContent.style = `background-image: url(${pics[this.index].ssUrl});background-repeat:no-repeat;background-position: center;`;
+
+    const image = Image.render({
+      url: pics[this.index].ssUrl,
+      alt: 'hahaha',
+    });
+    this.modalContent.appendChild(image);
+    // this.modalContent.style = `background-image: url(${pics[this.index].ssUrl});background-repeat:no-repeat;background-position: center;`;
 
     const contentWrapper = document.createElement('div');
     contentWrapper.id = 'content-wrapper';
