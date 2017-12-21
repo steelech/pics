@@ -1,5 +1,64 @@
-const image = {
+const header = new Headers({
+  'Access-Control-Allow-Origin': '*'
+});
 
+const requestData = {
+  mode: 'cors',
+  header,
+};
+
+const image = {
+  background({ url, pic }) {
+    const wrapper = document.createElement('div');
+    wrapper.id = 'background-image-wrapper';
+    wrapper.classList.add('background-image-wrapper');
+
+    let count = 0;
+    const maxTries = 5;
+    const getImage = () => {
+      fetch(url)
+        .then((res) => {
+          if (res.status === 200) {
+            return res.blob();
+          }
+          return Promise.reject({ status: res.status });
+        })
+        .then((blob) => {
+          const objectURL = URL.createObjectURL(blob);
+          wrapper.style = `background-image: url(${objectURL});background-repeat:no-repeat;background-position: center;`;
+        })
+        .catch(({ status }) => {
+          if (status === 404) {
+            if (count < maxTries) {
+              count += 1;
+              setTimeout(() => {
+                getImage();
+              }, 3000);
+            }
+          } else {
+            const updateUrl = `http://localhost:8888/pics/${pic._id}`;
+
+            const params = {
+              method: 'put',
+            };
+            fetch(updateUrl, params)
+              .then(res => {
+                if (res.status === 200) {
+                  res.json()
+                    .then(body => {
+                      wrapper.style = `background-image: url(${body.ssUrl});background-repeat:no-repeat;background-position: center;`;
+                    });
+                } else {
+                  console.log('ERROR UPDATING URL');
+                }
+              })
+
+          }
+        });
+    };
+    getImage();
+    return wrapper;
+  },
   render({ url, alt }) {
     // if we get a 403, that means 'expired'
     // hit endpoint, get new url.
@@ -14,22 +73,10 @@ const image = {
     img.classList.add('thumbnail');
     img.alt = alt;
 
-    const header = new Headers({
-      'Access-Control-Allow-Origin': '*'
-    });
-
-    const sentData = {
-      mode: 'cors',
-      header,
-    };
 
     var numTries = 0;
     const maxTries = 5;
-    // fetch(url, sentData).then((response) => {
-    //   console.log('response: ', response);
-    // })
     img.onerror = (e, status) => {
-      console.log('ERROR LOADING IMAGE: ', e, status);
       if (wrapper.firstChild) {
         wrapper.removeChild(wrapper.firstChild);
       }
@@ -37,14 +84,11 @@ const image = {
       if (numTries < maxTries) {
         numTries += 1;
         setTimeout(() => {
-          console.log('trying again!!');
           img.src = url;
         }, 3000);
       }
     };
     img.onload = (e, status) => {
-      console.log('IMAGE LOADED!: ', e);
-      console.log('status: ', status);
       if (wrapper.firstChild) {
         wrapper.removeChild(wrapper.firstChild);
       }

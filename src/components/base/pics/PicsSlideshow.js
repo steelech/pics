@@ -16,14 +16,14 @@ const PicsSlideshow = {
       this.index = this.index + 1;
     }
     history.replaceState(null, null, `/pics/${this.pics[this.index]._id}`);
-    // this.modalContent.style = `background-image: url(${this.pics[this.index].ssUrl});background-repeat:no-repeat;background-position: center;`;
+    this.modalContent.style = `background-image: url(${this.pics[this.index].ssUrl});background-repeat:no-repeat;background-position: center;`;
   },
   prevPic() {
     if (this.index - 1 >= 0) {
       this.index = this.index - 1;
     }
     history.replaceState(null, null, `/pics/${this.pics[this.index]._id}`);
-    // this.modalContent.style = `background-image: url(${this.pics[this.index].ssUrl});background-repeat:no-repeat;background-position: center;`;
+    this.modalContent.style = `background-image: url(${this.pics[this.index].ssUrl});background-repeat:no-repeat;background-position: center;`;
   },
 
   keyPressHandler(e) {
@@ -59,11 +59,11 @@ const PicsSlideshow = {
     this.modalContent.id = 'pics-slideshow';
     this.modalContent.classList.add('pics-slideshow');
 
-    const image = Image.render({
+    this.image = Image.background({
       url: pics[this.index].ssUrl,
-      alt: 'hahaha',
+      pic: pics[this.index],
     });
-    this.modalContent.appendChild(image);
+    this.modalContent.appendChild(this.image);
     // this.modalContent.style = `background-image: url(${pics[this.index].ssUrl});background-repeat:no-repeat;background-position: center;`;
 
     const contentWrapper = document.createElement('div');
